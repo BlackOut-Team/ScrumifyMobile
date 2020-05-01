@@ -5,7 +5,6 @@
  */
 package com.blackout.scrumify.GestionTeams.services;
 
-import blackout.scrumify.Scrumify;
 import com.blackout.scrumify.GestionTeams.Entities.Team;
 import com.codename1.components.InfiniteProgress;
 import com.codename1.io.CharArrayReader;
@@ -20,8 +19,6 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -29,7 +26,7 @@ import java.util.logging.Logger;
  */
 public class ServiceTeam {
          public ArrayList<Team> teams;
-        static Map h;
+        static Map k;
 
     public static ServiceTeam instance=null;
     public boolean resultOK;
@@ -110,15 +107,15 @@ public class ServiceTeam {
                 JSONParser p = new JSONParser();
                 Reader targetReader = new InputStreamReader(new ByteArrayInputStream(r.getResponseData()));
                 System.out.println(targetReader);
-                h= p.parseJSON(targetReader);
-                System.out.println("h / "+h);
+                k= p.parseJSON(targetReader);
+                System.out.println("k / "+k);
                 
             } catch (IOException ex) {
-                Logger.getLogger(Scrumify.class.getName()).log(Level.SEVERE, null, ex);
+                //Logger.getLogger(Scrumify.class.getName()).log(Level.SEVERE, null, ex);
             }
  
         });
         NetworkManager.getInstance().addToQueueAndWait(r);
-        return h; 
+        return k; 
     }
 }

@@ -58,18 +58,14 @@ public class AddProject extends Form {
                 } else {
                     try {
 
-                        Date c = tfDuedate.getDate();
-                        Date d = tfDuedate.getDate();
+                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                        tfDuedate.setFormatter(format);
+
                         int ind = team.getSelectedIndex();
-                        // Team t = listT.get(ind);
-                        System.out.println(c);
-                        Project t = new Project(tfName.getText(), tfDescription.getText(), c, d, 1);
-                        System.out.println(t);
-                        if (ServiceProjet.getInstance().addProject(t)) {
-                            Dialog.show("Success", "Connection accepted", new Command("OK"));
-                        } else {
-                            Dialog.show("ERROR", "Server error", new Command("OK"));
-                        }
+                        Team te = listT.get(ind);
+                        Project t = new Project(tfName.getText(), tfDescription.getText(), tfDuedate.getText(), tfDuedate.getText(), 1, te.getId(), 1, 1);
+                        ServiceProjet.getInstance().addProject(t);
+
                     } catch (NumberFormatException e) {
                         Dialog.show("ERROR", "Status must be a number", new Command("OK"));
                     }

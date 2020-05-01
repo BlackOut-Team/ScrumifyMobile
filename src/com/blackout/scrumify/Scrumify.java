@@ -1,6 +1,7 @@
 package blackout.scrumify;
 
 import com.blackout.scrumify.GestionProjets.Gui.AddProject;
+import com.blackout.scrumify.GestionProjets.Gui.ProjectsForm;
 import com.blackout.scrumify.GestionUsers.gui.LoginForm;
 import static com.codename1.ui.CN.*;
 import com.codename1.io.Log;
@@ -81,7 +82,7 @@ public class Scrumify {
 //        }).schedule(2200, true, hi);
 //        hi.show();
 
-        new AddProject(current).show();
+        new ProjectsForm(current).show();
     }
 
     public void stop() {

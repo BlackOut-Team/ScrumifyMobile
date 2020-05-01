@@ -5,7 +5,7 @@
  */
 package com.blackout.scrumify.GestionProjets.Entities;
 
-import java.util.Date;
+
 
 /**
  *
@@ -15,8 +15,8 @@ public class Project {
     private int id ; 
     private String Name ; 
     private String Description ; 
-    private Date created ;
-    private Date duedate ; 
+    private String created ;
+    private String duedate ; 
     private int etat; 
     private int team_id ; 
     private int owner_id ; 
@@ -28,7 +28,7 @@ public class Project {
     public Project() {
     }
 
-    public Project(String Name, String Description, Date created, Date duedate, int etat) {
+    public Project(String Name, String Description, String created, String duedate, int etat) {
         this.Name = Name;
         this.Description = Description;
         this.created = created;
@@ -41,7 +41,7 @@ public class Project {
     
  
 
-    public Project(int id, String Name, String Description,Date created, Date duedate, int etat) {
+    public Project(int id, String Name, String Description,String created, String duedate, int etat) {
         this.id = id;
         this.Name = Name;
         this.Description = Description;
@@ -50,7 +50,7 @@ public class Project {
         this.etat = etat;
     }
 
-    public Project(String Name, String Description, Date duedate) {
+    public Project(String Name, String Description, String duedate) {
         this.Name = Name;
         this.Description = Description;
         this.duedate = duedate;
@@ -67,7 +67,7 @@ public class Project {
         this.Description = Description;
     }
 
-    public Project(int id, String Name, Date duedate, int team_id, int owner_id,int master_id) {
+    public Project(int id, String Name, String duedate, int team_id, int owner_id,int master_id) {
         this.id = id;
         this.Name = Name;
         this.duedate = duedate;
@@ -76,7 +76,7 @@ public class Project {
         this.master_id=master_id;
     }
 
-    public Project(String Name, String Description, Date created, Date duedate, int etat, int team_id, int owner_id, int master_id) {
+    public Project(String Name, String Description, String created, String duedate, int etat, int team_id, int owner_id, int master_id) {
         this.Name = Name;
         this.Description = Description;
         this.created = created;
@@ -87,7 +87,7 @@ public class Project {
         this.master_id = master_id;
     }
 
-    public Project(String Name, String Description, Date created, Date duedate, int etat, int master_id) {
+    public Project(String Name, String Description, String created, String duedate, int etat, int master_id) {
         this.Name = Name;
         this.Description = Description;
         this.created = created;
@@ -96,7 +96,7 @@ public class Project {
         this.master_id = master_id;
     }
 
-    public Project(String Name, String Description,Date duedate, int team_id, int owner_id, int master_id) {
+    public Project(String Name, String Description,String duedate, int team_id, int owner_id, int master_id) {
         this.Name = Name;
         this.Description = Description;
         this.duedate = duedate;
@@ -104,7 +104,7 @@ public class Project {
         this.owner_id = owner_id;
         this.master_id = master_id;
     }
-     public Project(int  id,String Name, String Description,Date created, Date duedate, int etat , int team_id, int owner_id, int master_id) {
+     public Project(int  id,String Name, String Description,String created, String duedate, int etat , int team_id, int owner_id, int master_id) {
         this.id=id;
          this.Name = Name;
         this.Description = Description;
@@ -157,19 +157,19 @@ public class Project {
         this.etat = etat;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(String created) {
         this.created = created;
     }
 
-    public void setDuedate(Date duedate) {
+    public void setDuedate(String duedate) {
         this.duedate = duedate;
     }
 
-    public Date getCreated() {
+    public String getCreated() {
         return created;
     }
 
-    public Date getDuedate() {
+    public String getDuedate() {
         return duedate;
     }
 
