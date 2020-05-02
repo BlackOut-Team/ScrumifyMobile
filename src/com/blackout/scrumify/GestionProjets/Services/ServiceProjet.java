@@ -152,7 +152,6 @@ public class ServiceProjet {
         for(int i = 0; i<n.size();i++){
             Map f =   (Map) n.get(i);
           
-             System.out.println(f);
                 Project t = new Project();
                 float id = Float.parseFloat(f.get("id").toString());
                 t.setId((int) id);
@@ -175,18 +174,7 @@ public class ServiceProjet {
             listP.add(t);  
         }        
         return listP;
-//        String url = "http://localhost/scrumifyApi/web/app_dev.php/Project/showP";
-//        req.setUrl(url);
-//        req.setPost(false);
-//        req.addResponseListener(new ActionListener<NetworkEvent>() {
-//            @Override
-//            public void actionPerformed(NetworkEvent evt) {
-//                projects = parseProjects(new String(req.getResponseData()));
-//                req.removeResponseListener(this);
-//            }
-//        });
-//        NetworkManager.getInstance().addToQueueAndWait(req);
-//        return projects;
+
     
     }
 
@@ -203,9 +191,7 @@ public class ServiceProjet {
             try {
                 JSONParser p = new JSONParser();
                 Reader targetReader = new InputStreamReader(new ByteArrayInputStream(r.getResponseData()));
-                System.out.println(targetReader);
                 g = p.parseJSON(targetReader);
-                System.out.println("h:" + g);
 
             } catch (IOException ex) {
                 //Logger.getLogger(MyApplication.class.getName()).log(Level.SEVERE, null, ex);

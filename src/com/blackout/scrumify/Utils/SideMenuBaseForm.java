@@ -64,8 +64,8 @@ public abstract class SideMenuBaseForm extends Form {
         sidemenuTop.setUIID("SidemenuTop");
         System.out.println(sidemenuTop);
         getToolbar().addComponentToSideMenu(sidemenuTop);
-        getToolbar().addMaterialCommandToSideMenu("  Dashboard", FontImage.MATERIAL_DASHBOARD,  e -> showOtherForm(res));
-        getToolbar().addMaterialCommandToSideMenu("  Projects", FontImage.MATERIAL_VIEW_LIST,  e -> showOtherForm(res));
+        getToolbar().addMaterialCommandToSideMenu("  Dashboard", FontImage.MATERIAL_DASHBOARD,  e -> showDashboard(res));
+        getToolbar().addMaterialCommandToSideMenu("  Projects", FontImage.MATERIAL_VIEW_LIST,  e -> showProjects(res));
         getToolbar().addMaterialCommandToSideMenu("  Tasks", FontImage.MATERIAL_ACCESS_TIME,  e -> showOtherForm(res));
         getToolbar().addMaterialCommandToSideMenu("  Activity", FontImage.MATERIAL_TRENDING_UP,  e -> showOtherForm(res));
         getToolbar().addMaterialCommandToSideMenu("  Account Settings", FontImage.MATERIAL_SETTINGS,  e -> showOtherForm(res));
@@ -73,4 +73,8 @@ public abstract class SideMenuBaseForm extends Form {
     }
     
     protected abstract void showOtherForm(Resources res);
+    protected abstract void showDashboard(Resources res);
+    protected abstract void showProjects(Resources res);
+
+
 }

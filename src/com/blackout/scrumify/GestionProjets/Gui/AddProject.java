@@ -22,6 +22,7 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.spinner.Picker;
 import java.util.ArrayList;
 import java.util.Map;
+import com.codename1.ui.util.Resources;
 
 /**
  *
@@ -29,7 +30,7 @@ import java.util.Map;
  */
 public class AddProject extends Form {
  public static int id;
-    public AddProject() {
+    public AddProject(Resources res) {
         setTitle("Add a new project");
         setLayout(BoxLayout.y());
 
