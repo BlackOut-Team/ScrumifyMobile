@@ -71,8 +71,6 @@ public class ServiceTeam {
     public ArrayList<Team> getAllTeams(Map m){
         ArrayList<Team> listT = new ArrayList<>();
         ArrayList d = (ArrayList)m.get("root");
-        System.out.println("list teams "+d);
-        System.out.println("Size"+d.size());
 
         for(int i = 0; i<d.size();i++){
             Map f =  (Map) d.get(i);
@@ -106,9 +104,9 @@ public class ServiceTeam {
             try {
                 JSONParser p = new JSONParser();
                 Reader targetReader = new InputStreamReader(new ByteArrayInputStream(r.getResponseData()));
-                System.out.println(targetReader);
+
                 k= p.parseJSON(targetReader);
-                System.out.println("k / "+k);
+
                 
             } catch (IOException ex) {
                 //Logger.getLogger(Scrumify.class.getName()).log(Level.SEVERE, null, ex);

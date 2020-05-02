@@ -6,6 +6,7 @@
 package com.blackout.scrumify.GestionProjets.Gui;
 
 import com.blackout.scrumify.GestionProjets.Entities.Project;
+import com.blackout.scrumify.GestionProjets.Services.ServiceProjet;
 import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
@@ -37,7 +38,6 @@ public class ProjectDetailsForm extends SideMenuBaseForm {
                  new  ProjectsForm(res,current).showBack()    ;        
         };
         };
-        
         Image profilePic = res.getImage("scrumify.png");
         Image mask = res.getImage("round-mask.png");
         profilePic = profilePic.fill(mask.getWidth() / 2, mask.getHeight() / 2);
@@ -71,7 +71,21 @@ public class ProjectDetailsForm extends SideMenuBaseForm {
         Button archive = new Button("ARCHIVE");
 
         edit.setUIID("LoginButton");
+        archive.setUIID("LoginButton");
+
         add(BoxLayout.encloseYBottom(edit,archive));
+        
+        edit.addActionListener((evt) -> {
+                        System.out.println(p.getId());
+
+         new EditProject(res,previous, p).show();
+             
+        });
+        
+        archive.addActionListener((evt) -> {
+                        ServiceProjet.getInstance().archiveProject(p);
+                        new ProjectsForm(res, current).show();
+        });
                 
     }
 

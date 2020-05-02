@@ -101,17 +101,53 @@
     <image name="round-mask.png" type="multi"  />
     <image name="scrumify.png"  />
     <image name="sel#borderBottom_1.png" type="multi"  />
+    <image name="sel#borderBottom_2.png" type="multi"  />
+    <image name="sel#borderBottom_3.png" type="multi"  />
     <image name="sel#borderBottomL_1.png" type="multi"  />
+    <image name="sel#borderBottomL_2.png" type="multi"  />
+    <image name="sel#borderBottomL_3.png" type="multi"  />
     <image name="sel#borderBottomR_1.png" type="multi"  />
+    <image name="sel#borderBottomR_2.png" type="multi"  />
+    <image name="sel#borderBottomR_3.png" type="multi"  />
     <image name="sel#borderCenter_1.png" type="multi"  />
+    <image name="sel#borderCenter_2.png" type="multi"  />
+    <image name="sel#borderCenter_3.png" type="multi"  />
     <image name="sel#borderLeft_1.png" type="multi"  />
+    <image name="sel#borderLeft_2.png" type="multi"  />
+    <image name="sel#borderLeft_3.png" type="multi"  />
     <image name="sel#borderRight_1.png" type="multi"  />
+    <image name="sel#borderRight_2.png" type="multi"  />
+    <image name="sel#borderRight_3.png" type="multi"  />
     <image name="sel#borderTop_1.png" type="multi"  />
+    <image name="sel#borderTop_2.png" type="multi"  />
+    <image name="sel#borderTop_3.png" type="multi"  />
     <image name="sel#borderTopL_1.png" type="multi"  />
+    <image name="sel#borderTopL_2.png" type="multi"  />
+    <image name="sel#borderTopL_3.png" type="multi"  />
     <image name="sel#borderTopR_1.png" type="multi"  />
+    <image name="sel#borderTopR_2.png" type="multi"  />
+    <image name="sel#borderTopR_3.png" type="multi"  />
     <image name="selected-walkthru.png" type="multi"  />
     <image name="sidemenu-top.png" type="multi"  />
     <image name="text-field-underline.png"  />
+    <image name="TextField.borderBottom_1.png" type="multi"  />
+    <image name="TextField.borderBottom_2.png" type="multi"  />
+    <image name="TextField.borderBottomL_1.png" type="multi"  />
+    <image name="TextField.borderBottomL_2.png" type="multi"  />
+    <image name="TextField.borderBottomR_1.png" type="multi"  />
+    <image name="TextField.borderBottomR_2.png" type="multi"  />
+    <image name="TextField.borderCenter_1.png" type="multi"  />
+    <image name="TextField.borderCenter_2.png" type="multi"  />
+    <image name="TextField.borderLeft_1.png" type="multi"  />
+    <image name="TextField.borderLeft_2.png" type="multi"  />
+    <image name="TextField.borderRight_1.png" type="multi"  />
+    <image name="TextField.borderRight_2.png" type="multi"  />
+    <image name="TextField.borderTop_1.png" type="multi"  />
+    <image name="TextField.borderTop_2.png" type="multi"  />
+    <image name="TextField.borderTopL_1.png" type="multi"  />
+    <image name="TextField.borderTopL_2.png" type="multi"  />
+    <image name="TextField.borderTopR_1.png" type="multi"  />
+    <image name="TextField.borderTopR_2.png" type="multi"  />
     <theme name="Theme">
         <val key="@hideLeftSideMenuBool" value="true" />
         <val key="@includeNativeBool" value="true" />
@@ -330,11 +366,11 @@
         <val key="SubTitle.transparency" value="0" />
         <val key="TextField.bgImage" value="text-field-underline.png" />
         <val key="TextField.bgType" value="30" />
-        <border key="TextField.border" type="empty" />
-        <val key="TextField.fgColor" value="ffffff" />
+        <border key="TextField.border" type="image" i1="TextField.borderTop_2.png" i2="TextField.borderBottom_2.png" i3="TextField.borderLeft_2.png" i4="TextField.borderRight_2.png" i5="TextField.borderTopL_2.png" i6="TextField.borderTopR_2.png" i7="TextField.borderBottomL_2.png" i8="TextField.borderBottomR_2.png" i9="TextField.borderCenter_2.png" />
+        <val key="TextField.fgColor" value="9999" />
         <font key="TextField.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="2.5" />
         <val key="TextField.padUnit" value="2,2,2,2" />
-        <val key="TextField.padding" value="1,1,1,1" />
+        <val key="TextField.padding" value="1.0,1.0,1.0,1.0" />
         <val key="TextField.sel#bgImage" value="text-field-underline.png" />
         <val key="TextField.sel#bgType" value="21" />
         <border key="TextField.sel#border" type="empty" />
