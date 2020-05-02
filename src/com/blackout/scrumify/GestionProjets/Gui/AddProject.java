@@ -14,7 +14,6 @@ import com.codename1.ui.Button;
 import com.codename1.ui.ComboBox;
 import com.codename1.ui.Command;
 import com.codename1.ui.Dialog;
-import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
@@ -22,7 +21,6 @@ import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.spinner.Picker;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Map;
 
 /**
@@ -30,8 +28,8 @@ import java.util.Map;
  * @author AmiraDoghri
  */
 public class AddProject extends Form {
-
-    public AddProject(Form previous) {
+ public static int id;
+    public AddProject() {
         setTitle("Add a new project");
         setLayout(BoxLayout.y());
 
@@ -64,7 +62,7 @@ public class AddProject extends Form {
                         int ind = team.getSelectedIndex();
                         Team te = listT.get(ind);
                         Project t = new Project(tfName.getText(), tfDescription.getText(), tfDuedate.getText(), tfDuedate.getText(), 1, te.getId(), 1, 1);
-                        ServiceProjet.getInstance().addProject(t);
+                        id=ServiceProjet.getInstance().addProject(t);
 
                     } catch (NumberFormatException e) {
                         Dialog.show("ERROR", "Status must be a number", new Command("OK"));
@@ -76,7 +74,7 @@ public class AddProject extends Form {
         });
 
         addAll(tfName, tfDescription, tfDuedate, team, btnValider);
-        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.showBack());
+       // getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e ->  LoginForm.showBack());
 
     }
 
