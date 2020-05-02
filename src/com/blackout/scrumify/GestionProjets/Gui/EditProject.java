@@ -58,8 +58,8 @@ public class EditProject extends SideMenuBaseForm {
         TextField tfName = new TextField(p.getName(), "Project Name");
         TextField tfDescription = new TextField(p.getDescription(), "Description");
         Picker tfDuedate = new Picker();
-        tfDuedate.setFormatter(new SimpleDateFormat("yyyy-mm-dd"));
-
+        tfDuedate.setFormatter(new SimpleDateFormat("dd/MM/yyyy"));
+        tfDuedate.setText(p.getDuedate());
         ComboBox<String> team = new ComboBox<String>();
         ServiceTeam ser = new ServiceTeam();
 
