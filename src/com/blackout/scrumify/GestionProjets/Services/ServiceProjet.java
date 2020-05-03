@@ -39,6 +39,7 @@ public class ServiceProjet {
     public static ServiceProjet instance = null;
     public boolean resultOK;
     private ConnectionRequest req;
+                    boolean t;
 
     public ServiceProjet() {
         req = new ConnectionRequest();
@@ -51,32 +52,59 @@ public class ServiceProjet {
         return instance;
     }
 
-    public int addProject(Project p) {
+    public boolean addProject(Project p) {
         String url = "http://localhost/scrumifyApi/web/app_dev.php/Project/Add?name=" + p.getName() + "&description=" + p.getDescription() + "&duedate=" + p.getDuedate() + "&team_id=" + p.getTeam_id() + "&etat=1";
+        ConnectionRequest con = new ConnectionRequest();
+        con.setUrl(url);
+        con.setPost(true);
+        con.addResponseListener((NetworkEvent evt) -> {
+
+            byte[] data = (byte[]) evt.getMetaData();
+            String s = new String(data);
+            System.out.println(s);
+            if (!s.contains("erreur")) {
+                Dialog.show("Confirmation", "success", "Ok", null);
+                ArrayList<Project> pr = parseProjects(s);
+                p.setId(pr.get(0).getId());
+                System.out.println(p.getId());
+                 t= true;
+            } else {
+                Dialog.show("Erreur", "date", "Ok", null);
+                t=false;
+            }
+
+        });
+        NetworkManager.getInstance().addToQueueAndWait(con);
+       return t;
+
+    }
+
+    public boolean editProject(Project p) {
+        String url = "http://localhost/scrumifyApi/web/app_dev.php/Project/EditP/" + p.getId() + "?name=" + p.getName() + "&description=" + p.getDescription() + "&duedate=" + p.getDuedate() + "&team_id=" + p.getTeam_id() ;
         ConnectionRequest con = new ConnectionRequest();
         con.setUrl(url);
         con.setPost(true);
         con.addResponseListener((NetworkEvent evt) -> {
             byte[] data = (byte[]) evt.getMetaData();
             String s = new String(data);
-            if (!s.equals("")) {
+            System.out.println(s);
+            if (!s.contains("erreur")) {
                 Dialog.show("Confirmation", "success", "Ok", null);
-                ArrayList<Project> pr = parseProjects(s);
-                p.setId(pr.get(0).getId());
- 
+                t=true;
+
             } else {
-                Dialog.show("Erreur", "erreur", "Ok", null);
+                Dialog.show("Erreur", "date", "Ok", null);
+                t=false;
 
             }
-
         });
 
         NetworkManager.getInstance().addToQueueAndWait(con);
-            return p.getId();
-
+return t ;
     }
-        public void editProject(Project p) {
-        String url = "http://localhost/scrumifyApi/web/app_dev.php/Project/EditP/"+p.getId()+"?name=" + p.getName() + "&description=" + p.getDescription() + "&duedate=" + p.getDuedate() + "&team_id=" + p.getTeam_id() + "&etat=1";
+
+    public void archiveProject(Project p) {
+        String url = "http://localhost/scrumifyApi/web/app_dev.php/Project/archiver/" + p.getId();
         ConnectionRequest con = new ConnectionRequest();
         con.setUrl(url);
         con.setPost(true);
@@ -111,28 +139,30 @@ public class ServiceProjet {
 
     public ArrayList<Project> parseProjects(String jsonText) {
         try {
+
             projects = new ArrayList<>();
             JSONParser j = new JSONParser();
-            Map<String, Object> projectListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+            g = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
 
-            List<Map<String, Object>> list = (List<Map<String, Object>>) projectListJson.get("root");
-            for (Map<String, Object> obj : list) {
+            for (int i = 0; i < g.size(); i++) {
+
                 Project t = new Project();
-                float id = Float.parseFloat(obj.get("id").toString());
+                float id = Float.parseFloat(g.get("id").toString());
                 t.setId((int) id);
-                t.setEtat(((int) Float.parseFloat(obj.get("etat").toString())));
-                t.setName(obj.get("name").toString());
-                t.setDescription(obj.get("description").toString());
-                Map<String, Object> mapDateDebut=(Map<String, Object>) obj.get("created");
+                t.setEtat(((int) Float.parseFloat(g.get("etat").toString())));
+                t.setName(g.get("name").toString());
+                t.setDescription(g.get("description").toString());
+                Map<String, Object> mapDateDebut = (Map<String, Object>) g.get("created");
 
-                float datedebut = Float.parseFloat(obj.get("timestamp").toString());
+                float datedebut = Float.parseFloat(mapDateDebut.get("timestamp").toString());
                 String created = new SimpleDateFormat("dd/MM/yyyy").format(new Date((long) (datedebut * 1000L)));
-                float datefin = Float.parseFloat(obj.get("timestamp").toString());
+                float datefin = Float.parseFloat(mapDateDebut.get("timestamp").toString());
                 String duedate = new SimpleDateFormat("dd/MM/yyyy").format(new Date((long) (datefin * 1000L)));
                 t.setCreated(created);
                 t.setDuedate(duedate);
-               // t.setTeam_id(Integer.parseInt(obj.get("team_id").toString()));
-                          
+                Map<String, Object> team = (Map<String, Object>) g.get("team");
+
+                t.setTeam_id((int) Float.parseFloat(team.get("id").toString()));
 
                 projects.add(t);
             }
@@ -143,43 +173,39 @@ public class ServiceProjet {
         return projects;
     }
 
-    public ArrayList<Project> getAllProjects(Map m ) {
+    public ArrayList<Project> getAllProjects(Map m) {
         ArrayList<Project> listP = new ArrayList<>();
-        ArrayList d = (ArrayList)m.get("root");
-      
-        ArrayList n = (ArrayList)d.get(0);
+        ArrayList d = (ArrayList) m.get("root");
+
+        ArrayList n = (ArrayList) d.get(0);
         System.out.println(n.size());
-        for(int i = 0; i<n.size();i++){
-            Map f =   (Map) n.get(i);
-          
-                Project t = new Project();
-                float id = Float.parseFloat(f.get("id").toString());
-                t.setId((int) id);
-                t.setEtat(((int) Float.parseFloat(f.get("etat").toString())));
-                t.setName(f.get("name").toString());
-                t.setDescription(f.get("description").toString());
-                Map<String, Object> mapDateDebut=(Map<String, Object>) f.get("created");
-                Map<String, Object> mapDateFin=(Map<String, Object>) f.get("duedate");
+        for (int i = 0; i < n.size(); i++) {
+            Map f = (Map) n.get(i);
 
-                float datedebut = Float.parseFloat(mapDateDebut.get("timestamp").toString());
-                String created = new SimpleDateFormat("dd/MM/yyyy").format(new Date((long) (datedebut * 1000L)));
-                float datefin = Float.parseFloat(mapDateFin.get("timestamp").toString());
-                String duedate = new SimpleDateFormat("dd/MM/yyyy").format(new Date((long) (datefin * 1000L)));
-                t.setCreated(created);
-                t.setDuedate(duedate);
- 
-            
-           
+            Project t = new Project();
+            float id = Float.parseFloat(f.get("id").toString());
+            t.setId((int) id);
+            t.setEtat(((int) Float.parseFloat(f.get("etat").toString())));
+            t.setName(f.get("name").toString());
+            t.setDescription(f.get("description").toString());
+            Map<String, Object> mapDateDebut = (Map<String, Object>) f.get("created");
+            Map<String, Object> mapDateFin = (Map<String, Object>) f.get("duedate");
 
-            listP.add(t);  
-        }        
+            float datedebut = Float.parseFloat(mapDateDebut.get("timestamp").toString());
+            String created = new SimpleDateFormat("MM/dd/yyyy").format(new Date((long) (datedebut * 1000L)));
+            float datefin = Float.parseFloat(mapDateFin.get("timestamp").toString());
+            String duedate = new SimpleDateFormat("MM/dd/yyyy").format(new Date((long) (datefin * 1000L)));
+            t.setCreated(created);
+            t.setDuedate(duedate);
+
+            listP.add(t);
+        }
         return listP;
 
-    
     }
 
     public static Map<String, Object> getResponse(String url) {
-        url = "http://localhost/scrumifyApi/web/app_dev.php/"+url;
+        url = "http://localhost/scrumifyApi/web/app_dev.php/" + url;
         System.out.println(url);
         ConnectionRequest r = new ConnectionRequest();
         r.setUrl(url);

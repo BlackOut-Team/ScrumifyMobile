@@ -26,23 +26,19 @@ import java.util.ArrayList;
 import java.util.Map;
 import com.codename1.ui.util.Resources;
 
-
 /**
  *
  * @author AmiraDoghri
  */
 public class ProjectsForm extends SideMenuBaseForm {
-public static Resources res;
+
+    public static Resources res;
+
     public ProjectsForm(Resources res, Form previous) {
         super(BoxLayout.y());
-        this.res=res;
+        this.res = res;
 
         getToolbar().setTitleCentered(false);
-//        Image profilePic = res.getImage("scrumify.png");
-//        Image mask = res.getImage("round-mask.png");
-//        profilePic = profilePic.fill(mask.getWidth() / 2, mask.getHeight() / 2);
-//        Label profilePicLabel = new Label(profilePic, "ProfilePicTitle");
-//        profilePicLabel.setMask(mask.createMask());
 
         Button menuButton = new Button("");
         menuButton.setUIID("Title");
@@ -65,11 +61,9 @@ public static Resources res;
         Container titleCmp = BoxLayout.encloseY(
                 FlowLayout.encloseIn(menuButton),
                 BorderLayout.centerAbsolute(
-                        BoxLayout.encloseY(
-                                
-                        )
+                        BoxLayout.encloseY()
                 ),
-                GridLayout.encloseIn(3, Allprojects,currentProjects, completedProjects)
+                GridLayout.encloseIn(3, Allprojects, currentProjects, completedProjects)
         );
 
         FloatingActionButton fab = FloatingActionButton.createFAB(FontImage.MATERIAL_ADD);
@@ -89,28 +83,27 @@ public static Resources res;
 
             Container c = new Container(BoxLayout.x());
 
-              
             c.setName(p.getName());
-            addButtonBottom(arrowDown, c, true,p);
+            addButtonBottom(arrowDown, c, p);
 
         }
-fab.addActionListener((evt) -> {
-    new AddProject(res).show();
-});
+        fab.addActionListener((evt) -> {
+            new AddProject(res).show();
+        });
         setupSideMenu(res);
     }
 
-    private void addButtonBottom(Image arrowDown, Container c,  boolean first,Project p) {
+    private void addButtonBottom(Image arrowDown, Container c, Project p) {
         MultiButton finishLandingPage = new MultiButton(c.getName());
         finishLandingPage.setEmblem(arrowDown);
         finishLandingPage.setUIID("ProjectItem");
         finishLandingPage.setUIIDLine1("TodayEntry");
         add(BoxLayout.encloseY(finishLandingPage));
-          Button gt = new Button();
-                gt.addActionListener((evt) -> {
-                    new ProjectDetailsForm(res,this,p).show();
-                });
-            finishLandingPage.setLeadComponent(gt);
+        Button gt = new Button();
+        gt.addActionListener((evt) -> {
+            new ProjectDetailsForm(res, this, p).show();
+        });
+        finishLandingPage.setLeadComponent(gt);
     }
 
     private Image createCircleLine(int color, int height, boolean first) {

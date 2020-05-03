@@ -53,6 +53,7 @@ public abstract class SideMenuBaseForm extends Form {
     }
     
     public void setupSideMenu(Resources res) {
+
         Image profilePic = res.getImage("Image3.png");
         Image mask = res.getImage("round-mask.png");
         mask = mask.scaledHeight(mask.getHeight() / 4 * 3);
@@ -62,7 +63,7 @@ public abstract class SideMenuBaseForm extends Form {
 
         Container sidemenuTop = BorderLayout.center(profilePicLabel);
         sidemenuTop.setUIID("SidemenuTop");
-        System.out.println(sidemenuTop);
+
         getToolbar().addComponentToSideMenu(sidemenuTop);
         getToolbar().addMaterialCommandToSideMenu("  Dashboard", FontImage.MATERIAL_DASHBOARD,  e -> showDashboard(res));
         getToolbar().addMaterialCommandToSideMenu("  Projects", FontImage.MATERIAL_VIEW_LIST,  e -> showProjects(res));

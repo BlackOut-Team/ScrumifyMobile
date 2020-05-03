@@ -9,17 +9,21 @@ import com.blackout.scrumify.GestionProjets.Entities.Project;
 import com.blackout.scrumify.GestionProjets.Services.ServiceProjet;
 import com.blackout.scrumify.GestionTeams.Entities.Team;
 import com.blackout.scrumify.GestionTeams.services.ServiceTeam;
+import com.blackout.scrumify.Utils.SideMenuBaseForm;
 import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.Button;
 import com.codename1.ui.ComboBox;
 import com.codename1.ui.Command;
+import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
+import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.util.Resources;
 import java.util.ArrayList;
@@ -29,16 +33,33 @@ import java.util.Map;
  *
  * @author AmiraDoghri
  */
-public class EditProject extends Form {
-    public EditProject(Form previous,Project p ){
-    setTitle("Edit project");
-        setLayout(BoxLayout.y());
+public class EditProject extends SideMenuBaseForm {
 
+    SideMenuBaseForm current;
+
+    public EditProject(Resources res, Form previous, Project p) {
+        current = this;
+        setTitle("Scrumify");
+        setLayout(BoxLayout.y());
+        getToolbar().setTitleCentered(false);
+        Button menuButton = new Button("");
+        menuButton.setUIID("Title");
+        FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
+
+        menuButton.addActionListener(e -> getToolbar().openSideMenu());
+        Container titleCmp = BoxLayout.encloseY(
+                FlowLayout.encloseIn(menuButton)
+        );
+        getToolbar().setTitleComponent(titleCmp);
+
+        setupSideMenu(res);
+
+        add(new Label("Edit project", "TodayTitle"));
         TextField tfName = new TextField(p.getName(), "Project Name");
         TextField tfDescription = new TextField(p.getDescription(), "Description");
         Picker tfDuedate = new Picker();
-        tfDuedate.setFormatter(new SimpleDateFormat("yyyy-MM-dd"));
-                 
+        tfDuedate.setFormatter(new SimpleDateFormat("dd/MM/yyyy"));
+        tfDuedate.setText(p.getDuedate());
         ComboBox<String> team = new ComboBox<String>();
         ServiceTeam ser = new ServiceTeam();
 
@@ -58,15 +79,17 @@ public class EditProject extends Form {
                 } else {
                     try {
 
-             
-                        //tfDuedate.setDate(p.getDuedate());
                         int ind = team.getSelectedIndex();
                         Team te = listT.get(ind);
-                        Project t = new Project(tfName.getText(), tfDescription.getText(), tfDuedate.getText(), tfDuedate.getText(), 1, te.getId(), 1, 1);
-                        ServiceProjet.getInstance().editProject(t);
+                        p.setName(tfName.getText());
+                        p.setDescription(tfDescription.getText());
+                        p.setDuedate(tfDuedate.getText());
+                        p.setTeam_id(te.getId());
+                        if(ServiceProjet.getInstance().editProject(p)){
+                        new ProjectDetailsForm(res, current, p).show();}
 
                     } catch (NumberFormatException e) {
-                        Dialog.show("ERROR", "Status must be a number", new Command("OK"));
+                        Dialog.show("ERROR", "type", new Command("OK"));
                     }
 
                 }
@@ -75,7 +98,22 @@ public class EditProject extends Form {
         });
 
         addAll(tfName, tfDescription, tfDuedate, team, btnValider);
-        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.showBack());
 
     }
+
+    @Override
+    protected void showOtherForm(Resources res) {
+        new AddProject(res).show();
+    }
+
+    @Override
+    protected void showDashboard(Resources res) {
+        new Dashboard(res).show();
+    }
+
+    @Override
+    protected void showProjects(Resources res) {
+        new ProjectsForm(res, this).show();
+    }
+
 }
