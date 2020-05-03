@@ -20,6 +20,7 @@
 package com.blackout.scrumify.GestionUsers.gui;
 
 import com.blackout.scrumify.GestionProjets.Gui.ProjectsForm;
+import com.blackout.scrumify.GestionProjets.Gui.WalkthruForm;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
@@ -73,7 +74,7 @@ public class LoginForm extends Form {
         loginButton.setUIID("LoginButton");
         loginButton.addActionListener(e -> {
             Toolbar.setGlobalToolbar(false);
-            new ProjectsForm(theme,current).show();
+        new WalkthruForm(theme).show();
             Toolbar.setGlobalToolbar(true);
         });
         

@@ -62,6 +62,8 @@
     <image name="duke.png" type="multi"  />
     <image name="gradient-overlay.png"  />
     <image name="Image1.png"  />
+    <image name="Image10.png"  />
+    <image name="Image17.png"  />
     <image name="Image2.png"  />
     <image name="Image3.png"  />
     <image name="Image4.png"  />
@@ -330,12 +332,14 @@
         <val key="SidemenuTop.padding" value="20.0,2.0,2.0,2.0" />
         <val key="SkipButton.align" value="4" />
         <val key="SkipButton.bgColor" value="ffffff" />
-        <val key="SkipButton.fgColor" value="3c464f" />
+        <val key="SkipButton.bgImage" value="#16cabd.PNG" />
+        <val key="SkipButton.bgType" value="1" />
+        <val key="SkipButton.fgColor" value="ffffff" />
         <font key="SkipButton.font" type="ttf" face="0" style="0" size="0" name="native:MainRegular" family="native:MainRegular" sizeSettings="3" actualSize="3.5" />
         <val key="SkipButton.marUnit" value="2,2,2,2" />
-        <val key="SkipButton.margin" value="3,5,6,6" />
+        <val key="SkipButton.margin" value="3.0,5.0,6.0,6.0" />
         <val key="SkipButton.padUnit" value="2,2,2,2" />
-        <val key="SkipButton.padding" value="2,2,2,2" />
+        <val key="SkipButton.padding" value="2.0,2.0,2.0,2.0" />
         <val key="SkipButton.press#align" value="4" />
         <val key="SkipButton.press#bgColor" value="d2d2d2" />
         <val key="SkipButton.press#fgColor" value="3c464f" />
@@ -432,24 +436,27 @@
         <val key="Toolbar.margin" value="0.0,0.0,0.0,0.0" />
         <val key="Toolbar.padding" value="0.0,0.0,0.0,0.0" />
         <val key="WalkthruBody.align" value="4" />
-        <val key="WalkthruBody.fgColor" value="ffffff" />
+        <val key="WalkthruBody.bgColor" value="000000" />
         <font key="WalkthruBody.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="2.0" />
-        <val key="WalkthruBody.margin" value="0,0,0,0" />
-        <val key="WalkthruBody.padding" value="0,0,0,0" />
+        <val key="WalkthruBody.margin" value="0.0,0.0,0.0,0.0" />
+        <val key="WalkthruBody.padding" value="0.0,0.0,0.0,0.0" />
         <val key="WalkthruBody.transparency" value="0" />
         <val key="WalkthruTab1.bgColor" value="4e59ad" />
-        <val key="WalkthruTab1.margin" value="0,0,0,0" />
-        <val key="WalkthruTab1.padding" value="0,0,0,0" />
+        <gradient key="WalkthruTab1.bgGradient" color1="13434879" color2="16777215" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="WalkthruTab1.bgType" value="6" />
+        <val key="WalkthruTab1.margin" value="0.0,0.0,0.0,0.0" />
+        <val key="WalkthruTab1.padding" value="0.0,0.0,0.0,0.0" />
         <val key="WalkthruTab1.transparency" value="255" />
         <val key="WalkthruTab2.bgColor" value="305ac4" />
-        <val key="WalkthruTab2.margin" value="0,0,0,0" />
-        <val key="WalkthruTab2.padding" value="0,0,0,0" />
+        <val key="WalkthruTab2.bgImage" value="2be8da.png" />
+        <val key="WalkthruTab2.bgType" value="1" />
+        <val key="WalkthruTab2.margin" value="0.0,0.0,0.0,0.0" />
+        <val key="WalkthruTab2.padding" value="0.0,0.0,0.0,0.0" />
         <val key="WalkthruTab2.transparency" value="255" />
         <val key="WalkthruWhite.align" value="4" />
-        <val key="WalkthruWhite.fgColor" value="ffffff" />
         <font key="WalkthruWhite.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="4.0" />
-        <val key="WalkthruWhite.margin" value="0,0,0,0" />
-        <val key="WalkthruWhite.padding" value="0,0,0,0" />
+        <val key="WalkthruWhite.margin" value="0.0,0.0,0.0,0.0" />
+        <val key="WalkthruWhite.padding" value="0.0,0.0,0.0,0.0" />
         <val key="WalkthruWhite.transparency" value="0" />
         <val key="WelcomeBlue.fgColor" value="67e1ff" />
         <font key="WelcomeBlue.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="4.5" />

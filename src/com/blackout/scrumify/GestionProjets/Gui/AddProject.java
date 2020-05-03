@@ -65,7 +65,7 @@ public class AddProject extends SideMenuBaseForm {
         TextField tfDescription = new TextField("", "Description");
         Picker tfDuedate = new Picker();
 
-        tfDuedate.setFormatter(new SimpleDateFormat("dd/MM/yyyy"));
+        tfDuedate.setFormatter(new SimpleDateFormat("MM/dd/yyyy"));
         ComboBox<String> team = new ComboBox<String>();
         ServiceTeam ser = new ServiceTeam();
 
@@ -90,8 +90,9 @@ public class AddProject extends SideMenuBaseForm {
                         int ind = team.getSelectedIndex();
                         Team te = listT.get(ind);
                         Project t = new Project(tfName.getText(), tfDescription.getText(), tfDuedate.getText(), tfDuedate.getText(), 1, te.getId(), 1, 1);
-                        ServiceProjet.getInstance().addProject(t);
+                        if(ServiceProjet.getInstance().addProject(t)){
                         new ProjectsForm(res, current).show();
+                        }
                        
                     } catch (NumberFormatException e) {
                         Dialog.show("ERROR", "type", new Command("OK"));

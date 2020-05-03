@@ -39,6 +39,7 @@ public class ServiceProjet {
     public static ServiceProjet instance = null;
     public boolean resultOK;
     private ConnectionRequest req;
+                    boolean t;
 
     public ServiceProjet() {
         req = new ConnectionRequest();
@@ -51,32 +52,34 @@ public class ServiceProjet {
         return instance;
     }
 
-    public void addProject(Project p) {
+    public boolean addProject(Project p) {
         String url = "http://localhost/scrumifyApi/web/app_dev.php/Project/Add?name=" + p.getName() + "&description=" + p.getDescription() + "&duedate=" + p.getDuedate() + "&team_id=" + p.getTeam_id() + "&etat=1";
         ConnectionRequest con = new ConnectionRequest();
         con.setUrl(url);
         con.setPost(true);
         con.addResponseListener((NetworkEvent evt) -> {
+
             byte[] data = (byte[]) evt.getMetaData();
             String s = new String(data);
-            if (!s.equals("")) {
+            System.out.println(s);
+            if (!s.contains("erreur")) {
                 Dialog.show("Confirmation", "success", "Ok", null);
                 ArrayList<Project> pr = parseProjects(s);
                 p.setId(pr.get(0).getId());
                 System.out.println(p.getId());
-
+                 t= true;
             } else {
-                Dialog.show("Erreur", "erreur", "Ok", null);
-
+                Dialog.show("Erreur", "date", "Ok", null);
+                t=false;
             }
 
         });
-
         NetworkManager.getInstance().addToQueueAndWait(con);
+       return t;
 
     }
 
-    public void editProject(Project p) {
+    public boolean editProject(Project p) {
         String url = "http://localhost/scrumifyApi/web/app_dev.php/Project/EditP/" + p.getId() + "?name=" + p.getName() + "&description=" + p.getDescription() + "&duedate=" + p.getDuedate() + "&team_id=" + p.getTeam_id() ;
         ConnectionRequest con = new ConnectionRequest();
         con.setUrl(url);
@@ -84,17 +87,20 @@ public class ServiceProjet {
         con.addResponseListener((NetworkEvent evt) -> {
             byte[] data = (byte[]) evt.getMetaData();
             String s = new String(data);
-            if (!s.equals("")) {
+            System.out.println(s);
+            if (!s.contains("erreur")) {
                 Dialog.show("Confirmation", "success", "Ok", null);
+                t=true;
 
             } else {
-                Dialog.show("Erreur", "erreur", "Ok", null);
+                Dialog.show("Erreur", "date", "Ok", null);
+                t=false;
 
             }
         });
 
         NetworkManager.getInstance().addToQueueAndWait(con);
-
+return t ;
     }
 
     public void archiveProject(Project p) {
@@ -186,9 +192,9 @@ public class ServiceProjet {
             Map<String, Object> mapDateFin = (Map<String, Object>) f.get("duedate");
 
             float datedebut = Float.parseFloat(mapDateDebut.get("timestamp").toString());
-            String created = new SimpleDateFormat("dd/MM/yyyy").format(new Date((long) (datedebut * 1000L)));
+            String created = new SimpleDateFormat("MM/dd/yyyy").format(new Date((long) (datedebut * 1000L)));
             float datefin = Float.parseFloat(mapDateFin.get("timestamp").toString());
-            String duedate = new SimpleDateFormat("dd/MM/yyyy").format(new Date((long) (datefin * 1000L)));
+            String duedate = new SimpleDateFormat("MM/dd/yyyy").format(new Date((long) (datefin * 1000L)));
             t.setCreated(created);
             t.setDuedate(duedate);
 

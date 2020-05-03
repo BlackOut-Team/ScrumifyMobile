@@ -84,7 +84,7 @@ public class ProjectsForm extends SideMenuBaseForm {
             Container c = new Container(BoxLayout.x());
 
             c.setName(p.getName());
-            addButtonBottom(arrowDown, c, true, p);
+            addButtonBottom(arrowDown, c, p);
 
         }
         fab.addActionListener((evt) -> {
@@ -93,7 +93,7 @@ public class ProjectsForm extends SideMenuBaseForm {
         setupSideMenu(res);
     }
 
-    private void addButtonBottom(Image arrowDown, Container c, boolean first, Project p) {
+    private void addButtonBottom(Image arrowDown, Container c, Project p) {
         MultiButton finishLandingPage = new MultiButton(c.getName());
         finishLandingPage.setEmblem(arrowDown);
         finishLandingPage.setUIID("ProjectItem");

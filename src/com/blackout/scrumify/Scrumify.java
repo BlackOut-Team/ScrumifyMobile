@@ -47,7 +47,7 @@ public class Scrumify {
             current.show();
             return;
         }
-        new ProjectsForm(theme,current).show();
+        new LoginForm(theme).show();
     }
 
     public void stop() {

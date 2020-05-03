@@ -85,8 +85,8 @@ public class EditProject extends SideMenuBaseForm {
                         p.setDescription(tfDescription.getText());
                         p.setDuedate(tfDuedate.getText());
                         p.setTeam_id(te.getId());
-                        ServiceProjet.getInstance().editProject(p);
-                        new ProjectDetailsForm(res, current, p).show();
+                        if(ServiceProjet.getInstance().editProject(p)){
+                        new ProjectDetailsForm(res, current, p).show();}
 
                     } catch (NumberFormatException e) {
                         Dialog.show("ERROR", "type", new Command("OK"));
