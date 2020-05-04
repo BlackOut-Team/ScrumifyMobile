@@ -17,9 +17,9 @@ public class Team {
     
     private int id,etat,ind;
     String name ; 
-    private Date created,updated;
+    private String created,updated;
 
-    public Team(int id,String name , int etat, int ind, Date created, Date updated) {
+    public Team(int id,String name ,String created, String updated, int etat, int ind ) {
         this.id = id;
         this.name=name;
         this.etat = etat;
@@ -28,7 +28,7 @@ public class Team {
         this.updated = updated;
     }
 
-    public Team(String name ,int etat, int ind, Date created, Date updated) {
+    public Team(String name ,String created, String updated, int etat, int ind) {
         this.name=name;
         this.etat = etat;
         this.ind = ind;
@@ -41,11 +41,18 @@ public class Team {
         this.name = name;
     }
 
-    public Team( String name, Date created, Date updated) {
+    public Team( String name, String created, String updated) {
        
         this.name = name;
         this.created = created;
         this.updated = updated;
+    }
+    
+        public Team( String name, int etat,int ind) {
+       
+        this.name = name;
+        this.etat = etat;
+        this.ind = ind;
     }
     
     
@@ -71,11 +78,11 @@ public class Team {
         this.name = name;
     }
 
-    public Date getCreated() {
+    public String getCreated() {
         return created;
     }
 
-    public Date getUpdated() {
+    public String getUpdated() {
         return updated;
     }
 
@@ -91,11 +98,11 @@ public class Team {
         this.ind = ind;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(String created) {
         this.created = created;
     }
 
-    public void setUpdated(Date updated) {
+    public void setUpdated(String updated) {
         this.updated = updated;
     }
 

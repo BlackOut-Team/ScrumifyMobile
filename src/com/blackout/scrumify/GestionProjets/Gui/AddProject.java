@@ -8,6 +8,7 @@ package com.blackout.scrumify.GestionProjets.Gui;
 import com.blackout.scrumify.GestionProjets.Entities.Project;
 import com.blackout.scrumify.GestionProjets.Services.ServiceProjet;
 import com.blackout.scrumify.GestionTeams.Entities.Team;
+import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
 import com.blackout.scrumify.GestionTeams.services.ServiceTeam;
 import com.blackout.scrumify.Utils.SideMenuBaseForm;
 import com.codename1.components.FloatingActionButton;
@@ -120,6 +121,11 @@ public class AddProject extends SideMenuBaseForm {
     @Override
     protected void showProjects(Resources res) {
         new ProjectsForm(res, this).show();
+    }
+    
+    @Override
+    protected void showTeamForm(Resources res) {
+        new TeamForm(res, this).show();
     }
 
 }

@@ -18,6 +18,7 @@
  */
 package com.blackout.scrumify.GestionProjets.Gui;
 
+import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
 import com.blackout.scrumify.Utils.SideMenuBaseForm;
 import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.Button;
@@ -175,6 +176,9 @@ public class CalendarForm extends SideMenuBaseForm {
         new ProjectsForm(res, this).show();
     }
   
-
+@Override
+    protected void showTeamForm(Resources res) {
+        new TeamForm(res, this).show();
+    }
     
 }

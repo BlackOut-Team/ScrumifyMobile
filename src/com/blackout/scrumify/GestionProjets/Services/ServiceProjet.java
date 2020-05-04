@@ -188,6 +188,7 @@ return t ;
             t.setEtat(((int) Float.parseFloat(f.get("etat").toString())));
             t.setName(f.get("name").toString());
             t.setDescription(f.get("description").toString());
+            
             Map<String, Object> mapDateDebut = (Map<String, Object>) f.get("created");
             Map<String, Object> mapDateFin = (Map<String, Object>) f.get("duedate");
 

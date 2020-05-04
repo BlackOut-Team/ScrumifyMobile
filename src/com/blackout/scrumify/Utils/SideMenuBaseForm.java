@@ -21,6 +21,7 @@ package com.blackout.scrumify.Utils;
 
 import com.blackout.scrumify.GestionUsers.gui.LoginForm;
 import com.codename1.components.ToastBar;
+import com.codename1.ui.Command;
 import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
@@ -69,6 +70,7 @@ public abstract class SideMenuBaseForm extends Form {
         getToolbar().addMaterialCommandToSideMenu("  Projects", FontImage.MATERIAL_VIEW_LIST,  e -> showProjects(res));
         getToolbar().addMaterialCommandToSideMenu("  Tasks", FontImage.MATERIAL_ACCESS_TIME,  e -> showOtherForm(res));
         getToolbar().addMaterialCommandToSideMenu("  Activity", FontImage.MATERIAL_TRENDING_UP,  e -> showOtherForm(res));
+         getToolbar().addMaterialCommandToSideMenu("  Teams", FontImage.MATERIAL_GROUP,  e -> showTeamForm(res));
         getToolbar().addMaterialCommandToSideMenu("  Account Settings", FontImage.MATERIAL_SETTINGS,  e -> showOtherForm(res));
         getToolbar().addMaterialCommandToSideMenu("  Logout", FontImage.MATERIAL_EXIT_TO_APP,  e -> new LoginForm(res).show());
     }
@@ -76,6 +78,9 @@ public abstract class SideMenuBaseForm extends Form {
     protected abstract void showOtherForm(Resources res);
     protected abstract void showDashboard(Resources res);
     protected abstract void showProjects(Resources res);
+      protected abstract void showTeamForm(Resources res);
+
+   
 
 
 }

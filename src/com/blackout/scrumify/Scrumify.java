@@ -1,6 +1,15 @@
 package blackout.scrumify;
 
+
+
+
+
+import com.blackout.scrumify.GestionProjets.Gui.Dashboard;
+import com.blackout.scrumify.GestionProjets.Gui.EditProject;
+
+import com.blackout.scrumify.GestionTeams.Gui.AddTeam;
 import com.blackout.scrumify.GestionProjets.Gui.ProjectsForm;
+import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
 import com.blackout.scrumify.GestionUsers.gui.LoginForm;
 import static com.codename1.ui.CN.*;
 import com.codename1.io.Log;
@@ -47,7 +56,7 @@ public class Scrumify {
             current.show();
             return;
         }
-        new LoginForm(theme).show();
+        new Dashboard(theme).show();
     }
 
     public void stop() {
