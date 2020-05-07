@@ -89,7 +89,8 @@ public class EditTeam extends SideMenuBaseForm {
                     
                       
                         if(ServiceTeam.getInstance().editTeam(p)){
-                        new TeamDetailsForm(res, current, p).show();}
+                        new TeamDetailsForm(res, current, p).show();
+                        }
 
                     } catch (NumberFormatException e) {
                         Dialog.show("ERROR", "type", new Command("OK"));
