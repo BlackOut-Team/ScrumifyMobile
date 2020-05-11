@@ -7,14 +7,19 @@ package com.blackout.scrumify.GestionTasks.Services;
 
 import com.blackout.scrumify.GestionTasks.Entities.Tasks;
 import com.blackout.scrumify.Utils.Statics;
+import com.codename1.components.InfiniteProgress;
 import com.codename1.io.CharArrayReader;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.events.ActionListener;
+import java.io.ByteArrayInputStream;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,13 +31,14 @@ import java.util.Map;
  */
 public class TasksService {
     
-     public ArrayList<Tasks> tasks;
+         public ArrayList<Tasks> tasks;
     
     public static TasksService instance=null;
     public boolean resultOK;
     private ConnectionRequest req;
+     static Map g;
 
-    private TasksService() {
+    public TasksService() {
          req = new ConnectionRequest();
     }
 
@@ -44,7 +50,7 @@ public class TasksService {
     }
     
      public boolean addTask(Tasks t) {
-        String url = Statics.BASE_URL + "/tasks/" + t.getTitle() + "/" + t.getDescription()+ "/" + t.getPriority();
+        String url = Statics.BASE_URL + "Tasks/new/" + t.getTitle() + "/" + t.getDescription()+ "/" + t.getPriority();
         req.setUrl(url);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
@@ -56,6 +62,7 @@ public class TasksService {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return resultOK;
     }
+     
      public ArrayList<Tasks> parseTasks(String jsonText){
         try {
             tasks=new ArrayList<>();
@@ -81,8 +88,8 @@ public class TasksService {
         return tasks;
     }
     
-    public ArrayList<Tasks> getAllTasks(){
-        String url = Statics.BASE_URL+"/tasks/";
+    public ArrayList<Tasks> getAllTasks(Map m){
+        String url = Statics.BASE_URL+"Tasks/show";
         req.setUrl(url);
         req.setPost(false);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -94,6 +101,31 @@ public class TasksService {
         });
         NetworkManager.getInstance().addToQueueAndWait(req);
         return tasks;
+    }
+    
+    
+    public static Map<String, Object> getResponse(String url) {
+        url = "http://localhost/scrumify/web/app_dev.php/" + url;
+        System.out.println(url);
+        ConnectionRequest r = new ConnectionRequest();
+        r.setUrl(url);
+        r.setPost(false);
+        InfiniteProgress prog = new InfiniteProgress();
+        Dialog dlg = prog.showInfiniteBlocking();
+        r.setDisposeOnCompletion(dlg);
+        r.addResponseListener((evt) -> {
+            try {
+                JSONParser p = new JSONParser();
+                Reader targetReader = new InputStreamReader(new ByteArrayInputStream(r.getResponseData()));
+                g = p.parseJSON(targetReader);
+
+            } catch (IOException ex) {
+                //Logger.getLogger(MyApplication.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        });
+        NetworkManager.getInstance().addToQueueAndWait(r);
+        return g;
     }
 
 }

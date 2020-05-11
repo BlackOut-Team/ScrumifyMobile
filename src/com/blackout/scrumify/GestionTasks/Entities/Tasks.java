@@ -77,10 +77,11 @@ public class Tasks {
         return "Tasks{" + "id=" + id + ", etat=" + etat + ", priority=" + priority + ", title=" + title + ", description=" + description + ", status=" + status + '}';
     }
 
-    public Tasks(int priority, String title, String description) {
-        this.priority = priority;
+    public Tasks( String title, String description,int priority) {
+       
         this.title = title;
         this.description = description;
+         this.priority = priority;
     }
 
     public Tasks(int id, int etat, int priority, String title, String description, String status) {
