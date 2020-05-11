@@ -7,6 +7,7 @@ package com.blackout.scrumify.GestionProjets.Gui;
 
 import com.blackout.scrumify.GestionProjets.Entities.Project;
 import com.blackout.scrumify.GestionProjets.Services.ServiceProjet;
+import com.blackout.scrumify.GestionSprints.Gui.SprintsForm;
 import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
 import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
@@ -68,13 +69,15 @@ public class ProjectDetailsForm extends SideMenuBaseForm {
             add(rightContainer);
         setupSideMenu(res);
         
-        Button edit = new Button("EDIT PROJECT");
-        Button archive = new Button("ARCHIVE");
+        Button edit = new Button(FontImage.MATERIAL_EDIT);
+        Button archive = new Button(FontImage.MATERIAL_ARCHIVE);
+        Button sprints = new Button(FontImage.MATERIAL_STACKED_BAR_CHART);
 
-        edit.setUIID("LoginButton");
-        archive.setUIID("LoginButton");
+        edit.setUIID("ActionIcon");
+        archive.setUIID("ActionIcon");
+        sprints.setUIID("LoginButton");
 
-        add(BoxLayout.encloseYBottom(edit,archive));
+        add(BoxLayout.encloseXRight(edit,archive,sprints));
         
         edit.addActionListener((evt) -> {
                         System.out.println(p.getId());
@@ -87,7 +90,9 @@ public class ProjectDetailsForm extends SideMenuBaseForm {
                         ServiceProjet.getInstance().archiveProject(p);
                         new ProjectsForm(res, current).show();
         });
-                
+                sprints.addActionListener((evt) -> {
+                        new SprintsForm(res, current,p).show();
+        });   
     }
 
   @Override

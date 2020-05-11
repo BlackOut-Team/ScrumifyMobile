@@ -74,7 +74,7 @@ public class ProjectsForm extends SideMenuBaseForm {
         add(new Label("Projects", "TodayTitle"));
 
         ServiceProjet pr = new ServiceProjet();
-        Map m = pr.getResponse("Project/showP");
+        Map m = ServiceProjet.getResponse("Project/showP/2");
         ArrayList<Project> listT = pr.getAllProjects(m);
         FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
 

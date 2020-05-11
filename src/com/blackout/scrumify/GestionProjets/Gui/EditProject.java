@@ -64,7 +64,7 @@ public class EditProject extends SideMenuBaseForm {
         ComboBox<String> team = new ComboBox<String>();
         ServiceTeam ser = new ServiceTeam();
 
-        Map x = ser.getResponse("teams");
+        Map x = ser.getResponse("affteam");
         ArrayList<Team> listT = ser.getAllTeams(x);
         for (Team ev : listT) {
             team.addItem(ev.getName());
