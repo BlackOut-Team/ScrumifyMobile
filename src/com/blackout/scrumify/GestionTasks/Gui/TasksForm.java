@@ -13,7 +13,11 @@ import com.blackout.scrumify.GestionProjets.Gui.ProjectsForm;
 import com.blackout.scrumify.GestionProjets.Services.ServiceProjet;
 import com.blackout.scrumify.GestionTasks.Entities.Tasks;
 import com.blackout.scrumify.GestionTasks.Services.TasksService;
+import com.blackout.scrumify.GestionTeams.Entities.Team;
+import com.blackout.scrumify.GestionTeams.Gui.AddTeam;
+import com.blackout.scrumify.GestionTeams.Gui.TeamDetailsForm;
 import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
+import static com.blackout.scrumify.GestionTeams.Gui.TeamForm.res;
 import com.blackout.scrumify.Utils.SideMenuBaseForm;
 import com.codename1.components.FloatingActionButton;
 import com.codename1.components.MultiButton;
@@ -91,30 +95,32 @@ public class TasksForm extends SideMenuBaseForm {
         FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
 
         for (int i = 0; i < listT.size(); i++) {
-    final MultiButton mb = new MultiButton();
-      mb.setTextLine1(listT.get(i).getTitle());
-        mb.setTextLine2(listT.get(i).getDescription());
+      Tasks p = listT.get(i);
 
-        mb.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-            
-                //show the profile form here
-             
-              //new ShowDetailsColis(Integer.valueOf(mb.getTextLine4())).show();
-            }
-        });
-        this.addComponent(mb);
-        content.revalidate();
+            Container c = new Container(BoxLayout.x());
+
+            c.setName(p.getTitle());
+            addButtonBottom(arrowDown, c, p);
+
         }
         fab.addActionListener((evt) -> {
-            //new AddTasks(res).show();
+            new AddTasks(res).show();
         });
-        add(name);
         setupSideMenu(res);
     }
 
- 
+ private void addButtonBottom(Image arrowDown, Container c, Tasks p) {
+        MultiButton finishLandingPage = new MultiButton(c.getName());
+        finishLandingPage.setEmblem(arrowDown);
+        finishLandingPage.setUIID("ProjectItem");
+        finishLandingPage.setUIIDLine1("TodayEntry");
+        add(BoxLayout.encloseY(finishLandingPage));
+        Button gt = new Button();
+         gt.addActionListener((ActionEvent evt) -> {
+           
+        });
+       finishLandingPage.setLeadComponent(gt);
+    }
 
  
 
