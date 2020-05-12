@@ -81,8 +81,7 @@ public class ProjectDetailsForm extends SideMenuBaseForm {
         sprints.setUIID("LoginButton");
         meeting.setUIID("LoginButton");
 
-        add(BoxLayout.encloseYBottom(edit,archive,meeting));
-        add(BoxLayout.encloseXRight(edit,archive,sprints));
+        add(BoxLayout.encloseXRight(edit,archive,sprints,meeting));
         
         edit.addActionListener((evt) -> {
                         System.out.println(p.getId());

@@ -68,7 +68,10 @@ SideMenuBaseForm current ;
         
         add(new Label(p.getName(), "TodayTitle"));
             Container rightContainer = new Container(BoxLayout.y());
-            rightContainer.add(new Label(m.getType()));
+            rightContainer.add(new Label( "Name : " +m.getName()));
+            rightContainer.add(new Label( "Type : " +m.getType()));
+            rightContainer.add(new Label( "place : " +m.getPlace()));
+            rightContainer.add(new Label( "sprint : " +m.getSprint()));
             rightContainer.add(new Label(m.getPlace() + ""));
             add(rightContainer);
         setupSideMenu(res);
