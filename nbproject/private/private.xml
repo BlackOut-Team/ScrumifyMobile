@@ -4,12 +4,68 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+
             <file>file:/D:/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Services/ServiceProjet.java</file>
             <file>file:/D:/ScrumifyMobile/src/com/blackout/scrumify/GestionTeams/Gui/TeamDetailsForm.java</file>
             <file>file:/D:/ScrumifyMobile/src/com/blackout/scrumify/GestionTeams/services/ServiceTeam.java</file>
             <file>file:/D:/ScrumifyMobile/src/com/blackout/scrumify/GestionTeams/Gui/EditTeam.java</file>
             <file>file:/D:/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Gui/EditProject.java</file>
             <file>file:/D:/ScrumifyMobile/src/com/blackout/scrumify/GestionTeams/Gui/TeamForm.java</file>
+
+            <file>file:/C:/wamp64/www/API/ScrumifyMobile/src/com/blackout/scrumify/GestionMeeting/Gui/MeetinngDetailsForm.java</file>
+            <file>file:/C:/wamp64/www/API/ScrumifyMobile/src/com/blackout/scrumify/GestionMeeting/Services/MeetingService.java</file>
+            <file>file:/C:/wamp64/www/API/ScrumifyMobile/src/com/blackout/scrumify/GestionMeeting/Gui/MeetingsForm.java</file>
+            <file>file:/C:/wamp64/www/API/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Gui/CalendarForm.java</file>
+            <file>file:/C:/wamp64/www/API/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Gui/Dashboard.java</file>
+            <file>file:/C:/wamp64/www/API/ScrumifyMobile/src/com/blackout/scrumify/GestionTeams/services/ServiceTeam.java</file>
+            <file>file:/C:/wamp64/www/API/ScrumifyMobile/src/com/blackout/scrumify/GestionTeams/Gui/TeamDetailsForm.java</file>
+            <file>file:/C:/wamp64/www/API/ScrumifyMobile/src/com/blackout/scrumify/GestionMeeting/Entities/Meeting.java</file>
+            <file>file:/C:/wamp64/www/API/ScrumifyMobile/src/com/blackout/scrumify/GestionTeams/Gui/AddTeam.java</file>
+            <file>file:/C:/wamp64/www/API/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Services/ServiceProjet.java</file>
+            <file>file:/C:/wamp64/www/API/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Gui/ProjectDetailsForm.java</file>
+            <file>file:/C:/wamp64/www/API/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Gui/AddProject.java</file>
+            <file>file:/C:/wamp64/www/API/ScrumifyMobile/src/com/blackout/scrumify/GestionUsers/gui/LoginForm.java</file>
+            <file>file:/C:/wamp64/www/API/ScrumifyMobile/src/com/blackout/scrumify/Utils/Statics.java</file>
+            <file>file:/C:/wamp64/www/API/ScrumifyMobile/src/com/blackout/scrumify/GestionMeeting/Entities/Activity.java</file>
+            <file>file:/C:/wamp64/www/API/ScrumifyMobile/src/com/blackout/scrumify/Utils/SideMenuBaseForm.java</file>
+            <file>file:/C:/wamp64/www/API/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Gui/ProjectsForm.java</file>
+            <file>file:/C:/wamp64/www/API/ScrumifyMobile/src/com/blackout/scrumify/GestionMeeting/Gui/AddMeeting.java</file>
+            <file>file:/C:/wamp64/www/API/ScrumifyMobile/src/com/blackout/scrumify/GestionTeams/Gui/TeamForm.java</file>
+            <file>file:/C:/wamp64/www/API/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Entities/Project.java</file>
+            <file>file:/C:/wamp64/www/API/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Gui/WalkthruForm.java</file>
+
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/Scrumify.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Gui/CalendarForm.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionTasks/Services/TasksService.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Gui/WalkthruForm.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Gui/AddProject.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Gui/ProjectsForm.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/Utils/SideMenuBaseForm.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionUsers/gui/LoginForm.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Gui/Dashboard.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Gui/ProjectDetailsForm.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionTeams/gui/EditTeam.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionTeams/services/ServiceTeam.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Gui/EditProject.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionUsers/gui/RegisterForm.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Services/ServiceProjet.java</file>
+
+            <file>file:/C:/wamp64/www/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Gui/ProjectsForm.java</file>
+            <file>file:/C:/wamp64/www/ScrumifyMobile/src/com/blackout/scrumify/GestionTeams/Gui/TeamDetailsForm.java</file>
+            <file>file:/C:/wamp64/www/ScrumifyMobile/src/com/blackout/scrumify/GestionTasks/Gui/TasksForm.java</file>
+            <file>file:/C:/wamp64/www/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Gui/Dashboard.java</file>
+            <file>file:/C:/wamp64/www/ScrumifyMobile/build.xml</file>
+            <file>file:/C:/wamp64/www/ScrumifyMobile/src/com/blackout/scrumify/Scrumify.java</file>
+            <file>file:/C:/wamp64/www/ScrumifyMobile/src/com/blackout/scrumify/GestionTeams/Gui/AddTeam.java</file>
+            <file>file:/C:/wamp64/www/ScrumifyMobile/src/com/blackout/scrumify/GestionTeams/Gui/EditTeam.java</file>
+            <file>file:/C:/wamp64/www/ScrumifyMobile/src/com/blackout/scrumify/Utils/Statics.java</file>
+            <file>file:/C:/wamp64/www/ScrumifyMobile/src/com/blackout/scrumify/GestionTasks/Gui/AddTasks.java</file>
+            <file>file:/C:/wamp64/www/ScrumifyMobile/src/com/blackout/scrumify/GestionUsers/gui/LoginForm.java</file>
+            <file>file:/C:/wamp64/www/ScrumifyMobile/src/com/blackout/scrumify/Utils/SideMenuBaseForm.java</file>
+            <file>file:/C:/wamp64/www/ScrumifyMobile/src/com/blackout/scrumify/GestionUsers/gui/RegisterForm.java</file>
+            <file>file:/C:/wamp64/www/ScrumifyMobile/src/com/blackout/scrumify/GestionTasks/Services/TasksService.java</file>
+            <file>file:/C:/wamp64/www/ScrumifyMobile/src/com/blackout/scrumify/GestionTeams/Gui/TeamForm.java</file>
+
         </group>
     </open-files>
 </project-private>

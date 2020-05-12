@@ -112,7 +112,7 @@ public class WalkthruForm extends Form {
         rbs[0].setSelected(true);
         walkthruTabs.addSelectionListener((i, ii) -> {
             if(!rbs[ii].isSelected()) {
-                rbs[ii].setSelected(true);
+                rbs[i].setSelected(true);
             }
         });
         
@@ -132,7 +132,7 @@ public class WalkthruForm extends Form {
         Component.setSameHeight(bottomSpace, bottomSpaceTab2, southLayout);
         
         // visual effects in the first show
-        addShowListener(e -> {
+        this.addShowListener(e -> {
         notesPlaceholder.getParent().replace(notesPlaceholder, notesLabel, CommonTransitions.createFade(1500));
         });
     }    
