@@ -76,7 +76,7 @@ public class TeamForm  extends SideMenuBaseForm {
         add(new Label("Teams", "TodayTitle"));
 
         ServiceTeam pr = new ServiceTeam();
-        Map m = pr.getResponse("teams");
+        Map m = pr.getResponse("affteam");
         ArrayList<Team> listT = pr.getAllTeams(m);
         FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
 
