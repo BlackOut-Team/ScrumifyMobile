@@ -58,12 +58,10 @@ public class Scrumify {
             current.show();
             return;
         }
-        new Dashboard(theme).show();
+        new LoginForm(theme).show();
         
         
-          Media m = MediaManager.createBackgroundMedia('C:\Users\Iheb\Downloads\');
-        
-        m.play();
+          
 
     }
 
