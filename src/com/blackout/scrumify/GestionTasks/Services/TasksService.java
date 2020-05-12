@@ -37,6 +37,7 @@ public class TasksService {
     public boolean resultOK;
     private ConnectionRequest req;
      static Map g;
+     boolean t;
 
     public TasksService() {
          req = new ConnectionRequest();
@@ -50,6 +51,8 @@ public class TasksService {
     }
     
      public boolean addTask(Tasks t) {
+        String url = Statics.BASE_URL + "Tasks/new/" + t.getTitle() + "/" + t.getDescription() + "/" + t.getPriority();
+
         String url = Statics.BASE_URL + "Tasks/new?title=" + t.getTitle() + "&description=" + t.getDescription()+ "&Priority=" + t.getPriority();
         req.setUrl(url);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -126,6 +129,51 @@ public class TasksService {
         });
         NetworkManager.getInstance().addToQueueAndWait(r);
         return g;
+    }
+    
+     public boolean editTask(Tasks p) {
+        String url = Statics.BASE_URL + "Tasks/edit/"  + p.getId() + "?title=" + p.getTitle() + "&description=" + p.getDescription() + "&priority=" + p.getPriority();
+        ConnectionRequest con = new ConnectionRequest();
+        con.setUrl(url);
+        con.setPost(true);
+        con.addResponseListener((NetworkEvent evt) -> {
+            byte[] data = (byte[]) evt.getMetaData();
+            String s = new String(data);
+            System.out.println(s);
+            if (!s.contains("erreur")) {
+                Dialog.show("Confirmation", "success", "Ok", null);
+                t=true;
+
+            } else {
+                Dialog.show("Erreur", "date", "Ok", null);
+                t=false;
+
+            }
+        });
+
+        NetworkManager.getInstance().addToQueueAndWait(con);
+      return t ;
+    }
+
+    public void archive(Tasks p) {
+        String url = "http://localhost/scrumify/web/app_dev.php/Tasks/archive/" + p.getId();
+        ConnectionRequest con = new ConnectionRequest();
+        con.setUrl(url);
+        con.setPost(true);
+        con.addResponseListener((NetworkEvent evt) -> {
+            byte[] data = (byte[]) evt.getMetaData();
+            String s = new String(data);
+            if (!s.equals("")) {
+                Dialog.show("Confirmation", "success", "Ok", null);
+
+            } else {
+                Dialog.show("Erreur", "erreur", "Ok", null);
+
+            }
+        });
+
+        NetworkManager.getInstance().addToQueueAndWait(con);
+
     }
 
 }
