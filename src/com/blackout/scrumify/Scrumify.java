@@ -13,6 +13,8 @@ import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
 import com.blackout.scrumify.GestionUsers.gui.LoginForm;
 import static com.codename1.ui.CN.*;
 import com.codename1.io.Log;
+import com.codename1.media.Media;
+import com.codename1.media.MediaManager;
 import com.codename1.ui.Form;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.plaf.UIManager;
@@ -56,7 +58,13 @@ public class Scrumify {
             current.show();
             return;
         }
-        new LoginForm(theme).show();
+        new Dashboard(theme).show();
+        
+        
+          Media m = MediaManager.createBackgroundMedia('C:\Users\Iheb\Downloads\');
+        
+        m.play();
+
     }
 
     public void stop() {

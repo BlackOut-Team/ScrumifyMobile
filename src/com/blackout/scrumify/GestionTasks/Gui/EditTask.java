@@ -120,9 +120,7 @@ public class EditTask extends SideMenuBaseForm {
     }
 
 
-    @Override
-    protected void showTasks(Resources res) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   
 
   @Override
     protected void showTasks(Resources res) {
