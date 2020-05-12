@@ -10,6 +10,7 @@ import com.blackout.scrumify.GestionProjets.Gui.AddProject;
 import com.blackout.scrumify.GestionProjets.Gui.Dashboard;
 import com.blackout.scrumify.GestionProjets.Gui.ProjectsForm;
 import com.blackout.scrumify.GestionProjets.Services.ServiceProjet;
+import com.blackout.scrumify.GestionTasks.Gui.TasksForm;
 import com.blackout.scrumify.GestionTeams.Entities.Team;
 import com.blackout.scrumify.GestionTeams.services.ServiceTeam;
 import com.blackout.scrumify.Utils.SideMenuBaseForm;
@@ -116,4 +117,9 @@ public class AddTeam extends SideMenuBaseForm {
     protected void showTeamForm(Resources res) {
         new TeamForm(res, this).show();
     }
+     @Override
+    protected void showTasks(Resources res) {
+        new TasksForm(res).show();
+    }
+
 }

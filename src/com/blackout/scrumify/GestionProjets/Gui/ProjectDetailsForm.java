@@ -8,6 +8,8 @@ package com.blackout.scrumify.GestionProjets.Gui;
 import com.blackout.scrumify.GestionMeeting.Gui.MeetingsForm;
 import com.blackout.scrumify.GestionProjets.Entities.Project;
 import com.blackout.scrumify.GestionProjets.Services.ServiceProjet;
+import com.blackout.scrumify.GestionSprints.Gui.SprintsForm;
+import com.blackout.scrumify.GestionTasks.Gui.TasksForm;
 import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
 import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
@@ -69,15 +71,18 @@ public class ProjectDetailsForm extends SideMenuBaseForm {
             add(rightContainer);
         setupSideMenu(res);
         
-        Button edit = new Button("EDIT PROJECT");
-        Button meeting = new Button("Meetings");
-        Button archive = new Button("ARCHIVE");
+        Button edit = new Button(FontImage.MATERIAL_EDIT);
+        Button archive = new Button(FontImage.MATERIAL_ARCHIVE);
+        Button sprints = new Button(FontImage.MATERIAL_STACKED_BAR_CHART);
+        Button meeting = new Button(FontImage.MATERIAL_STACKED_BAR_CHART);
 
-        edit.setUIID("LoginButton");
-        archive.setUIID("LoginButton");
+        edit.setUIID("ActionIcon");
+        archive.setUIID("ActionIcon");
+        sprints.setUIID("LoginButton");
         meeting.setUIID("LoginButton");
 
         add(BoxLayout.encloseYBottom(edit,archive,meeting));
+        add(BoxLayout.encloseXRight(edit,archive,sprints));
         
         edit.addActionListener((evt) -> {
                         System.out.println(p.getId());
@@ -97,6 +102,9 @@ public class ProjectDetailsForm extends SideMenuBaseForm {
              
         });
                 
+                sprints.addActionListener((evt) -> {
+                        new SprintsForm(res, current,p).show();
+        });   
     }
 
   @Override
@@ -118,5 +126,10 @@ public class ProjectDetailsForm extends SideMenuBaseForm {
     protected void showTeamForm(Resources res) {
         new TeamForm(res, this).show();
     }
+     @Override
+    protected void showTasks(Resources res) {
+        new TasksForm(res).show();
+    }
+
   
 }

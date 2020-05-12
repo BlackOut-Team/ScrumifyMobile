@@ -7,6 +7,7 @@ package com.blackout.scrumify.GestionProjets.Gui;
 
 import com.blackout.scrumify.GestionProjets.Entities.Project;
 import com.blackout.scrumify.GestionProjets.Services.ServiceProjet;
+import com.blackout.scrumify.GestionTasks.Gui.TasksForm;
 import com.blackout.scrumify.GestionTeams.Entities.Team;
 import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
 import com.blackout.scrumify.GestionTeams.services.ServiceTeam;
@@ -64,7 +65,7 @@ public class EditProject extends SideMenuBaseForm {
         ComboBox<String> team = new ComboBox<String>();
         ServiceTeam ser = new ServiceTeam();
 
-        Map x = ser.getResponse("teams");
+        Map x = ser.getResponse("affteam");
         ArrayList<Team> listT = ser.getAllTeams(x);
         for (Team ev : listT) {
             team.addItem(ev.getName());
@@ -121,4 +122,9 @@ public class EditProject extends SideMenuBaseForm {
     protected void showTeamForm(Resources res) {
         new TeamForm(res, this).show();
     }
+     @Override
+    protected void showTasks(Resources res) {
+        new TasksForm(res).show();
+    }
+
 }
