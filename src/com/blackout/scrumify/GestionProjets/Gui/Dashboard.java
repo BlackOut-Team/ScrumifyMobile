@@ -5,6 +5,7 @@
  */
 package com.blackout.scrumify.GestionProjets.Gui;
 
+import com.blackout.scrumify.GestionTasks.Gui.TasksForm;
 import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
 import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
@@ -190,5 +191,9 @@ public class Dashboard  extends SideMenuBaseForm{
     protected void showTeamForm(Resources res) {
         new TeamForm(res, this).show();
     }
-    
+     @Override
+    protected void showTasks(Resources res) {
+        new TasksForm(res).show();
+    }
+
 }

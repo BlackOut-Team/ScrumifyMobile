@@ -10,6 +10,7 @@ import com.blackout.scrumify.GestionProjets.Gui.Dashboard;
 import com.blackout.scrumify.GestionProjets.Gui.ProjectDetailsForm;
 import com.blackout.scrumify.GestionProjets.Gui.ProjectsForm;
 import com.blackout.scrumify.GestionProjets.Services.ServiceProjet;
+import com.blackout.scrumify.GestionTasks.Gui.TasksForm;
 import com.blackout.scrumify.GestionTeams.Entities.Team;
 import com.blackout.scrumify.GestionTeams.services.ServiceTeam;
 import com.codename1.ui.Container;
@@ -76,7 +77,7 @@ public class TeamForm  extends SideMenuBaseForm {
         add(new Label("Teams", "TodayTitle"));
 
         ServiceTeam pr = new ServiceTeam();
-        Map m = pr.getResponse("teams");
+        Map m = pr.getResponse("affteam");
         ArrayList<Team> listT = pr.getAllTeams(m);
         FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
 
@@ -143,6 +144,10 @@ public class TeamForm  extends SideMenuBaseForm {
     @Override
     protected void showTeamForm(Resources res) {
         new TeamForm(res, this).show();
+    }
+ @Override
+    protected void showTasks(Resources res) {
+        new TasksForm(res).show();
     }
 
 }
