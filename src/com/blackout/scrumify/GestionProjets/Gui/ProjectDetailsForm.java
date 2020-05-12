@@ -5,6 +5,7 @@
  */
 package com.blackout.scrumify.GestionProjets.Gui;
 
+import com.blackout.scrumify.GestionMeeting.Gui.MeetingsForm;
 import com.blackout.scrumify.GestionProjets.Entities.Project;
 import com.blackout.scrumify.GestionProjets.Services.ServiceProjet;
 import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
@@ -69,12 +70,14 @@ public class ProjectDetailsForm extends SideMenuBaseForm {
         setupSideMenu(res);
         
         Button edit = new Button("EDIT PROJECT");
+        Button meeting = new Button("Meetings");
         Button archive = new Button("ARCHIVE");
 
         edit.setUIID("LoginButton");
         archive.setUIID("LoginButton");
+        meeting.setUIID("LoginButton");
 
-        add(BoxLayout.encloseYBottom(edit,archive));
+        add(BoxLayout.encloseYBottom(edit,archive,meeting));
         
         edit.addActionListener((evt) -> {
                         System.out.println(p.getId());
@@ -86,6 +89,12 @@ public class ProjectDetailsForm extends SideMenuBaseForm {
         archive.addActionListener((evt) -> {
                         ServiceProjet.getInstance().archiveProject(p);
                         new ProjectsForm(res, current).show();
+        });
+        meeting.addActionListener((evt) -> {
+                        System.out.println(p.getId());
+
+         new MeetingsForm(res,previous, p).show();
+             
         });
                 
     }

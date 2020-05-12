@@ -21,6 +21,7 @@ package com.blackout.scrumify.Utils;
 
 import com.blackout.scrumify.GestionUsers.gui.LoginForm;
 import com.codename1.components.ToastBar;
+import com.codename1.ui.Button;
 import com.codename1.ui.Command;
 import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
@@ -30,7 +31,9 @@ import com.codename1.ui.Label;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.Layout;
 import com.codename1.ui.util.Resources;
-
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
 /**
  * Common code that can setup the side menu
  *
@@ -54,17 +57,20 @@ public abstract class SideMenuBaseForm extends Form {
     }
     
     public void setupSideMenu(Resources res) {
-
+        
+         
+         
+         
         Image profilePic = res.getImage("Image3.png");
         Image mask = res.getImage("round-mask.png");
         mask = mask.scaledHeight(mask.getHeight() / 4 * 3);
         profilePic = profilePic.fill(mask.getWidth(), mask.getHeight());
         Label profilePicLabel = new Label("Amira Doghri", profilePic, "SideMenuTitle");
+        Button profile = new Button();
         profilePicLabel.setMask(mask.createMask());
-
         Container sidemenuTop = BorderLayout.center(profilePicLabel);
         sidemenuTop.setUIID("SidemenuTop");
-
+        sidemenuTop.setLeadComponent(profile);
         getToolbar().addComponentToSideMenu(sidemenuTop);
         getToolbar().addMaterialCommandToSideMenu("  Dashboard", FontImage.MATERIAL_DASHBOARD,  e -> showDashboard(res));
         getToolbar().addMaterialCommandToSideMenu("  Projects", FontImage.MATERIAL_VIEW_LIST,  e -> showProjects(res));
@@ -73,6 +79,12 @@ public abstract class SideMenuBaseForm extends Form {
          getToolbar().addMaterialCommandToSideMenu("  Teams", FontImage.MATERIAL_GROUP,  e -> showTeamForm(res));
         getToolbar().addMaterialCommandToSideMenu("  Account Settings", FontImage.MATERIAL_SETTINGS,  e -> showOtherForm(res));
         getToolbar().addMaterialCommandToSideMenu("  Logout", FontImage.MATERIAL_EXIT_TO_APP,  e -> new LoginForm(res).show());
+        
+        profile.addActionListener((evt) -> {
+         
+            //returns session 
+                //Object result =Storage.getInstance().readObject("session");
+        });
     }
     
     protected abstract void showOtherForm(Resources res);
