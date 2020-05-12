@@ -3,7 +3,61 @@
 <resource majorVersion="1" minorVersion="11" useXmlUI="false">
     <image name="#16cabd.PNG"  />
     <image name="2be8da.png"  />
+    <image name="background.jpg"  />
     <image name="BackgroundRect.png" type="multi"  />
+    <image name="bla.jpg"  />
+    <image name="bridge.jpg"  />
+    <image name="calendar-background.jpg"  />
+    <image name="calendar-separator.png" type="multi"  />
+    <image name="CalendarHourSelected.borderBottom_1.png" type="multi"  />
+    <image name="CalendarHourSelected.borderBottomL_1.png" type="multi"  />
+    <image name="CalendarHourSelected.borderBottomR_1.png" type="multi"  />
+    <image name="CalendarHourSelected.borderCenter_1.png" type="multi"  />
+    <image name="CalendarHourSelected.borderLeft_1.png" type="multi"  />
+    <image name="CalendarHourSelected.borderRight_1.png" type="multi"  />
+    <image name="CalendarHourSelected.borderTop_1.png" type="multi"  />
+    <image name="CalendarHourSelected.borderTopL_1.png" type="multi"  />
+    <image name="CalendarHourSelected.borderTopR_1.png" type="multi"  />
+    <image name="CalendarHourUnselected.borderBottom_1.png" type="multi"  />
+    <image name="CalendarHourUnselected.borderBottomL_1.png" type="multi"  />
+    <image name="CalendarHourUnselected.borderBottomR_1.png" type="multi"  />
+    <image name="CalendarHourUnselected.borderCenter_1.png" type="multi"  />
+    <image name="CalendarHourUnselected.borderLeft_1.png" type="multi"  />
+    <image name="CalendarHourUnselected.borderRight_1.png" type="multi"  />
+    <image name="CalendarHourUnselected.borderTop_1.png" type="multi"  />
+    <image name="CalendarHourUnselected.borderTopL_1.png" type="multi"  />
+    <image name="CalendarHourUnselected.borderTopR_1.png" type="multi"  />
+    <image name="CalendarSelectedDay.borderBottom_1.png" type="multi"  />
+    <image name="CalendarSelectedDay.borderBottom_2.png" type="multi"  />
+    <image name="CalendarSelectedDay.borderBottom_3.png" type="multi"  />
+    <image name="CalendarSelectedDay.borderBottomL_1.png" type="multi"  />
+    <image name="CalendarSelectedDay.borderBottomL_2.png" type="multi"  />
+    <image name="CalendarSelectedDay.borderBottomL_3.png" type="multi"  />
+    <image name="CalendarSelectedDay.borderBottomR_1.png" type="multi"  />
+    <image name="CalendarSelectedDay.borderBottomR_2.png" type="multi"  />
+    <image name="CalendarSelectedDay.borderBottomR_3.png" type="multi"  />
+    <image name="CalendarSelectedDay.borderCenter_1.png" type="multi"  />
+    <image name="CalendarSelectedDay.borderCenter_2.png" type="multi"  />
+    <image name="CalendarSelectedDay.borderCenter_3.png" type="multi"  />
+    <image name="CalendarSelectedDay.borderLeft_1.png" type="multi"  />
+    <image name="CalendarSelectedDay.borderLeft_2.png" type="multi"  />
+    <image name="CalendarSelectedDay.borderLeft_3.png" type="multi"  />
+    <image name="CalendarSelectedDay.borderRight_1.png" type="multi"  />
+    <image name="CalendarSelectedDay.borderRight_2.png" type="multi"  />
+    <image name="CalendarSelectedDay.borderRight_3.png" type="multi"  />
+    <image name="CalendarSelectedDay.borderTop_1.png" type="multi"  />
+    <image name="CalendarSelectedDay.borderTop_2.png" type="multi"  />
+    <image name="CalendarSelectedDay.borderTop_3.png" type="multi"  />
+    <image name="CalendarSelectedDay.borderTopL_1.png" type="multi"  />
+    <image name="CalendarSelectedDay.borderTopL_2.png" type="multi"  />
+    <image name="CalendarSelectedDay.borderTopL_3.png" type="multi"  />
+    <image name="CalendarSelectedDay.borderTopR_1.png" type="multi"  />
+    <image name="CalendarSelectedDay.borderTopR_2.png" type="multi"  />
+    <image name="CalendarSelectedDay.borderTopR_3.png" type="multi"  />
+    <image name="card.png" type="multi"  />
+    <image name="contact-a.png" type="multi"  />
+    <image name="contact-b.png" type="multi"  />
+    <image name="contact-c.png" type="multi"  />
     <image name="Container.borderBottom_1.png" type="multi"  />
     <image name="Container.borderBottomL_1.png" type="multi"  />
     <image name="Container.borderBottomR_1.png" type="multi"  />
@@ -59,8 +113,46 @@
     <image name="Container.press#borderTopR_4.png" type="multi"  />
     <image name="Container.press#borderTopR_5.png" type="multi"  />
     <image name="cover.jpg"  />
+    <image name="dark-rect.png" type="multi"  />
     <image name="duke.png" type="multi"  />
     <image name="gradient-overlay.png"  />
+    <image name="griffith.jpg"  />
+    <image name="GroupElement.borderBottom_1.png" type="multi"  />
+    <image name="GroupElement.borderBottomL_1.png" type="multi"  />
+    <image name="GroupElement.borderBottomR_1.png" type="multi"  />
+    <image name="GroupElement.borderCenter_1.png" type="multi"  />
+    <image name="GroupElement.borderLeft_1.png" type="multi"  />
+    <image name="GroupElement.borderRight_1.png" type="multi"  />
+    <image name="GroupElement.borderTop_1.png" type="multi"  />
+    <image name="GroupElement.borderTopL_1.png" type="multi"  />
+    <image name="GroupElement.borderTopR_1.png" type="multi"  />
+    <image name="GroupElementFirst.borderBottom_1.png" type="multi"  />
+    <image name="GroupElementFirst.borderBottomL_1.png" type="multi"  />
+    <image name="GroupElementFirst.borderBottomR_1.png" type="multi"  />
+    <image name="GroupElementFirst.borderCenter_1.png" type="multi"  />
+    <image name="GroupElementFirst.borderLeft_1.png" type="multi"  />
+    <image name="GroupElementFirst.borderRight_1.png" type="multi"  />
+    <image name="GroupElementFirst.borderTop_1.png" type="multi"  />
+    <image name="GroupElementFirst.borderTopL_1.png" type="multi"  />
+    <image name="GroupElementFirst.borderTopR_1.png" type="multi"  />
+    <image name="GroupElementLast.borderBottom_1.png" type="multi"  />
+    <image name="GroupElementLast.borderBottomL_1.png" type="multi"  />
+    <image name="GroupElementLast.borderBottomR_1.png" type="multi"  />
+    <image name="GroupElementLast.borderCenter_1.png" type="multi"  />
+    <image name="GroupElementLast.borderLeft_1.png" type="multi"  />
+    <image name="GroupElementLast.borderRight_1.png" type="multi"  />
+    <image name="GroupElementLast.borderTop_1.png" type="multi"  />
+    <image name="GroupElementLast.borderTopL_1.png" type="multi"  />
+    <image name="GroupElementLast.borderTopR_1.png" type="multi"  />
+    <image name="GroupElementOnly.borderBottom_1.png" type="multi"  />
+    <image name="GroupElementOnly.borderBottomL_1.png" type="multi"  />
+    <image name="GroupElementOnly.borderBottomR_1.png" type="multi"  />
+    <image name="GroupElementOnly.borderCenter_1.png" type="multi"  />
+    <image name="GroupElementOnly.borderLeft_1.png" type="multi"  />
+    <image name="GroupElementOnly.borderRight_1.png" type="multi"  />
+    <image name="GroupElementOnly.borderTop_1.png" type="multi"  />
+    <image name="GroupElementOnly.borderTopL_1.png" type="multi"  />
+    <image name="GroupElementOnly.borderTopR_1.png" type="multi"  />
     <image name="Image1.png"  />
     <image name="Image10.png"  />
     <image name="Image17.png"  />
@@ -68,11 +160,33 @@
     <image name="Image3.png"  />
     <image name="Image4.png"  />
     <image name="Image6.png"  />
+    <l10n name="l1">
+        <lang name="en">
+            <entry key="menu" value="Menu" />
+            <entry key="Calendar.Sunday" value="Sun" />
+            <entry key="Calendar.Tuesday" value="Tue" />
+            <entry key="Calendar.Wednesday" value="Wed" />
+            <entry key="Calendar.Thursday" value="Thu" />
+            <entry key="ok" value="OK" />
+            <entry key="Calendar.Saturday" value="Sat" />
+            <entry key="select" value="Select" />
+            <entry key="Calendar.Friday" value="Fri" />
+            <entry key="edit" value="Edit" />
+            <entry key="Calendar.Monday" value="Mon" />
+            <entry key="cancel" value="Cancel" />
+        </lang>
+    </l10n>
+    <image name="label_round-selected.png" type="multi"  />
+    <image name="label_round.png" type="multi"  />
+    <image name="learn-codename-one.jpg"  />
     <image name="login-background.jpg"  />
+    <image name="logo.png" type="multi"  />
     <image name="notes.png" type="multi"  />
     <image name="person_1.jpg"  />
     <image name="person_1.png"  />
     <image name="person_2.jpg"  />
+    <image name="profile_image.png" type="multi"  />
+    <image name="progress.png" type="multi"  />
     <image name="ProjectItem.borderBottom_1.png" type="multi"  />
     <image name="ProjectItem.borderBottom_2.png" type="multi"  />
     <image name="ProjectItem.borderBottom_3.png" type="multi"  />
@@ -130,7 +244,10 @@
     <image name="sel#borderTopR_2.png" type="multi"  />
     <image name="sel#borderTopR_3.png" type="multi"  />
     <image name="selected-walkthru.png" type="multi"  />
+    <image name="selection-in-sidemenu.png" type="multi"  />
+    <image name="sidemenu-background.jpg"  />
     <image name="sidemenu-top.png" type="multi"  />
+    <image name="skate-park.jpg"  />
     <image name="text-field-underline.png"  />
     <image name="TextField.borderBottom_1.png" type="multi"  />
     <image name="TextField.borderBottom_2.png" type="multi"  />
@@ -168,6 +285,22 @@
         <val key="BottomPaddingContainer.padUnit" value="0,0,2,0" />
         <val key="BottomPaddingContainer.padding" value="0,2,0,0" />
         <val key="BottomPaddingContainer.transparency" value="0" />
+        <val key="Calendar.bgImage" value="gradient-overlay.png" />
+        <val key="Calendar.bgType" value="1" />
+        <val key="CalendarDateTitle.align" value="4" />
+        <val key="CalendarDateTitle.fgColor" value="ffffff" />
+        <font key="CalendarDateTitle.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="4.5" />
+        <val key="CalendarDay.align" value="4" />
+        <val key="CalendarDay.fgColor" value="ffffff" />
+        <font key="CalendarDay.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="4.5" />
+        <border key="CalendarHourSelected.border" type="image" i1="CalendarHourSelected.borderTop_1.png" i2="CalendarHourSelected.borderBottom_1.png" i3="CalendarHourSelected.borderLeft_1.png" i4="CalendarHourSelected.borderRight_1.png" i5="CalendarHourSelected.borderTopL_1.png" i6="CalendarHourSelected.borderTopR_1.png" i7="CalendarHourSelected.borderBottomL_1.png" i8="CalendarHourSelected.borderBottomR_1.png" i9="CalendarHourSelected.borderCenter_1.png" />
+        <border key="CalendarHourUnselected.border" type="image" i1="CalendarHourUnselected.borderTop_1.png" i2="CalendarHourUnselected.borderBottom_1.png" i3="CalendarHourUnselected.borderLeft_1.png" i4="CalendarHourUnselected.borderRight_1.png" i5="CalendarHourUnselected.borderTopL_1.png" i6="CalendarHourUnselected.borderTopR_1.png" i7="CalendarHourUnselected.borderBottomL_1.png" i8="CalendarHourUnselected.borderBottomR_1.png" i9="CalendarHourUnselected.borderCenter_1.png" />
+        <val key="CalendarSelectedDay.align" value="4" />
+        <border key="CalendarSelectedDay.border" type="round" roundBorderColor="52428" opacity="255" strokeColor="0" strokeOpacity="255" strokeThickness="0.0" strokeMM="false" shadowSpread="10" shadowOpacity="0" shadowX="0.5" shadowY="0.5" shadowBlur="10.0" shadowMM="false" rectangle="false" />
+        <val key="CalendarSelectedDay.fgColor" value="ffffff" />
+        <font key="CalendarSelectedDay.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="1" actualSize="12.0" />
+        <val key="CalendarTitle.fgColor" value="ffffff" />
+        <font key="CalendarTitle.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="4.5" />
         <val key="CenterSubTitle.align" value="4" />
         <val key="CenterSubTitle.fgColor" value="ffffff" />
         <font key="CenterSubTitle.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="2.0" />
@@ -472,6 +605,12 @@
         <val key="sel#transparency" value="0" />
         <val key="transparency" value="0" />
     </theme>
+    <image name="toolbar-profile-pic.png" type="multi"  />
     <image name="unselected-walkthru.png" type="multi"  />
     <image name="user-picture.jpg"  />
+    <image name="walthru-radio-selected.png" type="multi"  />
+    <image name="walthru-radio-unselected.png" type="multi"  />
+    <image name="welcome-background.jpg"  />
+    <image name="welcome-image-mask.png" type="multi"  />
+    <image name="welcome-separator.png" type="multi"  />
 </resource>
