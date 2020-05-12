@@ -10,6 +10,7 @@ import com.blackout.scrumify.GestionProjets.Entities.Project;
 import com.blackout.scrumify.GestionProjets.Services.ServiceProjet;
 import com.blackout.scrumify.GestionSprints.Entities.Sprint;
 import com.blackout.scrumify.GestionSprints.Services.ServiceSprint;
+import com.blackout.scrumify.GestionTasks.Gui.TasksForm;
 import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
 import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
@@ -137,6 +138,10 @@ public class SprintsForm extends SideMenuBaseForm {
     @Override
     protected void showTeamForm(Resources res) {
         new TeamForm(res, this).show();
+    }
+ @Override
+    protected void showTasks(Resources res) {
+        new TasksForm(res).show();
     }
 
 }
