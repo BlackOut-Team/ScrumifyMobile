@@ -8,14 +8,10 @@ package com.blackout.scrumify.GestionTasks.Gui;
 import com.blackout.scrumify.GestionProjets.Entities.Project;
 import com.blackout.scrumify.GestionProjets.Gui.AddProject;
 import com.blackout.scrumify.GestionProjets.Gui.Dashboard;
-import com.blackout.scrumify.GestionProjets.Gui.ProjectDetailsForm;
 import com.blackout.scrumify.GestionProjets.Gui.ProjectsForm;
 import com.blackout.scrumify.GestionProjets.Services.ServiceProjet;
 import com.blackout.scrumify.GestionTasks.Entities.Tasks;
 import com.blackout.scrumify.GestionTasks.Services.TasksService;
-import com.blackout.scrumify.GestionTeams.Entities.Team;
-import com.blackout.scrumify.GestionTeams.Gui.AddTeam;
-import com.blackout.scrumify.GestionTeams.Gui.TeamDetailsForm;
 import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
 import static com.blackout.scrumify.GestionTeams.Gui.TeamForm.res;
 import com.blackout.scrumify.Utils.SideMenuBaseForm;
@@ -117,6 +113,7 @@ public class TasksForm extends SideMenuBaseForm {
         add(BoxLayout.encloseY(finishLandingPage));
         Button gt = new Button();
          gt.addActionListener((ActionEvent evt) -> {
+               new TasksDetailsForm(res, this, p).show();
            
         });
        finishLandingPage.setLeadComponent(gt);
@@ -159,12 +156,14 @@ public class TasksForm extends SideMenuBaseForm {
     protected void showTeamForm(Resources res) {
         new TeamForm(res, this).show();
     }
-    
-   @Override
+
+    @Override
     protected void showTasks(Resources res) {
-        new TasksForm(res).show();
+         new TasksForm(res).show();
     }
 
+   
+  
     
     
 }

@@ -5,6 +5,7 @@
  */
 package com.blackout.scrumify.GestionProjets.Gui;
 
+import com.blackout.scrumify.GestionMeeting.Gui.MeetingsForm;
 import com.blackout.scrumify.GestionProjets.Entities.Project;
 import com.blackout.scrumify.GestionProjets.Services.ServiceProjet;
 import com.blackout.scrumify.GestionSprints.Gui.SprintsForm;
@@ -73,11 +74,14 @@ public class ProjectDetailsForm extends SideMenuBaseForm {
         Button edit = new Button(FontImage.MATERIAL_EDIT);
         Button archive = new Button(FontImage.MATERIAL_ARCHIVE);
         Button sprints = new Button(FontImage.MATERIAL_STACKED_BAR_CHART);
+        Button meeting = new Button(FontImage.MATERIAL_STACKED_BAR_CHART);
 
         edit.setUIID("ActionIcon");
         archive.setUIID("ActionIcon");
         sprints.setUIID("LoginButton");
+        meeting.setUIID("LoginButton");
 
+        add(BoxLayout.encloseYBottom(edit,archive,meeting));
         add(BoxLayout.encloseXRight(edit,archive,sprints));
         
         edit.addActionListener((evt) -> {
@@ -91,6 +95,13 @@ public class ProjectDetailsForm extends SideMenuBaseForm {
                         ServiceProjet.getInstance().archiveProject(p);
                         new ProjectsForm(res, current).show();
         });
+        meeting.addActionListener((evt) -> {
+                        System.out.println(p.getId());
+
+         new MeetingsForm(res,previous, p).show();
+             
+        });
+                
                 sprints.addActionListener((evt) -> {
                         new SprintsForm(res, current,p).show();
         });   
