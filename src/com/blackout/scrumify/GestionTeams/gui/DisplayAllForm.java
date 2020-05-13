@@ -3,53 +3,52 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.blackout.scrumify.GestionProjets.Gui;
+package com.blackout.scrumify.GestionTeams.gui;
 
-import com.blackout.scrumify.Dropbox.Dropbox;
-import com.blackout.scrumify.GestionProjets.Entities.Project;
-import com.blackout.scrumify.GestionProjets.Services.ServiceProjet;
+import com.blackout.scrumify.GestionProjets.Gui.AddProject;
+import com.blackout.scrumify.GestionProjets.Gui.Dashboard;
+import com.blackout.scrumify.GestionProjets.Gui.ProjectsForm;
 import com.blackout.scrumify.GestionTasks.Gui.TasksForm;
+import com.blackout.scrumify.GestionTeams.Entities.Team;
+import com.blackout.scrumify.GestionTeams.Gui.AddTeam;
 import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
+import com.blackout.scrumify.GestionTeams.services.ServiceTeam;
+import com.blackout.scrumify.GestionUsers.entities.User;
 import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.util.Resources;
 import com.blackout.scrumify.Utils.SideMenuBaseForm;
 import com.codename1.components.FloatingActionButton;
+import com.codename1.components.InteractionDialog;
 import com.codename1.components.MultiButton;
-import com.blackout.scrumify.Dropbox.DropboxAccess;
-import com.blackout.scrumify.GestionUsers.entities.User;
-import com.blackout.scrumify.Utils.Session;
-import com.blackout.scrumify.Utils.Statics;
-import com.codename1.io.Preferences;
-import com.codename1.io.Storage;
 import com.codename1.ui.Button;
+import com.codename1.ui.ComboBox;
+import com.codename1.ui.Display;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
-import com.codename1.ui.events.ActionEvent;
-import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.layouts.GridLayout;
 import java.util.ArrayList;
 import java.util.Map;
 import com.codename1.ui.util.Resources;
-import java.util.Collection;
 
 /**
  *
- * @author AmiraDoghri
+ * @author Iheb
  */
-public class ProjectsForm extends SideMenuBaseForm {
+public class DisplayAllForm extends SideMenuBaseForm {
 
     public static Resources res;
+    private Team team ;
 
-    public ProjectsForm(Resources res, Form previous) {
+    public DisplayAllForm(Resources res, Form previous, Team team ) {
         super(BoxLayout.y());
         this.res = res;
-
+        this.team=team;
         getToolbar().setTitleCentered(false);
 
         Button menuButton = new Button("");
@@ -58,58 +57,43 @@ public class ProjectsForm extends SideMenuBaseForm {
 
         menuButton.addActionListener(e -> getToolbar().openSideMenu());
 
-        Container Allprojects = BoxLayout.encloseY(
-                new Label("All ", "CenterTitle")
-        );
-        Allprojects.setUIID("RemainingTasks");
-        Container currentProjects = BoxLayout.encloseY(
-                new Label("Current", "CenterTitle")
-        );
-        currentProjects.setUIID("Current");
-        Container completedProjects = BoxLayout.encloseY(
-                new Label("Completed", "CenterTitle")
-        );
-        completedProjects.setUIID("CompletedTasks");
         Container titleCmp = BoxLayout.encloseY(
                 FlowLayout.encloseIn(menuButton),
                 BorderLayout.centerAbsolute(
                         BoxLayout.encloseY()
                 ),
-                GridLayout.encloseIn(3, Allprojects, currentProjects, completedProjects)
+                GridLayout.encloseIn()
         );
 
         FloatingActionButton fab = FloatingActionButton.createFAB(FontImage.MATERIAL_ADD);
         fab.getAllStyles().setMarginUnit(Byte.MAX_VALUE);
-        fab.getAllStyles().setMargin(BOTTOM, completedProjects.getPreferredH() - fab.getPreferredH() / 2);
-        getToolbar().setTitleComponent(fab.bindFabToContainer(titleCmp, RIGHT, TOP));
-        add(new Label("Projects", "TodayTitle"));
 
-        ServiceProjet pr = new ServiceProjet();
-      
-        System.out.println(Session.getInstace().u);
-        System.out.println(Preferences.get("user", 0) );
-        
-        Map m = ServiceProjet.getResponse("Project/showP/"+ Preferences.get("user", 0));
-        ArrayList<Project> listT = pr.getAllProjects(m);
+        getToolbar().setTitleComponent(fab.bindFabToContainer(titleCmp, RIGHT, TOP));
+
+        add(new Label("Teams", "TodayTitle"));
+
+        ServiceTeam pr = new ServiceTeam();
+        Map m = pr.getResponse("allusers");
+        ArrayList<User> listT = pr.getTeamM(m);
         FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
 
         for (int i = 0; i < listT.size(); i++) {
 
-            Project p = listT.get(i);
+            User t = listT.get(i);
 
             Container c = new Container(BoxLayout.x());
 
-            c.setName(p.getName());
-            addButtonBottom(arrowDown, c, p);
+            c.setName(t.getName());
+            addButtonBottom(arrowDown, c, t);
 
         }
         fab.addActionListener((evt) -> {
-            new AddProject(res).show();
+            new AddTeam(res).show();
         });
         setupSideMenu(res);
     }
 
-    private void addButtonBottom(Image arrowDown, Container c, Project p) {
+    private void addButtonBottom(Image arrowDown, Container c, User p) {
         MultiButton finishLandingPage = new MultiButton(c.getName());
         finishLandingPage.setEmblem(arrowDown);
         finishLandingPage.setUIID("ProjectItem");
@@ -117,7 +101,29 @@ public class ProjectsForm extends SideMenuBaseForm {
         add(BoxLayout.encloseY(finishLandingPage));
         Button gt = new Button();
         gt.addActionListener((evt) -> {
-            new ProjectDetailsForm(res, this, p).show();
+            InteractionDialog dlg = new InteractionDialog("Affect user to this team");
+            dlg.setLayout(new FlowLayout(CENTER,CENTER));
+            ComboBox role = new ComboBox<String>("choose Team role","Developer","Product Owner");
+            role.setActAsSpinnerDialog(true);
+            role.setSelectedIndex(0);
+            dlg.add(role);
+            Button submit = new Button("Submit");
+            Button close = new Button("Cancel");
+            close.addActionListener((ee) -> dlg.dispose());
+            submit.addActionListener((ee) -> {
+                ServiceTeam pr = new ServiceTeam();
+               if( pr.affecter(team,p,role.getSelectedIndex())){
+                                   dlg.dispose(); 
+
+               }
+               else {
+                   
+               }
+                    });
+            dlg.addComponent(submit);
+            dlg.addComponent(close);
+            Dimension pre = dlg.getContentPane().getPreferredSize();
+            dlg.show(10, 10, 10, 10);
         });
         finishLandingPage.setLeadComponent(gt);
     }
@@ -150,23 +156,7 @@ public class ProjectsForm extends SideMenuBaseForm {
 
     @Override
     protected void showProjects(Resources res) {
-         new ProjectsForm(res, this).show();
-             //   new CalendarForm(res).show();
-
-       /* DropboxAccess.setConsumerKey("4wwgb8kt70pr31r");
-        DropboxAccess.setConsumerSecret("rhm6b48dzsl166g");
-        DropboxAccess.getInstance().showAuthentication(new ActionListener() {
-            @Override
-
-            public void actionPerformed(ActionEvent evt) {
-                if (evt.getSource() != null) {
-                    Dropbox drop = new Dropbox();
-                    drop.showDropboxFilePicker(true);
-                }
-            }
-
-        });*/
-
+        new ProjectsForm(res, this).show();
     }
 
     @Override
