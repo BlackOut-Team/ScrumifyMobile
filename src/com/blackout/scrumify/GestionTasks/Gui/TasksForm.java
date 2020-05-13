@@ -115,25 +115,9 @@ Container remainingTasks = BoxLayout.encloseY(
         
         //kn clika ala doing
         Events.addActionListener(l->{
-             ArrayList<Tasks> listT = null;
             if(Events.isSelected())
             {
-             TasksService pr = new TasksService();
-            Map m = pr.getResponse("Tasks/show");
-        
-             listT = pr.getAllTasks(m);
-            FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
-
-        for (int i = 0; i < listT.size(); i++) {
-            Tasks p = listT.get(i);
-            if (p.getStatus().equals("Done")){
-                System.out.println(p.getTitle());
-            Container c = new Container(BoxLayout.x());
-
-            c.setName(p.getTitle());
-            addButtonBottom(arrowDown, c, p);}
-
-            }
+                System.out.println("tt");
             }
         });
         //kn clika ala done
@@ -158,8 +142,23 @@ Container remainingTasks = BoxLayout.encloseY(
   
         add(new Label("Tasks", "TodayTitle"));
 
-        
+        FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
+
+             TasksService pr = new TasksService();
+             Map m = pr.getResponse("Tasks/show");
+             ArrayList<Tasks> listT = null;
+
+             listT = pr.getAllTasks(m);
+           
+        for (int i = 0; i < listT.size(); i++) {
+            Tasks p = listT.get(i);
        
+            Container c = new Container(BoxLayout.x());
+
+            c.setName(p.getTitle());
+            addButtonBottom(arrowDown, c, p);
+
+            }
         fab.addActionListener((evt) -> {
             new AddTasks(res).show();
         });

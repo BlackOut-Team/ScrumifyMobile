@@ -109,7 +109,7 @@ public class TasksService {
     
     
     public static Map<String, Object> getResponse(String url) {
-        url = "http://localhost/scrumify/web/app_dev.php/" + url;
+        url = "http://localhost/scrumifyApi/web/app_dev.php/" + url;
         System.out.println(url);
         ConnectionRequest r = new ConnectionRequest();
         r.setUrl(url);
@@ -157,7 +157,7 @@ public class TasksService {
     }
 
     public void archive(Tasks p) {
-        String url = "http://localhost/scrumify/web/app_dev.php/Tasks/archive/" + p.getId();
+        String url = "http://localhost/scrumifyApi/web/app_dev.php/Tasks/archive/" + p.getId();
         ConnectionRequest con = new ConnectionRequest();
         con.setUrl(url);
         con.setPost(true);
