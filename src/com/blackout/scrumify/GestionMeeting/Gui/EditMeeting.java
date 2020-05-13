@@ -3,19 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.blackout.scrumify.GestionTasks.Gui;
+package com.blackout.scrumify.GestionMeeting.Gui;
 
+import com.blackout.scrumify.GestionMeeting.Entities.Meeting;
+import com.blackout.scrumify.GestionMeeting.Services.MeetingService;
 import com.blackout.scrumify.GestionProjets.Entities.Project;
-import com.blackout.scrumify.GestionProjets.Gui.AddProject;
 import com.blackout.scrumify.GestionProjets.Gui.Dashboard;
-import com.blackout.scrumify.GestionProjets.Gui.ProjectDetailsForm;
-import com.blackout.scrumify.GestionProjets.Gui.ProjectsForm;
-import com.blackout.scrumify.GestionProjets.Services.ServiceProjet;
-import com.blackout.scrumify.GestionTasks.Entities.Tasks;
-import com.blackout.scrumify.GestionTasks.Services.TasksService;
-import com.blackout.scrumify.GestionTeams.Entities.Team;
+import com.blackout.scrumify.GestionSprints.Entities.Sprint;
+import com.blackout.scrumify.GestionSprints.Services.ServiceSprint;
 import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
-import com.blackout.scrumify.GestionTeams.services.ServiceTeam;
 import com.blackout.scrumify.Utils.SideMenuBaseForm;
 import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.Button;
@@ -35,17 +31,19 @@ import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.util.Resources;
 import java.util.ArrayList;
 import java.util.Map;
-import javafx.scene.layout.Priority;
 
 /**
  *
- * @author Hidaya
+ * @author AmiraDoghri
  */
-public class EditTask extends SideMenuBaseForm {
+public class EditMeeting extends SideMenuBaseForm {
 
     SideMenuBaseForm current;
-
-    public EditTask(Resources res, Form previous, Tasks p) {
+    Project pp;
+    Meeting mm;
+    public EditMeeting(Resources res, Form previous, Meeting m,Project p ) {
+        this.mm = m;
+        this.pp = p;
         current = this;
         setTitle("Scrumify");
         setLayout(BoxLayout.y());
@@ -62,30 +60,47 @@ public class EditTask extends SideMenuBaseForm {
 
         setupSideMenu(res);
 
-        add(new Label("Edit Task", "TodayTitle"));
-        TextField title = new TextField(p.getTitle(), "Title");
-        TextField Description = new TextField(p.getDescription(), "Description");
-        TextField priority = new TextField(p.getDescription(), "Description"); 
+        add(new Label("Edit Meeting", "TodayTitle"));
+               TextField tfName = new TextField(m.getName(), "Name");
+        TextField tftype = new TextField(m.getType(), "type");
+        TextField tfplace = new TextField(m.getPlace(), "place");
+        Picker meetingDate = new Picker();
+        
+        
+        
+        meetingDate.setFormatter(new SimpleDateFormat("dd/MM/yyyy"));
+        meetingDate.setText(m.getMeetingDate()
+        );
+        ComboBox<String> sprint = new ComboBox<String>();
+        ServiceSprint ser = new ServiceSprint();
 
-     
+        Map x = ser.getResponse("Sprint/sprint/"+ p.getId());
+        System.out.println("Sprint/sprint/"+ p.getId());
+        ArrayList<Sprint> listT = ser.getAllSprints(x);
+        for (Sprint ev : listT) {
+            sprint.addItem(ev.getName());
+        }
 
         Button btnValider = new Button("Submit");
 
         btnValider.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                if ((title.getText().length() == 0) || (Description.getText().length() == 0)) {
+                if ((tfName.getText().length() == 0) || (meetingDate.getText().length() == 0) || (meetingDate.getValue() == null)) {
                     Dialog.show("Alert", "Please fill all the fields", new Command("OK"));
                 } else {
                     try {
 
-                      
-                        p.setTitle(title.getText());
-                        p.setDescription(Description.getText());
-                        p.setPriority(Integer.parseInt(priority.getText()));
-                        if(TasksService.getInstance().editTask(p)){
-                        new TasksDetailsForm(res, current, p).show();}
+                  
 
+                        int ind = sprint.getSelectedIndex();
+                        Sprint te = listT.get(ind);
+                        int sprintId = te.getId();
+                        Meeting m = new Meeting(mm.getId(),tfName.getText(), tfplace.getText(), tftype.getText(),Integer.toString(sprintId), meetingDate.getText());
+                        if(MeetingService.getInstance().editMeeting(m)){
+                        new MeetingsForm(res, current ,pp).show();
+                        }
+                       
                     } catch (NumberFormatException e) {
                         Dialog.show("ERROR", "type", new Command("OK"));
                     }
@@ -94,14 +109,13 @@ public class EditTask extends SideMenuBaseForm {
 
             }
         });
-
-        addAll(title, Description, priority, btnValider);
+         addAll(tfName, tftype, tfplace, meetingDate, sprint, btnValider);
 
     }
 
     @Override
     protected void showOtherForm(Resources res) {
-        new AddProject(res).show();
+        new AddMeeting(res, pp).show();
     }
 
     @Override
@@ -111,16 +125,17 @@ public class EditTask extends SideMenuBaseForm {
 
     @Override
     protected void showProjects(Resources res) {
-        new ProjectsForm(res, this).show();
+        new MeetingsForm(res, this, pp).show();
     }
-
+    
     @Override
     protected void showTeamForm(Resources res) {
         new TeamForm(res, this).show();
     }
 
-   @Override
+    @Override
     protected void showTasks(Resources res) {
-         new TasksForm(res).show();
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 }

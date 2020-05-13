@@ -63,7 +63,7 @@ public class LoginForm extends Form {
         setUIID("LoginForm");
         Container welcome = FlowLayout.encloseCenter(
                 new Label("Welcome, ", "WelcomeWhite"),
-                new Label("Scrimifyer", "WelcomeWhite")
+                new Label("Scrumifyer", "WelcomeWhite")
         );
          current=this;
 
