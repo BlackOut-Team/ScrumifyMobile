@@ -20,7 +20,11 @@ import com.blackout.scrumify.Utils.SideMenuBaseForm;
 import com.codename1.components.FloatingActionButton;
 import com.codename1.components.MultiButton;
 import com.blackout.scrumify.Dropbox.DropboxAccess;
+import com.blackout.scrumify.GestionUsers.entities.User;
+import com.blackout.scrumify.Utils.Session;
+import com.blackout.scrumify.Utils.Statics;
 import com.codename1.io.Preferences;
+import com.codename1.io.Storage;
 import com.codename1.ui.Button;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
@@ -81,7 +85,11 @@ public class ProjectsForm extends SideMenuBaseForm {
         add(new Label("Projects", "TodayTitle"));
 
         ServiceProjet pr = new ServiceProjet();
-        Map m = ServiceProjet.getResponse("Project/showP/2");
+      
+        System.out.println(Session.getInstace().u);
+        System.out.println(Session.getInstace().u);
+        
+        Map m = ServiceProjet.getResponse("Project/showP/"+ Preferences.get("user", 0));
         ArrayList<Project> listT = pr.getAllProjects(m);
         FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
 
@@ -142,8 +150,8 @@ public class ProjectsForm extends SideMenuBaseForm {
 
     @Override
     protected void showProjects(Resources res) {
-        // new ProjectsForm(res, this).show();
-                new CalendarForm(res).show();
+         new ProjectsForm(res, this).show();
+             //   new CalendarForm(res).show();
 
        /* DropboxAccess.setConsumerKey("4wwgb8kt70pr31r");
         DropboxAccess.setConsumerSecret("rhm6b48dzsl166g");

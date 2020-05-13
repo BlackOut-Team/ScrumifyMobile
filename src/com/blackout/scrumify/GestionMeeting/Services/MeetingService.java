@@ -49,33 +49,55 @@ import java.util.Map;
     }
 
     public boolean addMeeting(Meeting m) {
-        //
-        return true;
+          String url = "http://localhost/scrumifyApi/web/app_dev.php/Meeting/Add?name=" + m.getName() + "&type=" + m.getType()+ "&place=" + m.getPlace()+ "&sprint_id=" + m.getSprint()+ "&date=" + m.getMeetingDate();
+        ConnectionRequest con = new ConnectionRequest();
+        con.setUrl(url);
+        con.setPost(true);
+        con.addResponseListener((NetworkEvent evt) -> {
+
+            byte[] data = (byte[]) evt.getMetaData();
+            String s = new String(data);
+            System.out.println(s);
+            if (!s.contains("erreur")) {
+                Dialog.show("Confirmation", "success", "Ok", null);
+                ArrayList<Meeting> pr = parseMeetings(s);
+                m.setId(pr.get(0).getId());
+                System.out.println(m.getId());
+                 t= true;
+            } else {
+                Dialog.show("Erreur", "date", "Ok", null);
+                t=false;
+            }
+
+        });
+        NetworkManager.getInstance().addToQueueAndWait(con);
+       return t;
     }
 
     public boolean editMeeting(Meeting m) {
-       // return true;
-        return true;
+        
+          String url = "http://localhost/scrumifyApi/web/app_dev.php/update_meeting/"+m.getId()+"?name=" + m.getName() + "&type=" + m.getType()+ "&place=" + m.getPlace()+ "&sprint_id=" + m.getSprint()+ "&date=" + m.getMeetingDate();
+        ConnectionRequest con = new ConnectionRequest();
+        con.setUrl(url);
+        con.setPost(true);
+        con.addResponseListener((NetworkEvent evt) -> {
+            byte[] data = (byte[]) evt.getMetaData();
+            String s = new String(data);
+            System.out.println(s);
+            if (!s.contains("erreur")) {
+                Dialog.show("Confirmation", "success", "Ok", null);
+                t=true;
+
+            } else {
+                Dialog.show("Erreur", "date", "Ok", null);
+                t=false;
+
+            }
+        });
+
+        NetworkManager.getInstance().addToQueueAndWait(con);
+        return t ;
     }
-
-    public void archiveMeeting(Meeting m) {
-       //
-
-    }
-//      String url =  "http://localhost/scrumifyApi/web/app_dev.php/Project/Add?name="+t.getName()+"&description="+t.getDescription()+"&duedate="+t.getDuedate()+"&etat=1";
-//       String url;
-//            url = "http://localhost/scrumifyApi/web/app_dev.php/Project/Add?name=gg&description=ddd&etat=1";
-//       req.setUrl(url);
-//        req.addResponseListener(new ActionListener<NetworkEvent>() {
-//            @Override
-//            public void actionPerformed(NetworkEvent evt) {
-//                resultOK = req.getResponseCode() == 200; //Code HTTP 200 OK
-//                req.removeResponseListener(this);
-//            }
-//        });
-//        NetworkManager.getInstance().addToQueueAndWait(req);
-//        return resultOK;
-
     public ArrayList<Meeting> parseMeetings(String jsonText) {
         try {
 
@@ -121,7 +143,6 @@ import java.util.Map;
             t.setId((int) id);
             t.setName(f.get("name").toString());
             t.setPlace(f.get("place").toString());
-            t.setSprint(f.get("sprint").toString());
             t.setType(f.get("type").toString());
             
             Map<String, Object> MapMeetingDate = (Map<String, Object>) f.get("meetingDate");

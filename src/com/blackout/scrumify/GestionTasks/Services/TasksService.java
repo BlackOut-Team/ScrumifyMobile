@@ -52,7 +52,7 @@ public class TasksService {
     
      public boolean addTask(Tasks t) {
 
-        String url = Statics.BASE_URL + "Tasks/new?title=" + t.getTitle() + "&description=" + t.getDescription()+ "&Priority=" + t.getPriority() ;
+        String url = Statics.BASE_URL + "Tasks/new?title=" + t.getTitle() + "&description=" + t.getDescription()+ "&Priority=" + t.getPriority()+ "&user=1" ;
 
         req.setUrl(url);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -80,6 +80,7 @@ public class TasksService {
                 t.setPriority(((int)Float.parseFloat(obj.get("priority").toString())));
                 t.setTitle(obj.get("title").toString());
                 t.setDescription(obj.get("description").toString());
+                 t.setStatus(obj.get("status").toString());
 
                 tasks.add(t);
             }
@@ -108,7 +109,7 @@ public class TasksService {
     
     
     public static Map<String, Object> getResponse(String url) {
-        url = "http://localhost/scrumify/web/app_dev.php/" + url;
+        url = "http://localhost/scrumifyApi/web/app_dev.php/" + url;
         System.out.println(url);
         ConnectionRequest r = new ConnectionRequest();
         r.setUrl(url);

@@ -132,8 +132,8 @@ public class WalkthruForm extends Form {
         Component.setSameHeight(bottomSpace, bottomSpaceTab2, southLayout);
         
         // visual effects in the first show
-        this.addShowListener(e -> {
-        notesPlaceholder.getParent().replace(notesPlaceholder, notesLabel, CommonTransitions.createFade(1500));
+        addShowListener(e -> {
+        notesPlaceholder.getParent().replace(notesPlaceholder, notesLabel, CommonTransitions.createSlide(2,true,1500));
         });
     }    
 }
