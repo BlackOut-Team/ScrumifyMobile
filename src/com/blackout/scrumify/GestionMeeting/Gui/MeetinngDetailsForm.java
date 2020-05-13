@@ -10,12 +10,9 @@ import com.blackout.scrumify.GestionMeeting.Services.MeetingService;
 import com.blackout.scrumify.GestionProjets.Entities.Project;
 import com.blackout.scrumify.GestionProjets.Gui.AddProject;
 import com.blackout.scrumify.GestionProjets.Gui.Dashboard;
-import com.blackout.scrumify.GestionProjets.Gui.EditProject;
 import com.blackout.scrumify.Utils.SideMenuBaseForm;
-import com.codename1.io.ConnectionRequest;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
-import com.codename1.ui.Dialog;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
@@ -71,8 +68,6 @@ SideMenuBaseForm current ;
             rightContainer.add(new Label( "Name : " +m.getName()));
             rightContainer.add(new Label( "Type : " +m.getType()));
             rightContainer.add(new Label( "place : " +m.getPlace()));
-            rightContainer.add(new Label( "sprint : " +m.getSprint()));
-            rightContainer.add(new Label(m.getPlace() + ""));
             add(rightContainer);
         setupSideMenu(res);
         
@@ -87,7 +82,7 @@ SideMenuBaseForm current ;
         edit.addActionListener((evt) -> {
                         System.out.println(p.getId());
 
-         new EditProject(res,previous, p).show();
+         new EditMeeting(res,previous,m, p).show();
              
         });
         

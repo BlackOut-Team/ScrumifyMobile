@@ -9,7 +9,6 @@ import com.blackout.scrumify.GestionMeeting.Entities.Meeting;
 import com.blackout.scrumify.GestionMeeting.Services.MeetingService;
 import com.blackout.scrumify.GestionProjets.Gui.*;
 import com.blackout.scrumify.GestionProjets.Entities.Project;
-import com.blackout.scrumify.GestionProjets.Services.ServiceProjet;
 import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
 import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
@@ -24,7 +23,6 @@ import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.FlowLayout;
-import com.codename1.ui.layouts.GridLayout;
 import java.util.ArrayList;
 import java.util.Map;
 import com.codename1.ui.util.Resources;
@@ -76,9 +74,6 @@ Container titleCmp = BoxLayout.encloseY(
             Label sprint = new Label();
             Label type = new Label();
             Label place = new Label();
-            place.setText("place :" + mm.getPlace());
-            type.setText("type :"+mm.getType());
-            sprint.setText("sprint :"+mm.getSprint());
             c.setName(mm.getName());    
             addButtonBottom(arrowDown, c, mm,p);
 
