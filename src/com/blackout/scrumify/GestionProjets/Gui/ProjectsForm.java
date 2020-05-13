@@ -87,7 +87,7 @@ public class ProjectsForm extends SideMenuBaseForm {
         ServiceProjet pr = new ServiceProjet();
       
         System.out.println(Session.getInstace().u);
-        System.out.println(Session.getInstace().u);
+        System.out.println(Preferences.get("user", 0) );
         
         Map m = ServiceProjet.getResponse("Project/showP/"+ Preferences.get("user", 0));
         ArrayList<Project> listT = pr.getAllProjects(m);

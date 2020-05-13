@@ -23,12 +23,15 @@ import com.codename1.ui.FontImage;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
-import static com.codename1.ui.events.ActionEvent.Type.Response;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.util.Resources;
+import com.codename1.ui.validation.LengthConstraint;
+import com.codename1.ui.validation.NumericConstraint;
+import com.codename1.ui.validation.RegexConstraint;
 import com.codename1.util.Base64;
+//import javax.xml.validation.Validator;
 
 /**
  *
@@ -44,6 +47,7 @@ public class AddTasks extends SideMenuBaseForm {
         getToolbar().setTitleCentered(false);
         Button menuButton = new Button("");
         menuButton.setUIID("Title");
+        
         FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
 
         menuButton.addActionListener(e -> getToolbar().openSideMenu());
@@ -74,19 +78,16 @@ public class AddTasks extends SideMenuBaseForm {
 
                        
                        Tasks t = new Tasks(title.getText(),description.getText(),Integer.parseInt(priority.getText()));
-                        if(TasksService.getInstance().addTask(t)){
-                            
-                            
-                            String accountSID ="AC281a4050a2fa765a6416e63c72e4a429";
+                        String accountSID ="AC281a4050a2fa765a6416e63c72e4a429";
                 String authToken="96a86e815be268272e998a84f59b7669";
 Response<java.util.Map> result = Rest.post("https://api.twilio.com/2010-04-01/Accounts/" + accountSID + "/Messages.json").
                 queryParam("To", "+21623668213").
-queryParam("From","+12058468149").
-queryParam("Body", "Felicitation  Votre Colis a éte Livré \n Rendez Vous Sur Notre Site WWW.Taxico.com <3 \n Bonne Journée.").
+     queryParam("From","+12058468149").
+     queryParam("Body", "Felicitation  Votre Tache  a éte ajouter \n Rendez Vous Sur Notre Site WWW.scrumify.com  \n Bonne Journée.").
         header("Authorization", "Basic " + Base64.encodeNoNewline((accountSID + ":" + authToken).getBytes())).
         getAsJsonMap();
-                            
-                            
+                        if(TasksService.getInstance().addTask(t)){
+                               
                         new TasksForm(res).show();
                         }
                        

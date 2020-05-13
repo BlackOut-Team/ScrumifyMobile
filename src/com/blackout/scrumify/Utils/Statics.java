@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
  *
- * @author bhk
+ * @author  
  */
 public class Statics {
     public static final String BASE_URL="http://localhost/scrumifyApi/web/app_dev.php/";

@@ -4,12 +4,9 @@
  * and open the template in the editor.
  */
 package com.blackout.scrumify.GestionTeams.Gui;
-import com.blackout.scrumify.GestionProjets.Entities.Project;
 import com.blackout.scrumify.GestionProjets.Gui.AddProject;
 import com.blackout.scrumify.GestionProjets.Gui.Dashboard;
-import com.blackout.scrumify.GestionProjets.Gui.ProjectDetailsForm;
 import com.blackout.scrumify.GestionProjets.Gui.ProjectsForm;
-import com.blackout.scrumify.GestionProjets.Services.ServiceProjet;
 import com.blackout.scrumify.GestionTasks.Gui.TasksForm;
 import com.blackout.scrumify.GestionTeams.Entities.Team;
 import com.blackout.scrumify.GestionTeams.services.ServiceTeam;
@@ -18,7 +15,6 @@ import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.util.Resources;
 import com.blackout.scrumify.Utils.SideMenuBaseForm;
 import com.codename1.components.FloatingActionButton;
 import com.codename1.components.MultiButton;

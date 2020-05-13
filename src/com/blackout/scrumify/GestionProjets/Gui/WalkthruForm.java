@@ -31,6 +31,8 @@ import com.codename1.ui.RadioButton;
 import com.codename1.ui.Tabs;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.animations.CommonTransitions;
+import com.codename1.ui.events.ActionEvent;
+import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.events.SelectionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
@@ -132,8 +134,8 @@ public class WalkthruForm extends Form {
         Component.setSameHeight(bottomSpace, bottomSpaceTab2, southLayout);
         
         // visual effects in the first show
-        addShowListener(e -> {
-        notesPlaceholder.getParent().replace(notesPlaceholder, notesLabel, CommonTransitions.createSlide(2,true,1500));
+        addShowListener((ActionListener) (ActionEvent e) -> {
+            notesPlaceholder.getParent().replace(notesPlaceholder, notesLabel, CommonTransitions.createSlide(2,true,1500));
         });
     }    
 }

@@ -157,7 +157,7 @@ public class TasksService {
     }
 
     public void archive(Tasks p) {
-        String url = "http://localhost/scrumify/web/app_dev.php/Tasks/archive/" + p.getId();
+        String url = "http://localhost/scrumifyApi/web/app_dev.php/Tasks/archive/" + p.getId();
         ConnectionRequest con = new ConnectionRequest();
         con.setUrl(url);
         con.setPost(true);
