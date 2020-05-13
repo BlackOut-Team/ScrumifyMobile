@@ -80,6 +80,7 @@ public class TasksService {
                 t.setPriority(((int)Float.parseFloat(obj.get("priority").toString())));
                 t.setTitle(obj.get("title").toString());
                 t.setDescription(obj.get("description").toString());
+                 t.setStatus(obj.get("status").toString());
 
                 tasks.add(t);
             }
