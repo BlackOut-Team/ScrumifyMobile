@@ -5,16 +5,16 @@
  */
 package com.blackout.scrumify.GestionTeams.Gui;
 
-import com.blackout.scrumify.GestionProjets.Entities.Project;
 import com.blackout.scrumify.GestionProjets.Gui.AddProject;
 import com.blackout.scrumify.GestionProjets.Gui.Dashboard;
-import com.blackout.scrumify.GestionProjets.Gui.EditProject;
 import com.blackout.scrumify.GestionProjets.Gui.ProjectsForm;
-import com.blackout.scrumify.GestionProjets.Services.ServiceProjet;
 import com.blackout.scrumify.GestionTasks.Gui.TasksForm;
 import com.blackout.scrumify.GestionTeams.Entities.Team;
+import com.blackout.scrumify.GestionTeams.gui.DisplayAllForm;
 import com.blackout.scrumify.GestionTeams.services.ServiceTeam;
+import com.blackout.scrumify.GestionUsers.entities.User;
 import com.blackout.scrumify.Utils.SideMenuBaseForm;
+import com.codename1.components.MultiButton;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
@@ -27,6 +27,8 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.util.Resources;
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  *
@@ -73,16 +75,34 @@ public class TeamDetailsForm extends SideMenuBaseForm {
            
             add(rightContainer);
         setupSideMenu(res);
+        ServiceTeam pr = new ServiceTeam();
+        Map m = pr.getResponse("teammembers/"+p.getId());
+        ArrayList<User> listT = pr.getTeamM(m);
+        FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
+
+        for (int i = 0; i < listT.size(); i++) {
+
+            User t = listT.get(i);
+
+            Container c = new Container(BoxLayout.x());
+
+            c.setName(t.getName());
+            addButtonBottom(arrowDown, c, t);
+
+        }
         
         Button edit = new Button("EDIT Team");
         Button archive = new Button("ARCHIVE");
+        Button fab =  new Button(FontImage.MATERIAL_ADD);
 
         edit.setUIID("LoginButton");
         archive.setUIID("LoginButton");
-
-        add(BoxLayout.encloseYBottom(edit,archive));
+     
+        add(BoxLayout.encloseXRight(fab,edit,archive));
     
-                    
+        fab.addActionListener((evt) -> {
+            new DisplayAllForm(res, current,p).show();
+             });
         edit.addActionListener((evt) -> {
                         System.out.println(p.getId());
 
@@ -95,7 +115,19 @@ public class TeamDetailsForm extends SideMenuBaseForm {
                         new TeamForm(res, current).show();
         });
     }
-
+ private void addButtonBottom(Image arrowDown, Container c, User p) {
+        MultiButton finishLandingPage = new MultiButton(c.getName());
+        finishLandingPage.setEmblem(arrowDown);
+        finishLandingPage.setUIID("ProjectItem");
+        finishLandingPage.setUIIDLine1("TodayEntry");
+        add(BoxLayout.encloseY(finishLandingPage));
+        Button gt = new Button();
+         gt.addActionListener((evt) -> {
+            //new TeamDetailsForm(res, this, p).show();
+            
+        });
+       finishLandingPage.setLeadComponent(gt);
+    }
   @Override
     protected void showOtherForm(Resources res) {
         new AddProject(res).show();

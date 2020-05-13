@@ -58,7 +58,7 @@ public class Scrumify {
             current.show();
             return;
         }
-        new TasksForm(theme).show();
+        new LoginForm(theme).show();
     }
 
     public void stop() {
