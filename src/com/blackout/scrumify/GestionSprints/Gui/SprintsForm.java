@@ -21,6 +21,7 @@ import com.codename1.ui.util.Resources;
 import com.blackout.scrumify.Utils.SideMenuBaseForm;
 import com.codename1.components.FloatingActionButton;
 import com.codename1.components.MultiButton;
+import com.codename1.io.Preferences;
 import com.codename1.ui.Button;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
@@ -51,7 +52,6 @@ public class SprintsForm extends SideMenuBaseForm {
         FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
 
         menuButton.addActionListener(e -> getToolbar().openSideMenu());
-
         Container Allsprints = BoxLayout.encloseY(
                 new Label("All ", "CenterTitle")
         );

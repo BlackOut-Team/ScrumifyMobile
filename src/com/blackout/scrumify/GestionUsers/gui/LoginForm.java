@@ -63,7 +63,7 @@ public class LoginForm extends Form {
         setUIID("LoginForm");
         Container welcome = FlowLayout.encloseCenter(
                 new Label("Welcome, ", "WelcomeWhite"),
-                new Label("Jennifer", "WelcomeBlue")
+                new Label("Scrimifyer", "WelcomeWhite")
         );
          current=this;
 
@@ -148,7 +148,7 @@ public class LoginForm extends Form {
         System.out.println(data);
          Storage session = new Storage();
          session.writeObject("session", data);
-         System.out.println(Storage.getInstance().listEntries() );
+         System.out.println((Map)Storage.getInstance().readObject("session") );
             return true;
             
         }
