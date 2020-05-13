@@ -34,7 +34,6 @@ public class ProjectDetailsForm extends SideMenuBaseForm {
     public ProjectDetailsForm(Resources res, Form previous,Project p) {
         super(BoxLayout.y());
         current=this;
-
         getToolbar().setTitleCentered(false);
         ActionListener ev = new ActionListener() {
             @Override
@@ -81,8 +80,7 @@ public class ProjectDetailsForm extends SideMenuBaseForm {
         sprints.setUIID("LoginButton");
         meeting.setUIID("LoginButton");
 
-        add(BoxLayout.encloseYBottom(edit,archive,meeting));
-        add(BoxLayout.encloseXRight(edit,archive,sprints));
+        add(BoxLayout.encloseXRight(edit,archive,sprints,meeting));
         
         edit.addActionListener((evt) -> {
                         System.out.println(p.getId());

@@ -17,13 +17,6 @@ public class Meeting {
     private String meetingDate;
     private String sprint;
 
-    public String getSprint() {
-        return sprint;
-    }
-
-    public void setSprint(String sprint) {
-        this.sprint = sprint;
-    }
     public Meeting(){
     }
     public Meeting(String name, String place,String type,String sprint,String meetingDate) {
@@ -34,7 +27,7 @@ public class Meeting {
          this.meetingDate = meetingDate;
     }
 
-    public Meeting(int id, String name, String place,String type,String meetingDate) {
+    public Meeting(int id, String name, String place,String type,String sprint,String meetingDate) {
         this.id = id;
         this.name = name;
         this.place = place;
@@ -42,48 +35,55 @@ public class Meeting {
         this.meetingDate = meetingDate;
     }
 
-      public Meeting( String name, String place,String type,String meetingDate) {
-        this.name = name;
-        this.place = place;
-        this.type = type;
-    }
-
-
     public int getId() {
         return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getPlace() {
-        return place;
-    }
- public String getType() {
-        return type;
-    }
-    public String getMeetingDate() {
-        return meetingDate;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPlace() {
+        return place;
     }
 
     public void setPlace(String place) {
         this.place = place;
     }
-      public void setType(String type) {
-        this.name = type;
+
+    public String getType() {
+        return type;
     }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getMeetingDate() {
+        return meetingDate;
+    }
+
     public void setMeetingDate(String meetingDate) {
         this.meetingDate = meetingDate;
     }
+
+    public String getSprint() {
+        return sprint;
+    }
+
+    public void setSprint(String sprint) {
+        this.sprint = sprint;
+    }
+
+
 
     @Override
     public String toString() {

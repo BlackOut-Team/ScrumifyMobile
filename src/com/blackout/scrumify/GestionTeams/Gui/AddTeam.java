@@ -5,38 +5,24 @@
  */
 package com.blackout.scrumify.GestionTeams.Gui;
 
-import com.blackout.scrumify.GestionProjets.Entities.Project;
 import com.blackout.scrumify.GestionProjets.Gui.AddProject;
 import com.blackout.scrumify.GestionProjets.Gui.Dashboard;
 import com.blackout.scrumify.GestionProjets.Gui.ProjectsForm;
-import com.blackout.scrumify.GestionProjets.Services.ServiceProjet;
 import com.blackout.scrumify.GestionTasks.Gui.TasksForm;
 import com.blackout.scrumify.GestionTeams.Entities.Team;
 import com.blackout.scrumify.GestionTeams.services.ServiceTeam;
 import com.blackout.scrumify.Utils.SideMenuBaseForm;
-import com.codename1.components.FloatingActionButton;
-import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.Button;
-import com.codename1.ui.ComboBox;
 import com.codename1.ui.Command;
-import static com.codename1.ui.Component.BOTTOM;
-import static com.codename1.ui.Component.RIGHT;
-import static com.codename1.ui.Component.TOP;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.FontImage;
-import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
-import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
-import com.codename1.ui.layouts.GridLayout;
-import com.codename1.ui.spinner.Picker;
-import java.util.ArrayList;
-import java.util.Map;
 import com.codename1.ui.util.Resources;
 
 /**

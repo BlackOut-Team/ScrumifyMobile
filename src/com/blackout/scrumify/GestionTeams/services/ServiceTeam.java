@@ -7,12 +7,14 @@ package com.blackout.scrumify.GestionTeams.services;
 
 import com.blackout.scrumify.GestionProjets.Entities.Project;
 import com.blackout.scrumify.GestionTeams.Entities.Team;
+import com.blackout.scrumify.GestionUsers.entities.User;
 import com.codename1.components.InfiniteProgress;
 import com.codename1.io.CharArrayReader;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
+import com.codename1.io.Preferences;
 import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.Dialog;
 import java.io.ByteArrayInputStream;
@@ -118,6 +120,56 @@ public class ServiceTeam {
         return listT;
 
     }
+     public ArrayList<User> getTeamM(Map m){
+        ArrayList<User> listM = new ArrayList<>();
+        ArrayList d = (ArrayList)m.get("root");
+        if(d != null) {
+        for(int i = 0; i<d.size();i++){
+            Map f =  (Map) d.get(i);
+            User t = new User();
+            Double ll = (Double) f.get("id");
+            t.setId(ll.intValue());
+            
+          
+            t.setName((String)f.get("username"));
+      
+           
+                 
+            
+           
+
+            listM.add(t);  
+        }     
+        }
+        
+        return listM;
+
+    }
+      public ArrayList<User> getAllusers(Map m){
+        ArrayList<User> listM = new ArrayList<>();
+        ArrayList d = (ArrayList)m.get("root");
+        if(d != null) {
+        for(int i = 0; i<d.size();i++){
+            Map f =  (Map) d.get(i);
+            User t = new User();
+            Double ll = (Double) f.get("id");
+            t.setId(ll.intValue());
+            
+          
+            t.setName((String)f.get("username"));
+      
+           
+                 
+            
+           
+
+            listM.add(t);  
+        }     
+        }
+        
+        return listM;
+
+    }
      public static Map<String, Object> getResponse(String url){
         url = "http://localhost/scrumifyApi/web/app_dev.php/"+url;
         ConnectionRequest r = new ConnectionRequest();
@@ -145,7 +197,8 @@ public class ServiceTeam {
      
      
      public boolean addTeam(Team tm) {
-        String url = "http://localhost/scrumifyApi/web/app_dev.php/ajm?name=" + tm.getName();
+
+        String url = "http://localhost/scrumifyApi/web/app_dev.php/ajm?user="+Preferences.get("user", 0)+"&name=" + tm.getName();
         ConnectionRequest con = new ConnectionRequest();
         con.setUrl(url);
         con.setPost(true);
@@ -162,6 +215,32 @@ public class ServiceTeam {
                  t= true;
             } else {
                 Dialog.show("Erreur", "date", "Ok", null);
+                t=false;
+            }
+
+        });
+        NetworkManager.getInstance().addToQueueAndWait(con);
+       return t;
+
+    }
+       public boolean affecter(Team tm,User u,int Role) {
+        Role = Role+1;
+           System.out.println(Role);
+        String url = "http://localhost/scrumifyApi/web/app_dev.php/affecterT?user_id="+u.getId()+"&team_id=" + tm.getId()+"&role=" + Role;
+           System.out.println(url);
+        ConnectionRequest con = new ConnectionRequest();
+        con.setUrl(url);
+        con.setPost(true);
+        con.addResponseListener((NetworkEvent evt) -> {
+
+            byte[] data = (byte[]) evt.getMetaData();
+            String s = new String(data);
+            System.out.println(s);
+            if (!s.contains("erreur")) {
+                Dialog.show("Confirmation", "success", "Ok", null);
+                 t= true;
+            } else {
+                Dialog.show("Erreur", "Utilisateur existe déja dans cette équipe", "Ok", null);
                 t=false;
             }
 
