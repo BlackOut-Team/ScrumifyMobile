@@ -5,34 +5,32 @@
  */
 package com.blackout.scrumify.GestionTasks.Gui;
 
-import com.blackout.scrumify.GestionProjets.Entities.Project;
 import com.blackout.scrumify.GestionProjets.Gui.AddProject;
 import com.blackout.scrumify.GestionProjets.Gui.Dashboard;
 import com.blackout.scrumify.GestionProjets.Gui.ProjectsForm;
-import com.blackout.scrumify.GestionProjets.Services.ServiceProjet;
 import com.blackout.scrumify.GestionTasks.Entities.Tasks;
 import com.blackout.scrumify.GestionTasks.Services.TasksService;
 import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
-import static com.blackout.scrumify.GestionTeams.Gui.TeamForm.res;
 import com.blackout.scrumify.Utils.SideMenuBaseForm;
 import com.codename1.components.FloatingActionButton;
 import com.codename1.components.MultiButton;
 import com.codename1.ui.Button;
-import static com.codename1.ui.Component.BOTTOM;
+import com.codename1.ui.ButtonGroup;
 import static com.codename1.ui.Component.RIGHT;
 import static com.codename1.ui.Component.TOP;
 import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
-import com.codename1.ui.Form;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
+import com.codename1.ui.RadioButton;
+import com.codename1.ui.Tabs;
 import com.codename1.ui.events.ActionEvent;
-import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.layouts.GridLayout;
+import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.util.Resources;
 import java.util.ArrayList;
 import java.util.Map;
@@ -57,21 +55,97 @@ public class TasksForm extends SideMenuBaseForm {
         menuButton.setUIID("Title");
         Label name= new Label();
         FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
-
+ Image profilePic = res.getImage("user-picture.jpg");
+        Image mask = res.getImage("round-mask.png");
+        profilePic = profilePic.fill(mask.getWidth(), mask.getHeight());
+        Label profilePicLabel = new Label(profilePic, "ProfilePicTitle");
+        profilePicLabel.setMask(mask.createMask());
         menuButton.addActionListener(e -> getToolbar().openSideMenu());
 
         
-  
+     Tabs swipe = new Tabs();
+
+        swipe.setUIID("Container");
+        swipe.getContentPane().setUIID("Container");
+        swipe.hideTabs();
+Container remainingTasks = BoxLayout.encloseY(
+                        new Label("12", "CenterTitle"),
+                        new Label("remaining tasks", "CenterSubTitle")
+                );
+        remainingTasks.setUIID("RemainingTasks");
+        Container completedTasks = BoxLayout.encloseY(
+                        new Label("32", "CenterTitle"),
+                        new Label("completed tasks", "CenterSubTitle")
+        );
+        completedTasks.setUIID("CompletedTasks");
+
+        Container titleCmp = BoxLayout.encloseY(
+                        FlowLayout.encloseIn(menuButton),
+                        BorderLayout.centerAbsolute(
+                                BoxLayout.encloseY(
+                                    new Label("Hidaya Mcharek", "Title"),
+                                    new Label("Developer", "SubTitle")
+                                )
+                            ).add(BorderLayout.WEST, profilePic),
+                        GridLayout.encloseIn(2, remainingTasks, completedTasks)
+                );
         
+        
+        
+        ButtonGroup barGroup = new ButtonGroup();
+        RadioButton all = RadioButton.createToggle("To Do ", barGroup);
+        all.setUIID("SelectBar");
+        RadioButton Services = RadioButton.createToggle("Done", barGroup);
+        Services.setUIID("SelectBar");
+        RadioButton Events = RadioButton.createToggle("Doing", barGroup);
+        Events.setUIID("SelectBar");
+       
+        Label arrow = new Label(res.getImage("news-tab-down-arrow.png"), "Container");
+        add(LayeredLayout.encloseIn(
+                GridLayout.encloseIn(4, all, Services, Events),
+                FlowLayout.encloseBottom(arrow)
+        ));
+        //kn clika ala to do 
+        Services.addActionListener(l->{
+            if(Services.isSelected())
+            {
+            System.out.println("Taxi");
+            }
+        });
+        
+        //kn clika ala doing
+        Events.addActionListener(l->{
+             ArrayList<Tasks> listT = null;
+            if(Events.isSelected())
+            {
+             TasksService pr = new TasksService();
+            Map m = pr.getResponse("Tasks/show");
+        
+             listT = pr.getAllTasks(m);
+            FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
+
+        for (int i = 0; i < listT.size(); i++) {
+            Tasks p = listT.get(i);
+            if (p.getStatus().equals("Done")){
+                System.out.println(p.getTitle());
+            Container c = new Container(BoxLayout.x());
+
+            c.setName(p.getTitle());
+            addButtonBottom(arrowDown, c, p);}
+
+            }
+            }
+        });
+        //kn clika ala done
+        all.addActionListener(l->{
+            if(all.isSelected())
+            {
+            System.out.println("all");
+            }
+        });
        
         
-        Container titleCmp = BoxLayout.encloseY(
-                FlowLayout.encloseIn(menuButton),
-                BorderLayout.centerAbsolute(
-                        BoxLayout.encloseY()
-                ),
-                GridLayout.encloseIn()
-        );
+       
 
         FloatingActionButton fab = FloatingActionButton.createFAB(FontImage.MATERIAL_ADD);
         fab.getAllStyles().setMarginUnit(Byte.MAX_VALUE);
@@ -85,20 +159,7 @@ public class TasksForm extends SideMenuBaseForm {
         add(new Label("Tasks", "TodayTitle"));
 
         
-        TasksService pr = new TasksService();
-        Map m = pr.getResponse("Tasks/show");
-        ArrayList<Tasks> listT = pr.getAllTasks(m);
-        FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
-
-        for (int i = 0; i < listT.size(); i++) {
-      Tasks p = listT.get(i);
-
-            Container c = new Container(BoxLayout.x());
-
-            c.setName(p.getTitle());
-            addButtonBottom(arrowDown, c, p);
-
-        }
+       
         fab.addActionListener((evt) -> {
             new AddTasks(res).show();
         });
@@ -110,6 +171,7 @@ public class TasksForm extends SideMenuBaseForm {
         finishLandingPage.setEmblem(arrowDown);
         finishLandingPage.setUIID("ProjectItem");
         finishLandingPage.setUIIDLine1("TodayEntry");
+       
         add(BoxLayout.encloseY(finishLandingPage));
         Button gt = new Button();
          gt.addActionListener((ActionEvent evt) -> {
