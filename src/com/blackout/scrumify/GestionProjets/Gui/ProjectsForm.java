@@ -5,6 +5,7 @@
  */
 package com.blackout.scrumify.GestionProjets.Gui;
 
+import com.blackout.scrumify.Dropbox.Dropbox;
 import com.blackout.scrumify.GestionProjets.Entities.Project;
 import com.blackout.scrumify.GestionProjets.Services.ServiceProjet;
 import com.blackout.scrumify.GestionTasks.Gui.TasksForm;
@@ -18,15 +19,24 @@ import com.codename1.ui.util.Resources;
 import com.blackout.scrumify.Utils.SideMenuBaseForm;
 import com.codename1.components.FloatingActionButton;
 import com.codename1.components.MultiButton;
+import com.blackout.scrumify.Dropbox.DropboxAccess;
+import com.blackout.scrumify.GestionUsers.entities.User;
+import com.blackout.scrumify.Utils.Session;
+import com.blackout.scrumify.Utils.Statics;
+import com.codename1.io.Preferences;
+import com.codename1.io.Storage;
 import com.codename1.ui.Button;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
+import com.codename1.ui.events.ActionEvent;
+import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.layouts.GridLayout;
 import java.util.ArrayList;
 import java.util.Map;
 import com.codename1.ui.util.Resources;
+import java.util.Collection;
 
 /**
  *
@@ -75,7 +85,11 @@ public class ProjectsForm extends SideMenuBaseForm {
         add(new Label("Projects", "TodayTitle"));
 
         ServiceProjet pr = new ServiceProjet();
-        Map m = ServiceProjet.getResponse("Project/showP/25");
+      
+        System.out.println(Session.getInstace().u);
+        System.out.println(Session.getInstace().u);
+        
+        Map m = ServiceProjet.getResponse("Project/showP/"+ Preferences.get("user", 0));
         ArrayList<Project> listT = pr.getAllProjects(m);
         FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
 
@@ -136,14 +150,31 @@ public class ProjectsForm extends SideMenuBaseForm {
 
     @Override
     protected void showProjects(Resources res) {
-        new ProjectsForm(res, this).show();
+         new ProjectsForm(res, this).show();
+             //   new CalendarForm(res).show();
+
+       /* DropboxAccess.setConsumerKey("4wwgb8kt70pr31r");
+        DropboxAccess.setConsumerSecret("rhm6b48dzsl166g");
+        DropboxAccess.getInstance().showAuthentication(new ActionListener() {
+            @Override
+
+            public void actionPerformed(ActionEvent evt) {
+                if (evt.getSource() != null) {
+                    Dropbox drop = new Dropbox();
+                    drop.showDropboxFilePicker(true);
+                }
+            }
+
+        });*/
+
     }
-    
+
     @Override
     protected void showTeamForm(Resources res) {
         new TeamForm(res, this).show();
     }
- @Override
+
+    @Override
     protected void showTasks(Resources res) {
         new TasksForm(res).show();
     }

@@ -119,8 +119,7 @@ public class EditTask extends SideMenuBaseForm {
         new TeamForm(res, this).show();
     }
 
-
-    @Override
+   @Override
     protected void showTasks(Resources res) {
          new TasksForm(res).show();
     }

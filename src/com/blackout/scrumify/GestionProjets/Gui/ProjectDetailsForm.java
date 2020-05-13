@@ -34,7 +34,6 @@ public class ProjectDetailsForm extends SideMenuBaseForm {
     public ProjectDetailsForm(Resources res, Form previous,Project p) {
         super(BoxLayout.y());
         current=this;
-
         getToolbar().setTitleCentered(false);
         ActionListener ev = new ActionListener() {
             @Override

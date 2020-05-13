@@ -5,11 +5,23 @@
  */
 package com.blackout.scrumify.Utils;
 
+import com.blackout.scrumify.GestionUsers.entities.User;
+import com.codename1.io.Preferences;
+import com.codename1.io.Storage;
+import java.util.Map;
+
 /**
  *
  * @author bhk
  */
 public class Statics {
     public static final String BASE_URL="http://localhost/scrumifyApi/web/app_dev.php/";
+
+    
+
+   
+    
+   
+     
     
 }

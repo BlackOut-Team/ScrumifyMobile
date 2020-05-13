@@ -4,10 +4,12 @@ package blackout.scrumify;
 
 
 
+import com.blackout.scrumify.GestionProjets.Gui.AddProject;
 import com.blackout.scrumify.GestionProjets.Gui.Dashboard;
 import com.blackout.scrumify.GestionProjets.Gui.EditProject;
 
 import com.blackout.scrumify.GestionTeams.Gui.AddTeam;
+import com.blackout.scrumify.GestionTasks.Gui.TasksForm;
 import com.blackout.scrumify.GestionProjets.Gui.ProjectsForm;
 import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
 import com.blackout.scrumify.GestionUsers.gui.LoginForm;
