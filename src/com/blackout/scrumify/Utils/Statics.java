@@ -7,7 +7,7 @@ package com.blackout.scrumify.Utils;
 
 /**
  *
- * @author bhk
+ * @author  
  */
 public class Statics {
     public static final String BASE_URL="http://localhost/scrumifyApi/web/app_dev.php/";
