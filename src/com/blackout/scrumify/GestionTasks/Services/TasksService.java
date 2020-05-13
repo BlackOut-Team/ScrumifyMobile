@@ -51,7 +51,9 @@ public class TasksService {
     }
     
      public boolean addTask(Tasks t) {
-        String url = Statics.BASE_URL + "Tasks/new/" + t.getTitle() + "/" + t.getDescription() + "/" + t.getPriority();
+
+        String url = Statics.BASE_URL + "Tasks/new?title=" + t.getTitle() + "&description=" + t.getDescription()+ "&Priority=" + t.getPriority() ;
+
         req.setUrl(url);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override

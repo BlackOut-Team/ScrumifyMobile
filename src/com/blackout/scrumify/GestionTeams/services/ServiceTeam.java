@@ -145,7 +145,7 @@ public class ServiceTeam {
      
      
      public boolean addTeam(Team tm) {
-        String url = "http://localhost/scrumifyApi/web/app_dev.php/ajtteam?name=" + tm.getName() +"&etat=1" + "&ind=1";
+        String url = "http://localhost/scrumifyApi/web/app_dev.php/ajm?name=" + tm.getName();
         ConnectionRequest con = new ConnectionRequest();
         con.setUrl(url);
         con.setPost(true);
