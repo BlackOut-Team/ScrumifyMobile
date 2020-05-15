@@ -257,6 +257,8 @@
     <image name="sidemenu-background.jpg"  />
     <image name="sidemenu-top.png" type="multi"  />
     <image name="skate-park.jpg"  />
+    <image name="task.jpg"  />
+    <image name="task.png"  />
     <image name="text-field-underline.png"  />
     <image name="TextField.borderBottom_1.png" type="multi"  />
     <image name="TextField.borderBottom_2.png" type="multi"  />
