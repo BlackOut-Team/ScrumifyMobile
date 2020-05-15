@@ -127,4 +127,9 @@ public class EditProject extends SideMenuBaseForm {
         new TasksForm(res).show();
     }
 
+//    @Override
+//    protected void goBack(Resources res, Form previous) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+
 }

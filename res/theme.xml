@@ -3,6 +3,15 @@
 <resource majorVersion="1" minorVersion="11" useXmlUI="false">
     <image name="#16cabd.PNG"  />
     <image name="2be8da.png"  />
+    <image name="ActionButton.borderBottom_1.png" type="multi"  />
+    <image name="ActionButton.borderBottomL_1.png" type="multi"  />
+    <image name="ActionButton.borderBottomR_1.png" type="multi"  />
+    <image name="ActionButton.borderCenter_1.png" type="multi"  />
+    <image name="ActionButton.borderLeft_1.png" type="multi"  />
+    <image name="ActionButton.borderRight_1.png" type="multi"  />
+    <image name="ActionButton.borderTop_1.png" type="multi"  />
+    <image name="ActionButton.borderTopL_1.png" type="multi"  />
+    <image name="ActionButton.borderTopR_1.png" type="multi"  />
     <image name="background.jpg"  />
     <image name="BackgroundRect.png" type="multi"  />
     <image name="bla.jpg"  />
@@ -169,8 +178,8 @@
             <entry key="Calendar.Thursday" value="Thu" />
             <entry key="ok" value="OK" />
             <entry key="Calendar.Saturday" value="Sat" />
-            <entry key="select" value="Select" />
             <entry key="Calendar.Friday" value="Fri" />
+            <entry key="select" value="Select" />
             <entry key="edit" value="Edit" />
             <entry key="Calendar.Monday" value="Mon" />
             <entry key="cancel" value="Cancel" />
@@ -275,6 +284,17 @@
         <val key="@sideMenuSizePortraitInt" value="10" />
         <val key="@sideMenuSizeTabLandscapeInt" value="80" />
         <val key="@sideMenuSizeTabPortraitInt" value="75" />
+        <val key="ActionButton.align" value="4" />
+        <val key="ActionButton.bgColor" value="4bc2ff" />
+        <gradient key="ActionButton.bgGradient" color1="10066329" color2="52428" posX="1.0" posY="1.0" radius="2.0" />
+        <val key="ActionButton.bgType" value="8" />
+        <val key="ActionButton.fgColor" value="ffffff" />
+        <font key="ActionButton.font" type="ttf" face="0" style="0" size="0" name="native:MainRegular" family="native:MainRegular" sizeSettings="3" actualSize="3.5" />
+        <val key="ActionButton.marUnit" value="2,2,2,2" />
+        <val key="ActionButton.margin" value="3.0,3.0,1.0,1.0" />
+        <val key="ActionButton.padUnit" value="2,2,2,2" />
+        <val key="ActionButton.padding" value="2.0,2.0,2.0,2.0" />
+        <val key="ActionButton.transparency" value="255" />
         <val key="BlueSeparatorLine.bgColor" value="5ce2ff" />
         <val key="BlueSeparatorLine.bgImage" value="text-field-underline.png" />
         <val key="BlueSeparatorLine.bgType" value="1" />

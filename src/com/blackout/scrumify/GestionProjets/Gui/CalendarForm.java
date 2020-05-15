@@ -35,6 +35,7 @@ import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.util.Resources;
 import java.util.Date;
@@ -62,7 +63,22 @@ public class CalendarForm extends SideMenuBaseForm {
         getTitleArea().setUIID("Container");
         setupSideMenu(resourceObjectInstance);
         gui_Calendar_1.setTwoDigitMode(true);
-        
+         getToolbar().setTitleCentered(false);
+
+        Button menuButton = new Button("");
+        menuButton.setUIID("Title");
+        FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
+
+        menuButton.addActionListener(e -> getToolbar().openSideMenu());
+        Container titleCmp = BoxLayout.encloseY(
+                FlowLayout.encloseIn(menuButton),
+                BorderLayout.centerAbsolute(
+                        BoxLayout.encloseY()
+                ),
+                GridLayout.encloseIn()
+        );
+        getToolbar().setTitleComponent(titleCmp);
+
         Picker p = new Picker();
         b.addActionListener(e -> {
             p.pressed();
@@ -77,6 +93,7 @@ public class CalendarForm extends SideMenuBaseForm {
 		//SimpleDateFormat p1 =new SimpleDateFormat()
         p.setDate(new Date());
         p.setUIID("CalendarDateTitle");
+        
         Container cnt = BoxLayout.encloseY(
                 p,
                 new Label(resourceObjectInstance.getImage("calendar-separator.png"), "CenterLabel")
@@ -185,5 +202,10 @@ public class CalendarForm extends SideMenuBaseForm {
     protected void showTasks(Resources res) {
         new TasksForm(res).show();
     }
+//
+//    @Override
+//    protected void goBack(Resources res, Form previous) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 
 }

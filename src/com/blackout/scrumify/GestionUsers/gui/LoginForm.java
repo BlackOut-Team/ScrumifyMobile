@@ -22,6 +22,7 @@ package com.blackout.scrumify.GestionUsers.gui;
 import com.blackout.scrumify.GestionMeeting.Entities.Meeting;
 import com.blackout.scrumify.GestionProjets.Gui.ProjectsForm;
 import com.blackout.scrumify.GestionProjets.Gui.WalkthruForm;
+import com.blackout.scrumify.Utils.Session;
 import com.codename1.components.InfiniteProgress;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
@@ -148,6 +149,10 @@ public class LoginForm extends Form {
         System.out.println(data);
          Storage session = new Storage();
          session.writeObject("session", data);
+         Map f = (Map) Storage.getInstance().readObject("session");
+         float id = Float.parseFloat(f.get("id").toString());
+         Session s = new Session();
+      
          System.out.println((Map)Storage.getInstance().readObject("session") );
             return true;
             
