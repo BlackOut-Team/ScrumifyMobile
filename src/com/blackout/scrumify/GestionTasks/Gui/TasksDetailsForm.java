@@ -93,30 +93,6 @@ public class TasksDetailsForm extends SideMenuBaseForm {
                 
     }
 
-  @Override
-    protected void showOtherForm(Resources res) {
-        new AddProject(res).show();
-    }
-
-    @Override
-    protected void showDashboard(Resources res) {
-        new Dashboard(res).show();
-    }
-
-    @Override
-    protected void showProjects(Resources res) {
-        new ProjectsForm(res, this).show();
-    }
-    
-    @Override
-    protected void showTeamForm(Resources res) {
-        new TeamForm(res, this).show();
-    }
-
-    @Override
-    protected void showTasks(Resources res) {
-         new TasksForm(res).show();
-    }
   
     
 }

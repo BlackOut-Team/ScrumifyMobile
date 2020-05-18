@@ -4,14 +4,32 @@
     <image name="#16cabd.PNG"  />
     <image name="2be8da.png"  />
     <image name="ActionButton.borderBottom_1.png" type="multi"  />
+    <image name="ActionButton.borderBottom_2.png" type="multi"  />
+    <image name="ActionButton.borderBottom_3.png" type="multi"  />
     <image name="ActionButton.borderBottomL_1.png" type="multi"  />
+    <image name="ActionButton.borderBottomL_2.png" type="multi"  />
+    <image name="ActionButton.borderBottomL_3.png" type="multi"  />
     <image name="ActionButton.borderBottomR_1.png" type="multi"  />
+    <image name="ActionButton.borderBottomR_2.png" type="multi"  />
+    <image name="ActionButton.borderBottomR_3.png" type="multi"  />
     <image name="ActionButton.borderCenter_1.png" type="multi"  />
+    <image name="ActionButton.borderCenter_2.png" type="multi"  />
+    <image name="ActionButton.borderCenter_3.png" type="multi"  />
     <image name="ActionButton.borderLeft_1.png" type="multi"  />
+    <image name="ActionButton.borderLeft_2.png" type="multi"  />
+    <image name="ActionButton.borderLeft_3.png" type="multi"  />
     <image name="ActionButton.borderRight_1.png" type="multi"  />
+    <image name="ActionButton.borderRight_2.png" type="multi"  />
+    <image name="ActionButton.borderRight_3.png" type="multi"  />
     <image name="ActionButton.borderTop_1.png" type="multi"  />
+    <image name="ActionButton.borderTop_2.png" type="multi"  />
+    <image name="ActionButton.borderTop_3.png" type="multi"  />
     <image name="ActionButton.borderTopL_1.png" type="multi"  />
+    <image name="ActionButton.borderTopL_2.png" type="multi"  />
+    <image name="ActionButton.borderTopL_3.png" type="multi"  />
     <image name="ActionButton.borderTopR_1.png" type="multi"  />
+    <image name="ActionButton.borderTopR_2.png" type="multi"  />
+    <image name="ActionButton.borderTopR_3.png" type="multi"  />
     <image name="background.jpg"  />
     <image name="BackgroundRect.png" type="multi"  />
     <image name="bla.jpg"  />
@@ -64,6 +82,15 @@
     <image name="CalendarSelectedDay.borderTopR_2.png" type="multi"  />
     <image name="CalendarSelectedDay.borderTopR_3.png" type="multi"  />
     <image name="card.png" type="multi"  />
+    <image name="ComboBox.borderBottom_1.png" type="multi"  />
+    <image name="ComboBox.borderBottomL_1.png" type="multi"  />
+    <image name="ComboBox.borderBottomR_1.png" type="multi"  />
+    <image name="ComboBox.borderCenter_1.png" type="multi"  />
+    <image name="ComboBox.borderLeft_1.png" type="multi"  />
+    <image name="ComboBox.borderRight_1.png" type="multi"  />
+    <image name="ComboBox.borderTop_1.png" type="multi"  />
+    <image name="ComboBox.borderTopL_1.png" type="multi"  />
+    <image name="ComboBox.borderTopR_1.png" type="multi"  />
     <image name="contact-a.png" type="multi"  />
     <image name="contact-b.png" type="multi"  />
     <image name="contact-c.png" type="multi"  />
@@ -187,6 +214,7 @@
     </l10n>
     <image name="label_round-selected.png" type="multi"  />
     <image name="label_round.png" type="multi"  />
+    <image name="landing_1.png"  />
     <image name="learn-codename-one.jpg"  />
     <image name="login-background.jpg"  />
     <image name="logo.png" type="multi"  />
@@ -228,30 +256,39 @@
     <image name="sel#borderBottom_1.png" type="multi"  />
     <image name="sel#borderBottom_2.png" type="multi"  />
     <image name="sel#borderBottom_3.png" type="multi"  />
+    <image name="sel#borderBottom_4.png" type="multi"  />
     <image name="sel#borderBottomL_1.png" type="multi"  />
     <image name="sel#borderBottomL_2.png" type="multi"  />
     <image name="sel#borderBottomL_3.png" type="multi"  />
+    <image name="sel#borderBottomL_4.png" type="multi"  />
     <image name="sel#borderBottomR_1.png" type="multi"  />
     <image name="sel#borderBottomR_2.png" type="multi"  />
     <image name="sel#borderBottomR_3.png" type="multi"  />
+    <image name="sel#borderBottomR_4.png" type="multi"  />
     <image name="sel#borderCenter_1.png" type="multi"  />
     <image name="sel#borderCenter_2.png" type="multi"  />
     <image name="sel#borderCenter_3.png" type="multi"  />
+    <image name="sel#borderCenter_4.png" type="multi"  />
     <image name="sel#borderLeft_1.png" type="multi"  />
     <image name="sel#borderLeft_2.png" type="multi"  />
     <image name="sel#borderLeft_3.png" type="multi"  />
+    <image name="sel#borderLeft_4.png" type="multi"  />
     <image name="sel#borderRight_1.png" type="multi"  />
     <image name="sel#borderRight_2.png" type="multi"  />
     <image name="sel#borderRight_3.png" type="multi"  />
+    <image name="sel#borderRight_4.png" type="multi"  />
     <image name="sel#borderTop_1.png" type="multi"  />
     <image name="sel#borderTop_2.png" type="multi"  />
     <image name="sel#borderTop_3.png" type="multi"  />
+    <image name="sel#borderTop_4.png" type="multi"  />
     <image name="sel#borderTopL_1.png" type="multi"  />
     <image name="sel#borderTopL_2.png" type="multi"  />
     <image name="sel#borderTopL_3.png" type="multi"  />
+    <image name="sel#borderTopL_4.png" type="multi"  />
     <image name="sel#borderTopR_1.png" type="multi"  />
     <image name="sel#borderTopR_2.png" type="multi"  />
     <image name="sel#borderTopR_3.png" type="multi"  />
+    <image name="sel#borderTopR_4.png" type="multi"  />
     <image name="selected-walkthru.png" type="multi"  />
     <image name="selection-in-sidemenu.png" type="multi"  />
     <image name="sidemenu-background.jpg"  />
@@ -287,10 +324,11 @@
         <val key="@sideMenuSizeTabLandscapeInt" value="80" />
         <val key="@sideMenuSizeTabPortraitInt" value="75" />
         <val key="ActionButton.align" value="4" />
-        <val key="ActionButton.bgColor" value="4bc2ff" />
-        <gradient key="ActionButton.bgGradient" color1="10066329" color2="52428" posX="1.0" posY="1.0" radius="2.0" />
-        <val key="ActionButton.bgType" value="8" />
-        <val key="ActionButton.fgColor" value="ffffff" />
+        <val key="ActionButton.bgColor" value="f0f0f0" />
+        <gradient key="ActionButton.bgGradient" color1="15790320" color2="15790320" posX="1.0" posY="1.0" radius="2.0" />
+        <val key="ActionButton.bgType" value="6" />
+        <border key="ActionButton.border" type="roundRect" strokeColor="52428" strokeOpacity="238" strokeThickness="10.0" strokeMM="false" shadowSpread="10.0" shadowOpacity="0" shadowX="0.5" shadowY="0.5" shadowBlur="10.0" topOnlyMode="false" bottomOnlyMode="false" cornerRadius="1.0" bezierCorners="true" />
+        <val key="ActionButton.fgColor" value="cccc" />
         <font key="ActionButton.font" type="ttf" face="0" style="0" size="0" name="native:MainRegular" family="native:MainRegular" sizeSettings="3" actualSize="3.5" />
         <val key="ActionButton.marUnit" value="2,2,2,2" />
         <val key="ActionButton.margin" value="3.0,3.0,1.0,1.0" />
@@ -307,7 +345,7 @@
         <val key="BottomPaddingContainer.padUnit" value="0,0,2,0" />
         <val key="BottomPaddingContainer.padding" value="0,2,0,0" />
         <val key="BottomPaddingContainer.transparency" value="0" />
-        <val key="Calendar.bgImage" value="gradient-overlay.png" />
+        <val key="Calendar.bgImage" value="cover.jpg" />
         <val key="Calendar.bgType" value="1" />
         <val key="CalendarDateTitle.align" value="4" />
         <val key="CalendarDateTitle.fgColor" value="ffffff" />
@@ -337,8 +375,16 @@
         <val key="CenterTitle.padUnit" value="2,2,2,2" />
         <val key="CenterTitle.padding" value="1.0,1.0,1.0,1.0" />
         <val key="CenterTitle.transparency" value="0" />
+        <val key="ComboBox.bgColor" value="cccc" />
+        <border key="ComboBox.border" type="underline"  millimeters="false" thickness="1.0" color="52428" />
+        <val key="ComboBox.fgColor" value="cccc" />
+        <font key="ComboBox.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="4.0" />
+        <val key="ComboBox.marUnit" value="2,2,2,2" />
+        <val key="ComboBox.margin" value="0.0,0.0,0.0,0.0" />
+        <val key="ComboBox.padUnit" value="2,2,2,2" />
+        <val key="ComboBox.padding" value="1.0,1.0,1.0,1.0" />
         <val key="CompletedTasks.bgColor" value="ff7fe5" />
-        <gradient key="CompletedTasks.bgGradient" color1="13434828" color2="10092492" posX="0.5" posY="0.5" radius="1.0" />
+        <gradient key="CompletedTasks.bgGradient" color1="3407871" color2="10092492" posX="0.5" posY="0.5" radius="1.0" />
         <val key="CompletedTasks.bgType" value="7" />
         <val key="CompletedTasks.margin" value="0.0,0.0,0.0,0.0" />
         <val key="CompletedTasks.padUnit" value="2,2,2,2" />
@@ -418,6 +464,7 @@
         <val key="MenuButton.margin" value="0.0,0.0,0.0,0.0" />
         <val key="MenuButton.padding" value="0.0,0.0,0.0,0.0" />
         <val key="MenuButton.transparency" value="0" />
+        <font key="Picker.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="4.0" />
         <val key="ProfilePic.align" value="4" />
         <val key="ProfilePic.padUnit" value="2,2,2,2" />
         <val key="ProfilePic.padding" value="3,3,3,3" />
@@ -429,7 +476,7 @@
         <val key="ProjectItem.bgColor" value="cccc" />
         <gradient key="ProjectItem.bgGradient" color1="16777215" color2="16777215" posX="0.5" posY="0.5" radius="1.0" />
         <val key="ProjectItem.bgType" value="6" />
-        <border key="ProjectItem.border" type="image" i1="ProjectItem.borderTop_3.png" i2="ProjectItem.borderBottom_3.png" i3="ProjectItem.borderLeft_3.png" i4="ProjectItem.borderRight_3.png" i5="ProjectItem.borderTopL_3.png" i6="ProjectItem.borderTopR_3.png" i7="ProjectItem.borderBottomL_3.png" i8="ProjectItem.borderBottomR_3.png" i9="ProjectItem.borderCenter_3.png" />
+        <border key="ProjectItem.border" type="line" millimeters="false" thickness="3.0" color="52428" />
         <val key="ProjectItem.fgColor" value="cccc" />
         <val key="ProjectItem.marUnit" value="2,2,2,2" />
         <val key="ProjectItem.margin" value="1.0,1.0,1.0,1.0" />
@@ -527,7 +574,7 @@
         <val key="TextField.bgType" value="30" />
         <border key="TextField.border" type="image" i1="TextField.borderTop_2.png" i2="TextField.borderBottom_2.png" i3="TextField.borderLeft_2.png" i4="TextField.borderRight_2.png" i5="TextField.borderTopL_2.png" i6="TextField.borderTopR_2.png" i7="TextField.borderBottomL_2.png" i8="TextField.borderBottomR_2.png" i9="TextField.borderCenter_2.png" />
         <val key="TextField.fgColor" value="9999" />
-        <font key="TextField.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="2.5" />
+        <font key="TextField.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="4.0" />
         <val key="TextField.padUnit" value="2,2,2,2" />
         <val key="TextField.padding" value="1.0,1.0,1.0,1.0" />
         <val key="TextField.sel#bgImage" value="text-field-underline.png" />
@@ -623,6 +670,8 @@
         <val key="WelcomeWhite.margin" value="0,0,0,0" />
         <val key="WelcomeWhite.padding" value="0,0,0,0" />
         <val key="WelcomeWhite.transparency" value="0" />
+        <val key="combo.bgColor" value="000000" />
+        <val key="combo.fgColor" value="cccc" />
         <val key="press#transparency" value="0" />
         <val key="sel#transparency" value="0" />
         <val key="transparency" value="0" />

@@ -6,6 +6,7 @@
 package com.blackout.scrumify.GestionTasks.Gui;
 
 
+import com.blackout.scrumify.GestionMeeting.Gui.MeetingsForm;
 import com.blackout.scrumify.GestionProjets.Gui.AddProject;
 import com.blackout.scrumify.GestionProjets.Gui.Dashboard;
 import com.blackout.scrumify.GestionProjets.Gui.ProjectsForm;
@@ -45,14 +46,14 @@ public class AddTasks extends SideMenuBaseForm {
         setTitle("Scrumify");
         setLayout(BoxLayout.y());
         getToolbar().setTitleCentered(false);
-        Button menuButton = new Button("");
-        menuButton.setUIID("Title");
+    
+             Button returnButton = new Button("");
+        returnButton.setUIID("Title");
+        FontImage.setMaterialIcon(returnButton, FontImage.MATERIAL_ARROW_BACK);
+        returnButton.addActionListener(e -> new TasksForm(res).showBack());
         
-        FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
-
-        menuButton.addActionListener(e -> getToolbar().openSideMenu());
         Container titleCmp = BoxLayout.encloseY(
-                FlowLayout.encloseIn(menuButton)
+                FlowLayout.encloseIn(returnButton)
                   
         );
         getToolbar().setTitleComponent(titleCmp);
@@ -104,31 +105,7 @@ Response<java.util.Map> result = Rest.post("https://api.twilio.com/2010-04-01/Ac
 
     }
 
-    @Override
-    protected void showOtherForm(Resources res) {
-        new AddProject(res).show();
-    }
 
-    @Override
-    protected void showDashboard(Resources res) {
-         new Dashboard(res).show();
-    }
-
-    @Override
-    protected void showProjects(Resources res) {
-        new ProjectsForm(res, this).show();
-    }
-
-    @Override
-    protected void showTeamForm(Resources res) {
-      new TeamForm(res, this).show();
-    }
-
-   @Override
-    protected void showTasks(Resources res) {
-         new TasksForm(res).show();
-    }
-   
 
    
 }

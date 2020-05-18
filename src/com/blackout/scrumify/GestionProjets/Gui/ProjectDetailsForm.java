@@ -41,68 +41,66 @@ public class ProjectDetailsForm extends SideMenuBaseForm {
         super(BoxLayout.y());
         current = this;
         getToolbar().setTitleCentered(false);
-        ActionListener ev = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                new ProjectsForm(res, current).showBack();
-            }
-        ;
-        };
-        Image profilePic = res.getImage("scrumify.png");
-        Image mask = res.getImage("round-mask.png");
-        profilePic = profilePic.fill(mask.getWidth() / 2, mask.getHeight() / 2);
-        Label profilePicLabel = new Label(profilePic, "ProfilePicTitle");
-        profilePicLabel.setMask(mask.createMask());
 
-        Button menuButton = new Button("");
-        menuButton.setUIID("Title");
-        FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
+        ServiceTeam s = new ServiceTeam();
+        Map m = s.getResponse("gett/" + p.getTeam_id());
+        Team tt = s.getTeam(m);
+
+        Container te = FlowLayout.encloseCenter(new Label("Team : " + tt.getName(), "SideMenuTitle"));
+
+        
+            Button returnButton = new Button("");
+        returnButton.setUIID("Title");
+        FontImage.setMaterialIcon(returnButton, FontImage.MATERIAL_ARROW_BACK);
+        returnButton.addActionListener(e -> new ProjectsForm(res, current).showBack());
+        
         Container titleCmp = BoxLayout.encloseY(
-                FlowLayout.encloseIn(menuButton),
+                     BorderLayout.west(returnButton),
+             
                 BorderLayout.centerAbsolute(
                         BoxLayout.encloseY(
                                 new Label(p.getName(), "Title"),
-                                new Label("Created : " + p.getCreated() + "", "SubTitle"),
-                                new Label("Dudedate: " + p.getDuedate() + "", "SubTitle")
+                                te
                         )
-                ).add(BorderLayout.WEST, profilePicLabel)
+                )
         );
-        getToolbar().setTitleComponent(titleCmp);
-        menuButton.addActionListener(e -> getToolbar().openSideMenu());
-
-        add(new Label(p.getName(), "TodayTitle"));
-        Container rightContainer = new Container(BoxLayout.y());
-        rightContainer.add(new Label("Description : " + p.getDescription()));
-        ServiceTeam s = new ServiceTeam();
-        System.out.println(p.getTeam_id());
-        Map m=s.getResponse("gett/"+p.getTeam_id());
-        Team tt =s.getTeam(m);
-        Label team = new Label("Team : " + tt.getName());
-        team.setUIID("WalkthruTab1");
-        Container t = new Container();
-        t.add( team);
-         Button showt = new Button();
+        Button showt = new Button();
         showt.addActionListener((evt) -> {
-            new TeamDetailsForm(res, current, tt);
+            new TeamDetailsForm(res, current, tt).show();
         });
-        t.setLeadComponent(showt);
-        
-        rightContainer.add(t);
-        add(rightContainer);
+        te.setLeadComponent(showt);
+
+        getToolbar().setTitleComponent(titleCmp);
+
+        // Label t =new Label("Team ", "TodayTitle")
+        add(new Label("Details ", "TodayTitle"));
+
+        add(new Label("Created : " + p.getCreated(), "Label"));
+        add(new Label("Duedate : " + p.getDuedate(), "Label"));
+        add(new Label("Description : " + p.getDescription(), "Label"));
+
+        add(new Label("Actions ", "TodayTitle"));
+
         setupSideMenu(res);
 
         Button edit = new Button(FontImage.MATERIAL_EDIT);
         Button archive = new Button(FontImage.MATERIAL_ARCHIVE);
-        Button sprints = new Button(FontImage.MATERIAL_PAGES);
-        Button meeting = new Button(FontImage.MATERIAL_MEETING_ROOM);
+        Button sprints = new Button("Sprints");
+        Button meeting = new Button("Meetings");
 
         edit.setUIID("ActionButton");
         archive.setUIID("ActionButton");
-        sprints.setUIID("LoginButton");
-        meeting.setUIID("LoginButton");
+        sprints.setUIID("ActionButton");
+        meeting.setUIID("ActionButton");
 
-       
-        add(BoxLayout.encloseXRight(edit, archive, sprints, meeting));
+        Container actionCmp
+                = BorderLayout.center(
+                        BoxLayout.encloseYCenter(
+                        edit, archive,
+                        sprints, meeting )
+                );
+
+        add(BorderLayout.south(actionCmp));
 
         edit.addActionListener((evt) -> {
             System.out.println(p.getId());
@@ -125,31 +123,7 @@ public class ProjectDetailsForm extends SideMenuBaseForm {
         sprints.addActionListener((evt) -> {
             new SprintsForm(res, current, p).show();
         });
-    }
 
-    @Override
-    protected void showOtherForm(Resources res) {
-        new AddProject(res).show();
-    }
-
-    @Override
-    protected void showDashboard(Resources res) {
-        new Dashboard(res).show();
-    }
-
-    @Override
-    protected void showProjects(Resources res) {
-        new ProjectsForm(res, this).show();
-    }
-
-    @Override
-    protected void showTeamForm(Resources res) {
-        new TeamForm(res, this).show();
-    }
-
-    @Override
-    protected void showTasks(Resources res) {
-        new TasksForm(res).show();
     }
 
 }

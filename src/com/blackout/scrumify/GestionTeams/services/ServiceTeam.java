@@ -233,7 +233,7 @@ public class ServiceTeam {
             byte[] data = (byte[]) evt.getMetaData();
             String s = new String(data);
             System.out.println(s);
-            if (!s.contains("erreur")) {
+            if (!s.contains("erreur") && !s.contains("existe")) {
                 Dialog.show("Confirmation", "success", "Ok", null);
                  t= true;
             } else {

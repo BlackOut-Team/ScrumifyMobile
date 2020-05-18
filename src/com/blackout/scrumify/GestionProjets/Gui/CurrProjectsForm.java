@@ -5,38 +5,29 @@
  */
 package com.blackout.scrumify.GestionProjets.Gui;
 
-import com.blackout.scrumify.Dropbox.Dropbox;
 import com.blackout.scrumify.GestionProjets.Entities.Project;
 import com.blackout.scrumify.GestionProjets.Services.ServiceProjet;
-import com.blackout.scrumify.GestionTasks.Gui.TasksForm;
-import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
 import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.util.Resources;
 import com.blackout.scrumify.Utils.SideMenuBaseForm;
 import com.codename1.components.FloatingActionButton;
 import com.codename1.components.MultiButton;
-import com.blackout.scrumify.Dropbox.DropboxAccess;
-import com.blackout.scrumify.GestionUsers.entities.User;
-import com.blackout.scrumify.Utils.Session;
-import com.blackout.scrumify.Utils.Statics;
+import com.blackout.scrumify.GestionTeams.Entities.Team;
+import com.blackout.scrumify.GestionTeams.Gui.TeamDetailsForm;
+import com.blackout.scrumify.GestionTeams.services.ServiceTeam;
 import com.codename1.io.Preferences;
-import com.codename1.io.Storage;
 import com.codename1.ui.Button;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
-import com.codename1.ui.events.ActionEvent;
-import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.layouts.GridLayout;
 import java.util.ArrayList;
 import java.util.Map;
 import com.codename1.ui.util.Resources;
-import java.util.Collection;
 
 /**
  *
@@ -109,7 +100,9 @@ current =this;
         completedProjects.setLeadComponent(comp);
         Allprojects.setLeadComponent(all);
         FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
-        m = ServiceProjet.getResponse("Project/showC/" + Preferences.get("user", 0));
+                m = ServiceProjet.getResponse("Project/showC/" + Preferences.get("user", 0));
+
+        if(m!=null){
 
         listT = pr.getAllProjects(m);
 
@@ -120,25 +113,60 @@ current =this;
             Container c = new Container(BoxLayout.x());
 
             c.setName(p.getName());
-            addButtonBottom(arrowDown, c, p);
+            addProjectBox(p);
 
         }
+        }
+else
+        {
+                    Image empty = res.getImage("landing_1.png");
+                    Container c = new Container(new FlowLayout(CENTER,CENTER));
+                    Container ct = new Container(BoxLayout.yCenter());
+                    ct.add(empty );
+                    ct.add(new Label("No current project !","TodayTitle"));
+                    Button add = new Button("Get started");
+                                        add.setUIID("LoginButton");
 
+                    add.addActionListener((evt) -> {
+                        new AddProject(res).show();
+                    });
+                    ct.add(add);
+                    c.add(ct);
+                    add(c);
+        }
         completedProjects.setUIID("CompletedTasks");
 
     }
 
-    private void addButtonBottom(Image arrowDown, Container c, Project p) {
-        MultiButton finishLandingPage = new MultiButton(c.getName());
-        finishLandingPage.setEmblem(arrowDown);
-        finishLandingPage.setUIID("ProjectItem");
-        finishLandingPage.setUIIDLine1("TodayEntry");
-        add(BoxLayout.encloseY(finishLandingPage));
+   private void addProjectBox(Project p) {
+        FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_MORE_HORIZ, "Label", 6);
+        MultiButton projectBox = new MultiButton(p.getName());
+
+        projectBox.setEmblem(arrowDown);
+        projectBox.setUIID("ProjectItem");
+        projectBox.setUIIDLine1("TodayEntry");
+        projectBox.setUIIDLine2("TodayEntry");
+
+        projectBox.setTextLine2(p.getDescription());
+        projectBox.setTextLine4("From : " + p.getCreated() + "to : " + p.getDuedate());
+        ServiceTeam s = new ServiceTeam();
+        Map m = s.getResponse("gett/" + p.getTeam_id());
+        Team tt = s.getTeam(m);
+        projectBox.setTextLine3(tt.getName());
         Button gt = new Button();
         gt.addActionListener((evt) -> {
-            new ProjectDetailsForm(res, this, p).show();
+            new ProjectDetailsForm(res, current, p).show();
         });
-        finishLandingPage.setLeadComponent(gt);
+        Button showt = new Button();
+        showt.addActionListener((evt) -> {
+            new TeamDetailsForm(res, current, tt).show();
+        });
+       // projectBox.getTextLine3().setLeadComponent(showt);
+        
+        
+        projectBox.setLeadComponent(gt);
+        add(BoxLayout.encloseY(projectBox));
+
     }
 
     private Image createCircleLine(int color, int height, boolean first) {
@@ -157,49 +185,9 @@ current =this;
         return img;
     }
 
-    @Override
-    protected void showOtherForm(Resources res) {
-        new AddProject(res).show();
-    }
 
-    @Override
-    protected void showDashboard(Resources res) {
-        new Dashboard(res).show();
-    }
+   
+ 
 
-    @Override
-    protected void showProjects(Resources res) {
-        new CurrProjectsForm(res, this).show();
-        //   new CalendarForm(res).show();
-
-        /* DropboxAccess.setConsumerKey("4wwgb8kt70pr31r");
-        DropboxAccess.setConsumerSecret("rhm6b48dzsl166g");
-        DropboxAccess.getInstance().showAuthentication(new ActionListener() {
-            @Override
-
-            public void actionPerformed(ActionEvent evt) {
-                if (evt.getSource() != null) {
-                    Dropbox drop = new Dropbox();
-                    drop.showDropboxFilePicker(true);
-                }
-            }
-
-        });*/
-    }
-
-    @Override
-    protected void showTeamForm(Resources res) {
-        new TeamForm(res, this).show();
-    }
-
-    @Override
-    protected void showTasks(Resources res) {
-        new TasksForm(res).show();
-    }
-
-//    @Override
-//    protected void goBack(Resources res, Form previous) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
 
 }

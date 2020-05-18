@@ -51,24 +51,21 @@ public class DisplayAllForm extends SideMenuBaseForm {
         this.team=team;
         getToolbar().setTitleCentered(false);
 
-        Button menuButton = new Button("");
-        menuButton.setUIID("Title");
-        FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
-
-        menuButton.addActionListener(e -> getToolbar().openSideMenu());
-
+         Button returnButton = new Button("");
+        returnButton.setUIID("Title");
+        FontImage.setMaterialIcon(returnButton, FontImage.MATERIAL_ARROW_BACK);
+        returnButton.addActionListener(e -> new TeamForm(res, this).showBack());
+        
         Container titleCmp = BoxLayout.encloseY(
-                FlowLayout.encloseIn(menuButton),
+                FlowLayout.encloseIn(returnButton),
                 BorderLayout.centerAbsolute(
                         BoxLayout.encloseY()
                 ),
                 GridLayout.encloseIn()
         );
 
-        FloatingActionButton fab = FloatingActionButton.createFAB(FontImage.MATERIAL_ADD);
-        fab.getAllStyles().setMarginUnit(Byte.MAX_VALUE);
+               getToolbar().setTitleComponent(titleCmp);
 
-        getToolbar().setTitleComponent(fab.bindFabToContainer(titleCmp, RIGHT, TOP));
 
         add(new Label("Teams", "TodayTitle"));
 
@@ -87,9 +84,7 @@ public class DisplayAllForm extends SideMenuBaseForm {
             addButtonBottom(arrowDown, c, t);
 
         }
-        fab.addActionListener((evt) -> {
-            new AddTeam(res).show();
-        });
+      
         setupSideMenu(res);
     }
 
@@ -102,13 +97,16 @@ public class DisplayAllForm extends SideMenuBaseForm {
         Button gt = new Button();
         gt.addActionListener((evt) -> {
             InteractionDialog dlg = new InteractionDialog("Affect user to this team");
-            dlg.setLayout(new FlowLayout(CENTER,CENTER));
+            dlg.setLayout( BoxLayout.yCenter());
             ComboBox role = new ComboBox<String>("choose Team role","Developer","Product Owner");
             role.setActAsSpinnerDialog(true);
             role.setSelectedIndex(0);
             dlg.add(role);
             Button submit = new Button("Submit");
             Button close = new Button("Cancel");
+            submit.setUIID("LoginButton");
+                        close.setUIID("LoginButton");
+
             close.addActionListener((ee) -> dlg.dispose());
             submit.addActionListener((ee) -> {
                 ServiceTeam pr = new ServiceTeam();
@@ -144,29 +142,6 @@ public class DisplayAllForm extends SideMenuBaseForm {
         return img;
     }
 
-    @Override
-    protected void showOtherForm(Resources res) {
-        new AddProject(res).show();
-    }
 
-    @Override
-    protected void showDashboard(Resources res) {
-        new Dashboard(res).show();
-    }
-
-    @Override
-    protected void showProjects(Resources res) {
-        new ProjectsForm(res, this).show();
-    }
-
-    @Override
-    protected void showTeamForm(Resources res) {
-        new TeamForm(res, this).show();
-    }
-
-    @Override
-    protected void showTasks(Resources res) {
-        new TasksForm(res).show();
-    }
 
 }

@@ -15,11 +15,11 @@ public class Meeting {
     private String name,place;
     private String type;
     private String meetingDate;
-    private String sprint;
+    private int sprint;
 
     public Meeting(){
     }
-    public Meeting(String name, String place,String type,String sprint,String meetingDate) {
+    public Meeting(String name, String place,String type,int sprint,String meetingDate) {
         this.name = name;
         this.place = place;
         this.sprint = sprint;
@@ -27,7 +27,7 @@ public class Meeting {
          this.meetingDate = meetingDate;
     }
 
-    public Meeting(int id, String name, String place,String type,String sprint,String meetingDate) {
+    public Meeting(int id, String name, String place,String type,int sprint,String meetingDate) {
         this.id = id;
         this.name = name;
         this.place = place;
@@ -75,11 +75,11 @@ public class Meeting {
         this.meetingDate = meetingDate;
     }
 
-    public String getSprint() {
+    public int getSprint() {
         return sprint;
     }
 
-    public void setSprint(String sprint) {
+    public void setSprint(int sprint) {
         this.sprint = sprint;
     }
 

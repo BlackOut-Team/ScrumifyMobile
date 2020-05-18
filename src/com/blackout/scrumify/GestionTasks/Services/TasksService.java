@@ -133,7 +133,7 @@ public class TasksService {
     }
     
      public boolean editTask(Tasks p) {
-        String url = Statics.BASE_URL + "Tasks/edit/"  + p.getId() + "?title=" + p.getTitle() + "&description=" + p.getDescription() + "&priority=" + p.getPriority();
+        String url = Statics.BASE_URL + "Tasks/editTasks/"  + p.getId() + "?title=" + p.getTitle() + "&description=" + p.getDescription() + "&priority=" + p.getPriority();
         ConnectionRequest con = new ConnectionRequest();
         con.setUrl(url);
         con.setPost(true);
@@ -157,7 +157,7 @@ public class TasksService {
     }
 
     public void archive(Tasks p) {
-        String url = "http://localhost/scrumifyApi/web/app_dev.php/Tasks/archive/" + p.getId();
+        String url = "http://localhost/scrumifyApi/web/app_dev.php/Tasks/archiveTasks/" + p.getId();
         ConnectionRequest con = new ConnectionRequest();
         con.setUrl(url);
         con.setPost(true);

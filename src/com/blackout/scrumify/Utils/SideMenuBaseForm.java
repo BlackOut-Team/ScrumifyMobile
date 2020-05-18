@@ -67,7 +67,7 @@ public abstract class SideMenuBaseForm extends Form {
         Image mask = res.getImage("round-mask.png");
         mask = mask.scaledHeight(mask.getHeight() / 4 * 3);
         profilePic = profilePic.fill(mask.getWidth(), mask.getHeight());
-        Label profilePicLabel = new Label("Amira Doghri", profilePic, "SideMenuTitle");
+        Label profilePicLabel = new Label(" Hello , "+Session.u.getName(), profilePic, "SideMenuTitle");
         Button profile = new Button();
         profilePicLabel.setMask(mask.createMask());
         Container sidemenuTop = BorderLayout.center(profilePicLabel);
@@ -128,6 +128,5 @@ public abstract class SideMenuBaseForm extends Form {
         new TasksForm(res).show();
     }
 
-   // protected abstract void goBack(Resources res, Form previous);
 
 }

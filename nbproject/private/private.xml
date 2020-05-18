@@ -5,11 +5,18 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Gui/CalendarForm.java</file>
+            <file>jar:file:/C:/Users/Public/Documents/ScrumifyMobile/lib/CodenameOne_SRC.zip!/com/codename1/components/MultiButton.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionTasks/Gui/TasksDetailsForm.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionMeeting/Gui/MeetinngDetailsForm.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionMeeting/Entities/Meeting.java</file>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Gui/AddProject.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionTasks/Gui/AddTasks.java</file>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/Utils/Statics.java</file>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Gui/CompProjectsForm.java</file>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/Utils/Session.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionSprints/Gui/SprintsDetailsForm.java</file>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/Utils/SideMenuBaseForm.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionMeeting/Gui/EditMeeting.java</file>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Entities/Project.java</file>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Gui/ProjectDetailsForm.java</file>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionMeeting/Gui/AddMeeting.java</file>
@@ -19,20 +26,23 @@
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/Scrumify.java</file>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Gui/WalkthruForm.java</file>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionTeams/gui/TeamForm.java</file>
-            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/Dropbox/Dropbox.java</file>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionSprints/Services/ServiceSprint.java</file>
-            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/Dropbox/DropboxAccess.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionSprints/Gui/AddSprint.java</file>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Gui/CurrProjectsForm.java</file>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionMeeting/Gui/MeetingsForm.java</file>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Gui/ProjectsForm.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionTasks/Gui/TasksForm.java</file>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionTeams/gui/TeamDetailsForm.java</file>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionUsers/entities/User.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionMeeting/Services/MeetingService.java</file>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionUsers/gui/LoginForm.java</file>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Gui/Dashboard.java</file>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionTeams/gui/DisplayAllForm.java</file>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionTeams/services/ServiceTeam.java</file>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionTeams/gui/EditTeam.java</file>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionSprints/Gui/SprintsForm.java</file>
+            <file>jar:file:/C:/Users/Public/Documents/ScrumifyMobile/lib/CodenameOne_SRC.zip!/com/codename1/ui/Button.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionSprints/Gui/EditSprint.java</file>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Services/ServiceProjet.java</file>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionTasks/Gui/EditTask.java</file>
         </group>

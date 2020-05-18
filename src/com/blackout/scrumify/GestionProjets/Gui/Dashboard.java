@@ -9,28 +9,21 @@ import com.blackout.scrumify.GestionTasks.Gui.TasksForm;
 import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
 import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
-import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.Toolbar;
-import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.util.Resources;
 import com.blackout.scrumify.Utils.SideMenuBaseForm;
-import com.codename1.charts.compat.Paint.Style;
-import com.codename1.components.FloatingActionButton;
-import com.codename1.components.MultiButton;
 import com.codename1.ui.Button;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.FlowLayout;
-import com.codename1.ui.layouts.GridLayout;
 import com.codename1.charts.ChartComponent;
 import com.codename1.charts.models.XYMultipleSeriesDataset;
 import com.codename1.charts.models.XYSeries;
 import com.codename1.charts.renderers.XYMultipleSeriesRenderer;
 import com.codename1.charts.renderers.XYSeriesRenderer;
 import com.codename1.charts.views.CubicLineChart;
-import com.codename1.charts.views.PointStyle;
 import com.codename1.ui.Display;
 
 /**
@@ -133,10 +126,6 @@ public class Dashboard  extends SideMenuBaseForm{
         return i;
     }
     
-    @Override
-    protected void showOtherForm(Resources res) {
-        new AddProject(res).show();
-    }
 
     private XYMultipleSeriesRenderer createChartMultiRenderer() {
         XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
@@ -176,29 +165,8 @@ public class Dashboard  extends SideMenuBaseForm{
         return renderer;
     }
 
-    @Override
-    protected void showDashboard(Resources res) {
-                new Dashboard(res).show();
+    
 
-    }
 
-    @Override
-    protected void showProjects(Resources res) {
-        new ProjectsForm(res, this).show();
-    }
-
-    @Override
-    protected void showTeamForm(Resources res) {
-        new TeamForm(res, this).show();
-    }
-     @Override
-    protected void showTasks(Resources res) {
-        new TasksForm(res).show();
-    }
-
-//    @Override
-//    protected void goBack(Resources res, Form previous) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
 
 }

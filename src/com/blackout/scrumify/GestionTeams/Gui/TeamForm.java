@@ -10,6 +10,7 @@ import com.blackout.scrumify.GestionProjets.Gui.ProjectsForm;
 import com.blackout.scrumify.GestionTasks.Gui.TasksForm;
 import com.blackout.scrumify.GestionTeams.Entities.Team;
 import com.blackout.scrumify.GestionTeams.services.ServiceTeam;
+import com.blackout.scrumify.Utils.Session;
 import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
@@ -73,7 +74,8 @@ public class TeamForm  extends SideMenuBaseForm {
         add(new Label("Teams", "TodayTitle"));
 
         ServiceTeam pr = new ServiceTeam();
-        Map m = pr.getResponse("affteam");
+        Map m = pr.getResponse("affteam/"+ Session.u.getId());
+        if(m!=null){
         ArrayList<Team> listT = pr.getAllTeams(m);
         FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
 
@@ -86,7 +88,24 @@ public class TeamForm  extends SideMenuBaseForm {
             c.setName(p.getName());
             addButtonBottom(arrowDown, c, p);
 
+        }}
+             else
+        {
+                    Image empty = res.getImage("landing_1.png");
+                   
+                    Container ct = new Container(BoxLayout.yCenter());
+                    ct.add(empty );
+                    ct.add(new Label("No active teams yet !","TodayTitle"));
+                    Button add = new Button("Get started");
+                    add.setUIID("LoginButton");
+                    add.addActionListener((evt) -> {
+                        new AddTeam(res).show();
+                    });
+                    ct.add(add);
+                    add(FlowLayout.encloseCenterMiddle(ct));
+
         }
+     
         fab.addActionListener((evt) -> {
             new AddTeam(res).show();
         });
@@ -122,28 +141,5 @@ public class TeamForm  extends SideMenuBaseForm {
         return img;
     }
 
-    @Override
-    protected void showOtherForm(Resources res) {
-        new AddProject(res).show();
-    }
-
-    @Override
-    protected void showDashboard(Resources res) {
-        new Dashboard(res).show();
-    }
-
-    @Override
-    protected void showProjects(Resources res) {
-        new ProjectsForm(res, this).show();
-    }
-    
-    @Override
-    protected void showTeamForm(Resources res) {
-        new TeamForm(res, this).show();
-    }
- @Override
-    protected void showTasks(Resources res) {
-        new TasksForm(res).show();
-    }
-
+  
 }

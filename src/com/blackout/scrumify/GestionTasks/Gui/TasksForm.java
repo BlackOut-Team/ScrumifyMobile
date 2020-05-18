@@ -11,6 +11,7 @@ import com.blackout.scrumify.GestionProjets.Gui.ProjectsForm;
 import com.blackout.scrumify.GestionTasks.Entities.Tasks;
 import com.blackout.scrumify.GestionTasks.Services.TasksService;
 import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
+import com.blackout.scrumify.Utils.Session;
 import com.blackout.scrumify.Utils.SideMenuBaseForm;
 import com.codename1.components.FloatingActionButton;
 import com.codename1.components.MultiButton;
@@ -53,9 +54,8 @@ public class TasksForm extends SideMenuBaseForm {
 
         Button menuButton = new Button("");
         menuButton.setUIID("Title");
-        Label name= new Label();
         FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
- Image profilePic = res.getImage("user-picture.jpg");
+        Image profilePic = res.getImage("Image3.png");
         Image mask = res.getImage("round-mask.png");
         profilePic = profilePic.fill(mask.getWidth(), mask.getHeight());
         Label profilePicLabel = new Label(profilePic, "ProfilePicTitle");
@@ -83,10 +83,10 @@ Container remainingTasks = BoxLayout.encloseY(
                         FlowLayout.encloseIn(menuButton),
                         BorderLayout.centerAbsolute(
                                 BoxLayout.encloseY(
-                                    new Label("Hidaya Mcharek", "Title"),
+                                    new Label(Session.u.getName(), "Title"),
                                     new Label("Developer", "SubTitle")
                                 )
-                            ).add(BorderLayout.WEST, profilePic),
+                            ).add(BorderLayout.WEST, profilePicLabel),
                         GridLayout.encloseIn(2, remainingTasks, completedTasks)
                 );
         
@@ -198,32 +198,7 @@ Container remainingTasks = BoxLayout.encloseY(
         return img;
     }
 
-    @Override
-    protected void showOtherForm(Resources res) {
-        new AddProject(res).show();
-    }
 
-    @Override
-    protected void showDashboard(Resources res) {
-        new Dashboard(res).show();
-    }
-
-    @Override
-    protected void showProjects(Resources res) {
-        new ProjectsForm(res, this).show();
-    }
-    
-    @Override
-    protected void showTeamForm(Resources res) {
-        new TeamForm(res, this).show();
-    }
-
-    @Override
-    protected void showTasks(Resources res) {
-         new TasksForm(res).show();
-    }
-
-   
   
     
     

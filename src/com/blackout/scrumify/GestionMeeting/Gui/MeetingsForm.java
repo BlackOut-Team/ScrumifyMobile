@@ -42,15 +42,14 @@ public class MeetingsForm extends SideMenuBaseForm {
         this.pp = p;
         getToolbar().setTitleCentered(true);
 
-        Button menuButton = new Button("");
-        menuButton.setUIID("Title");
-        FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
-
-        menuButton.addActionListener(e -> getToolbar().openSideMenu());
-
+          Button returnButton = new Button("");
+        returnButton.setUIID("Title");
+        FontImage.setMaterialIcon(returnButton, FontImage.MATERIAL_ARROW_BACK);
+        returnButton.addActionListener(e -> new ProjectDetailsForm(res, this,p).showBack());
+        
         add(new Label("Meetings", "TodayTitle"));
 Container titleCmp = BoxLayout.encloseY(
-                FlowLayout.encloseIn(menuButton),
+                FlowLayout.encloseIn(returnButton),
                 BorderLayout.centerAbsolute(
                         BoxLayout.encloseY()
                 )
@@ -59,7 +58,7 @@ Container titleCmp = BoxLayout.encloseY(
 
            FloatingActionButton fab = FloatingActionButton.createFAB(FontImage.MATERIAL_ADD);
         fab.getAllStyles().setMarginUnit(Byte.MAX_VALUE);
-        getToolbar().setTitleComponent(fab.bindFabToContainer(titleCmp, RIGHT, TOP));
+         getToolbar().setTitleComponent(fab.bindFabToContainer(titleCmp, RIGHT, TOP));
 
         MeetingService mr = new MeetingService();
         Map m = mr.getResponse("afficher_meetings/"+p.getId());
@@ -111,31 +110,6 @@ Container titleCmp = BoxLayout.encloseY(
         g.setColor(color);
         g.fillArc(height / 2 - height / 4, height / 6, height / 2, height / 2, 0, 360);
         return img;
-    }
-
-    @Override
-    protected void showOtherForm(Resources res) {
-        new AddProject(res).show();
-    }
-
-    @Override
-    protected void showDashboard(Resources res) {
-        new Dashboard(res).show();
-    }
-
-    @Override
-    protected void showProjects(Resources res) {
-        new MeetingsForm(res, this, pp).show();
-    }
-    
-    @Override
-    protected void showTeamForm(Resources res) {
-        new TeamForm(res, this).show();
-    }
-
-    @Override
-    protected void showTasks(Resources res) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
