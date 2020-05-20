@@ -93,6 +93,8 @@ public class TeamForm  extends SideMenuBaseForm {
         setupSideMenu(res);
     }
 
+   
+
     private void addButtonBottom(Image arrowDown, Container c, Team p) {
         MultiButton finishLandingPage = new MultiButton(c.getName());
         finishLandingPage.setEmblem(arrowDown);
