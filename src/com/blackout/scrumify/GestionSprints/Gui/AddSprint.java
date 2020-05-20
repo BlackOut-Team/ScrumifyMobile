@@ -55,13 +55,13 @@ public class AddSprint extends SideMenuBaseForm {
         setTitle("Scrumify");
         setLayout(BoxLayout.y());
         getToolbar().setTitleCentered(false);
-        Button menuButton = new Button("");
-        menuButton.setUIID("Title");
-        FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
-
-        menuButton.addActionListener(e -> getToolbar().openSideMenu());
+      Button returnButton = new Button("");
+        returnButton.setUIID("Title");
+        FontImage.setMaterialIcon(returnButton, FontImage.MATERIAL_ARROW_BACK);
+        returnButton.addActionListener(e -> new ProjectsForm(res, current).showBack());
+        
         Container titleCmp = BoxLayout.encloseY(
-                FlowLayout.encloseIn(menuButton)
+                FlowLayout.encloseIn(returnButton)
                   
         );
         getToolbar().setTitleComponent(titleCmp);
@@ -77,7 +77,8 @@ public class AddSprint extends SideMenuBaseForm {
         ServiceTeam ser = new ServiceTeam();
 
     
-        Button btnValider = new Button("Add task");
+        Button btnValider = new Button("Add Sprint");
+        btnValider.setUIID("LoginButton");
 
         btnValider.addActionListener(new ActionListener() {
             @Override
@@ -104,34 +105,10 @@ public class AddSprint extends SideMenuBaseForm {
             }
         });
 
-        addAll(tfName, tfDescription, tfDuedate, btnValider);
+        add(FlowLayout.encloseCenterMiddle(BoxLayout.encloseY(tfName, tfDescription, tfDuedate,btnValider)));
 
     }
 
    
-
-    @Override
-    protected void showDashboard(Resources res) {
-        new Dashboard(res).show();
-    }
-
-    @Override
-    protected void showProjects(Resources res) {
-        new ProjectsForm(res, this).show();
-    }
-    
-    @Override
-    protected void showTeamForm(Resources res) {
-        new TeamForm(res, this).show();
-    }
-
-    @Override
-    protected void showOtherForm(Resources res) {
-        new SprintsForm(res, this,projet).show();
-    }
- @Override
-    protected void showTasks(Resources res) {
-        new TasksForm(res).show();
-    }
 
 }

@@ -145,29 +145,26 @@ public class ServiceTeam {
         return listM;
 
     }
-      public ArrayList<User> getAllusers(Map m){
-        ArrayList<User> listM = new ArrayList<>();
-        ArrayList d = (ArrayList)m.get("root");
-        if(d != null) {
-        for(int i = 0; i<d.size();i++){
-            Map f =  (Map) d.get(i);
-            User t = new User();
-            Double ll = (Double) f.get("id");
-            t.setId(ll.intValue());
+    
+        
+   
+      public Team getTeam(Map m ){
+         ArrayList<Team> d = (ArrayList) m.get("root");
+          System.out.println(d);
+        Team te = new Team();
+          System.out.println(m);
+        if(m != null) {
+             float id = Float.parseFloat(m.get("id").toString());
+            te.setId((int) id);
             
           
-            t.setName((String)f.get("username"));
+               
+            te.setName((String)m.get("name"));
       
-           
-                 
-            
-           
 
-            listM.add(t);  
-        }     
         }
         
-        return listM;
+        return te;
 
     }
      public static Map<String, Object> getResponse(String url){
@@ -236,7 +233,7 @@ public class ServiceTeam {
             byte[] data = (byte[]) evt.getMetaData();
             String s = new String(data);
             System.out.println(s);
-            if (!s.contains("erreur")) {
+            if (!s.contains("erreur") && !s.contains("existe")) {
                 Dialog.show("Confirmation", "success", "Ok", null);
                  t= true;
             } else {

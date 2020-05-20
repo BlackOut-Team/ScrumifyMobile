@@ -78,7 +78,7 @@ public class ServiceSprint {
     }
 
     public boolean editSprint(Project pr , Sprint p) {
-        String url = "http://localhost/scrumifyApi/web/app_dev.php/Sprint/editSprint/"+pr.getId()+"/" + p.getId() + "?name=" + p.getName() + "&description=" + p.getDescription() + "&duedate=" + p.getDuedate()  ;
+        String url = "http://localhost/scrumifyApi/web/app_dev.php/Sprint/editSprint/" + p.getId() + "?name=" + p.getName() + "&description=" + p.getDescription() + "&duedate=" + p.getDuedate()  ;
         ConnectionRequest con = new ConnectionRequest();
         con.setUrl(url);
         con.setPost(true);

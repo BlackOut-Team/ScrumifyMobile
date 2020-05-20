@@ -53,11 +53,13 @@ public class TeamDetailsForm extends SideMenuBaseForm {
         Label profilePicLabel = new Label(profilePic, "ProfilePicTitle");
         profilePicLabel.setMask(mask.createMask());
         
-         Button menuButton = new Button("");
-        menuButton.setUIID("Title");
-        FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
+             Button returnButton = new Button("");
+        returnButton.setUIID("Title");
+        FontImage.setMaterialIcon(returnButton, FontImage.MATERIAL_ARROW_BACK);
+        returnButton.addActionListener(e -> new TeamForm(res, current).showBack());
+        
         Container titleCmp = BoxLayout.encloseY(
-                FlowLayout.encloseIn(menuButton),
+                FlowLayout.encloseIn(returnButton),
                 BorderLayout.centerAbsolute(
                         BoxLayout.encloseY(
                                   new Label(p.getName(), "Title"),
@@ -68,7 +70,6 @@ public class TeamDetailsForm extends SideMenuBaseForm {
                 ).add(BorderLayout.WEST, profilePicLabel)
                 );
                getToolbar().setTitleComponent(titleCmp);
-        menuButton.addActionListener(e -> getToolbar().openSideMenu());
         
         add(new Label(p.getName(), "TodayTitle"));
             Container rightContainer = new Container(BoxLayout.y());
@@ -97,7 +98,8 @@ public class TeamDetailsForm extends SideMenuBaseForm {
 
         edit.setUIID("LoginButton");
         archive.setUIID("LoginButton");
-     
+        fab.setUIID("ActionButton");
+
         add(BoxLayout.encloseXRight(fab,edit,archive));
     
         fab.addActionListener((evt) -> {
@@ -128,29 +130,7 @@ public class TeamDetailsForm extends SideMenuBaseForm {
         });
        finishLandingPage.setLeadComponent(gt);
     }
-  @Override
-    protected void showOtherForm(Resources res) {
-        new AddProject(res).show();
-    }
 
-    @Override
-    protected void showDashboard(Resources res) {
-        new Dashboard(res).show();
-    }
-
-    @Override
-    protected void showProjects(Resources res) {
-        new ProjectsForm(res, this).show();
-    }
-    
-    @Override
-    protected void showTeamForm(Resources res) {
-        new TeamForm(res, this).show();
-    }
-   @Override
-    protected void showTasks(Resources res) {
-        new TasksForm(res).show();
-    }
 
     
 }

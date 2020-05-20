@@ -5,38 +5,29 @@
  */
 package com.blackout.scrumify.GestionProjets.Gui;
 
-import com.blackout.scrumify.Dropbox.Dropbox;
 import com.blackout.scrumify.GestionProjets.Entities.Project;
 import com.blackout.scrumify.GestionProjets.Services.ServiceProjet;
-import com.blackout.scrumify.GestionTasks.Gui.TasksForm;
-import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
 import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.util.Resources;
 import com.blackout.scrumify.Utils.SideMenuBaseForm;
 import com.codename1.components.FloatingActionButton;
 import com.codename1.components.MultiButton;
-import com.blackout.scrumify.Dropbox.DropboxAccess;
-import com.blackout.scrumify.GestionUsers.entities.User;
+import com.blackout.scrumify.GestionTeams.Entities.Team;
+import com.blackout.scrumify.GestionTeams.Gui.TeamDetailsForm;
+import com.blackout.scrumify.GestionTeams.services.ServiceTeam;
 import com.blackout.scrumify.Utils.Session;
-import com.blackout.scrumify.Utils.Statics;
-import com.codename1.io.Preferences;
-import com.codename1.io.Storage;
 import com.codename1.ui.Button;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
-import com.codename1.ui.events.ActionEvent;
-import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.layouts.GridLayout;
 import java.util.ArrayList;
 import java.util.Map;
 import com.codename1.ui.util.Resources;
-import java.util.Collection;
 
 /**
  *
@@ -45,11 +36,15 @@ import java.util.Collection;
 public class ProjectsForm extends SideMenuBaseForm {
 
     public static Resources res;
+    ServiceProjet pr = new ServiceProjet();
+    Map m;
+    ArrayList<Project> listT;
+    SideMenuBaseForm current;
 
     public ProjectsForm(Resources res, Form previous) {
         super(BoxLayout.y());
         this.res = res;
-
+        current = this;
         getToolbar().setTitleCentered(false);
 
         Button menuButton = new Button("");
@@ -70,6 +65,10 @@ public class ProjectsForm extends SideMenuBaseForm {
                 new Label("Completed", "CenterTitle")
         );
         completedProjects.setUIID("CompletedTasks");
+
+        Button all = new Button();
+        Button comp = new Button();
+        Button curr = new Button();
         Container titleCmp = BoxLayout.encloseY(
                 FlowLayout.encloseIn(menuButton),
                 BorderLayout.centerAbsolute(
@@ -77,49 +76,91 @@ public class ProjectsForm extends SideMenuBaseForm {
                 ),
                 GridLayout.encloseIn(3, Allprojects, currentProjects, completedProjects)
         );
-
         FloatingActionButton fab = FloatingActionButton.createFAB(FontImage.MATERIAL_ADD);
         fab.getAllStyles().setMarginUnit(Byte.MAX_VALUE);
         fab.getAllStyles().setMargin(BOTTOM, completedProjects.getPreferredH() - fab.getPreferredH() / 2);
         getToolbar().setTitleComponent(fab.bindFabToContainer(titleCmp, RIGHT, TOP));
         add(new Label("Projects", "TodayTitle"));
 
-        ServiceProjet pr = new ServiceProjet();
-      
-        System.out.println(Session.getInstace().u);
-        System.out.println(Preferences.get("user", 0) );
-        
-        Map m = ServiceProjet.getResponse("Project/showP/"+ Preferences.get("user", 0));
-        ArrayList<Project> listT = pr.getAllProjects(m);
-        FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
+        fab.addActionListener((evvt) -> {
+            new AddProject(res).show();
+        });
+        setupSideMenu(res);
 
+        curr.addActionListener((evt) -> {
+
+            new CurrProjectsForm(res, current).show();;
+
+        });
+        comp.addActionListener((evt) -> {
+            new CompProjectsForm(res, current).show();;
+
+        });
+
+        currentProjects.setLeadComponent(curr);
+        completedProjects.setLeadComponent(comp);
+        Allprojects.setLeadComponent(all);
+        m = ServiceProjet.getResponse("Project/showP/" + Session.u.getId());
+
+       if(m != null ){
+
+        listT = pr.getAllProjects(m);
         for (int i = 0; i < listT.size(); i++) {
 
             Project p = listT.get(i);
 
-            Container c = new Container(BoxLayout.x());
-
-            c.setName(p.getName());
-            addButtonBottom(arrowDown, c, p);
+            addProjectBox(p);
 
         }
-        fab.addActionListener((evt) -> {
-            new AddProject(res).show();
-        });
-        setupSideMenu(res);
+        }
+        else
+        {
+                    Image empty = res.getImage("landing_1.png");
+                 
+                    Container ct = new Container(BoxLayout.yCenter());
+                    ct.add(empty );
+                    ct.add(new Label("No active project !","TodayTitle"));
+                    Button add = new Button("Get started");
+                    add.setUIID("LoginButton");
+                    add.addActionListener((evt) -> {
+                        new AddProject(res).show();
+                    });
+                    ct.add(add);
+                    add(FlowLayout.encloseCenterMiddle(ct));
+
+        }
+
     }
 
-    private void addButtonBottom(Image arrowDown, Container c, Project p) {
-        MultiButton finishLandingPage = new MultiButton(c.getName());
-        finishLandingPage.setEmblem(arrowDown);
-        finishLandingPage.setUIID("ProjectItem");
-        finishLandingPage.setUIIDLine1("TodayEntry");
-        add(BoxLayout.encloseY(finishLandingPage));
+    private void addProjectBox(Project p) {
+        FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_MORE_HORIZ, "Label", 6);
+        MultiButton projectBox = new MultiButton(p.getName());
+
+        projectBox.setEmblem(arrowDown);
+        projectBox.setUIID("ProjectItem");
+        projectBox.setUIIDLine1("TodayEntry");
+        projectBox.setUIIDLine2("TodayEntry");
+
+        projectBox.setTextLine2(p.getDescription());
+        projectBox.setTextLine4("From : " + p.getCreated() + "to : " + p.getDuedate());
+        ServiceTeam s = new ServiceTeam();
+        Map m = s.getResponse("gett/" + p.getTeam_id());
+        Team tt = s.getTeam(m);
+        projectBox.setTextLine3(tt.getName());
         Button gt = new Button();
         gt.addActionListener((evt) -> {
-            new ProjectDetailsForm(res, this, p).show();
+            new ProjectDetailsForm(res, current, p).show();
         });
-        finishLandingPage.setLeadComponent(gt);
+        Button showt = new Button();
+        showt.addActionListener((evt) -> {
+            new TeamDetailsForm(res, current, tt).show();
+        });
+       // projectBox.getTextLine3().setLeadComponent(showt);
+        
+        
+        projectBox.setLeadComponent(gt);
+        add(BoxLayout.encloseY(projectBox));
+
     }
 
     private Image createCircleLine(int color, int height, boolean first) {
@@ -136,47 +177,6 @@ public class ProjectsForm extends SideMenuBaseForm {
         g.setColor(color);
         g.fillArc(height / 2 - height / 4, height / 6, height / 2, height / 2, 0, 360);
         return img;
-    }
-
-    @Override
-    protected void showOtherForm(Resources res) {
-        new AddProject(res).show();
-    }
-
-    @Override
-    protected void showDashboard(Resources res) {
-        new Dashboard(res).show();
-    }
-
-    @Override
-    protected void showProjects(Resources res) {
-         new ProjectsForm(res, this).show();
-             //   new CalendarForm(res).show();
-
-       /* DropboxAccess.setConsumerKey("4wwgb8kt70pr31r");
-        DropboxAccess.setConsumerSecret("rhm6b48dzsl166g");
-        DropboxAccess.getInstance().showAuthentication(new ActionListener() {
-            @Override
-
-            public void actionPerformed(ActionEvent evt) {
-                if (evt.getSource() != null) {
-                    Dropbox drop = new Dropbox();
-                    drop.showDropboxFilePicker(true);
-                }
-            }
-
-        });*/
-
-    }
-
-    @Override
-    protected void showTeamForm(Resources res) {
-        new TeamForm(res, this).show();
-    }
-
-    @Override
-    protected void showTasks(Resources res) {
-        new TasksForm(res).show();
     }
 
 }

@@ -5,6 +5,7 @@
  */
 package com.blackout.scrumify.GestionTasks.Gui;
 
+import com.blackout.scrumify.GestionMeeting.Gui.MeetingsForm;
 import com.blackout.scrumify.GestionProjets.Entities.Project;
 import com.blackout.scrumify.GestionProjets.Gui.AddProject;
 import com.blackout.scrumify.GestionProjets.Gui.Dashboard;
@@ -31,10 +32,12 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.spinner.NumericSpinner;
 import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.util.Resources;
 import java.util.ArrayList;
 import java.util.Map;
+import javafx.scene.control.Spinner;
 import javafx.scene.layout.Priority;
 
 /**
@@ -50,13 +53,14 @@ public class EditTask extends SideMenuBaseForm {
         setTitle("Scrumify");
         setLayout(BoxLayout.y());
         getToolbar().setTitleCentered(false);
-        Button menuButton = new Button("");
-        menuButton.setUIID("Title");
-        FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
-
-        menuButton.addActionListener(e -> getToolbar().openSideMenu());
+       
+             Button returnButton = new Button("");
+        returnButton.setUIID("Title");
+        FontImage.setMaterialIcon(returnButton, FontImage.MATERIAL_ARROW_BACK);
+        returnButton.addActionListener(e -> new TasksForm(res).showBack());
+        
         Container titleCmp = BoxLayout.encloseY(
-                FlowLayout.encloseIn(menuButton)
+                FlowLayout.encloseIn(returnButton)
         );
         getToolbar().setTitleComponent(titleCmp);
 
@@ -65,9 +69,10 @@ public class EditTask extends SideMenuBaseForm {
         add(new Label("Edit Task", "TodayTitle"));
         TextField title = new TextField(p.getTitle(), "Title");
         TextField Description = new TextField(p.getDescription(), "Description");
-        TextField priority = new TextField(p.getDescription(), "Description"); 
+        NumericSpinner priority = new NumericSpinner();
+        priority.setValue((double) p.getPriority()); 
 
-     
+       priority.setMax(10);
 
         Button btnValider = new Button("Submit");
 
@@ -82,7 +87,7 @@ public class EditTask extends SideMenuBaseForm {
                       
                         p.setTitle(title.getText());
                         p.setDescription(Description.getText());
-                        p.setPriority(Integer.parseInt(priority.getText()));
+                        p.setPriority((int)priority.getValue());
                         if(TasksService.getInstance().editTask(p)){
                         new TasksDetailsForm(res, current, p).show();}
 
@@ -99,28 +104,4 @@ public class EditTask extends SideMenuBaseForm {
 
     }
 
-    @Override
-    protected void showOtherForm(Resources res) {
-        new AddProject(res).show();
-    }
-
-    @Override
-    protected void showDashboard(Resources res) {
-        new Dashboard(res).show();
-    }
-
-    @Override
-    protected void showProjects(Resources res) {
-        new ProjectsForm(res, this).show();
-    }
-
-    @Override
-    protected void showTeamForm(Resources res) {
-        new TeamForm(res, this).show();
-    }
-
-   @Override
-    protected void showTasks(Resources res) {
-         new TasksForm(res).show();
-    }
 }

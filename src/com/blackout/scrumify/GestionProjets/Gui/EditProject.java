@@ -11,6 +11,7 @@ import com.blackout.scrumify.GestionTasks.Gui.TasksForm;
 import com.blackout.scrumify.GestionTeams.Entities.Team;
 import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
 import com.blackout.scrumify.GestionTeams.services.ServiceTeam;
+import com.blackout.scrumify.Utils.Session;
 import com.blackout.scrumify.Utils.SideMenuBaseForm;
 import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.Button;
@@ -44,13 +45,13 @@ public class EditProject extends SideMenuBaseForm {
         setTitle("Scrumify");
         setLayout(BoxLayout.y());
         getToolbar().setTitleCentered(false);
-        Button menuButton = new Button("");
-        menuButton.setUIID("Title");
-        FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
-
-        menuButton.addActionListener(e -> getToolbar().openSideMenu());
+           Button returnButton = new Button("");
+        returnButton.setUIID("Title");
+        FontImage.setMaterialIcon(returnButton, FontImage.MATERIAL_ARROW_BACK);
+        returnButton.addActionListener(e -> new ProjectsForm(res, current).showBack());
+        
         Container titleCmp = BoxLayout.encloseY(
-                FlowLayout.encloseIn(menuButton)
+                FlowLayout.encloseIn(returnButton)
         );
         getToolbar().setTitleComponent(titleCmp);
 
@@ -60,18 +61,21 @@ public class EditProject extends SideMenuBaseForm {
         TextField tfName = new TextField(p.getName(), "Project Name");
         TextField tfDescription = new TextField(p.getDescription(), "Description");
         Picker tfDuedate = new Picker();
-        tfDuedate.setFormatter(new SimpleDateFormat("dd/MM/yyyy"));
+        tfDuedate.setFormatter(new SimpleDateFormat("dd-MM-yyyy"));
         tfDuedate.setText(p.getDuedate());
         ComboBox<String> team = new ComboBox<String>();
+                    team.setActAsSpinnerDialog(true);
+
         ServiceTeam ser = new ServiceTeam();
 
-        Map x = ser.getResponse("affteam");
+        Map x = ser.getResponse("affteam/"+Session.u.getId());
         ArrayList<Team> listT = ser.getAllTeams(x);
         for (Team ev : listT) {
             team.addItem(ev.getName());
         }
 
         Button btnValider = new Button("Submit");
+        btnValider.setUIID("LoginButton");
 
         btnValider.addActionListener(new ActionListener() {
             @Override
@@ -99,32 +103,9 @@ public class EditProject extends SideMenuBaseForm {
             }
         });
 
-        addAll(tfName, tfDescription, tfDuedate, team, btnValider);
+        add(FlowLayout.encloseCenterMiddle(BoxLayout.encloseY(tfName, tfDescription, tfDuedate, team,btnValider)));
 
     }
 
-    @Override
-    protected void showOtherForm(Resources res) {
-        new AddProject(res).show();
-    }
-
-    @Override
-    protected void showDashboard(Resources res) {
-        new Dashboard(res).show();
-    }
-
-    @Override
-    protected void showProjects(Resources res) {
-        new ProjectsForm(res, this).show();
-    }
-
-    @Override
-    protected void showTeamForm(Resources res) {
-        new TeamForm(res, this).show();
-    }
-     @Override
-    protected void showTasks(Resources res) {
-        new TasksForm(res).show();
-    }
-
+   
 }

@@ -11,6 +11,7 @@ import com.blackout.scrumify.GestionProjets.Gui.ProjectsForm;
 import com.blackout.scrumify.GestionTasks.Entities.Tasks;
 import com.blackout.scrumify.GestionTasks.Services.TasksService;
 import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
+import com.blackout.scrumify.Utils.Session;
 import com.blackout.scrumify.Utils.SideMenuBaseForm;
 import com.codename1.components.FloatingActionButton;
 import com.codename1.components.MultiButton;
@@ -53,9 +54,8 @@ public class TasksForm extends SideMenuBaseForm {
 
         Button menuButton = new Button("");
         menuButton.setUIID("Title");
-        Label name= new Label();
         FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
- Image profilePic = res.getImage("user-picture.jpg");
+        Image profilePic = res.getImage("Image3.png");
         Image mask = res.getImage("round-mask.png");
         profilePic = profilePic.fill(mask.getWidth(), mask.getHeight());
         Label profilePicLabel = new Label(profilePic, "ProfilePicTitle");
@@ -83,10 +83,10 @@ Container remainingTasks = BoxLayout.encloseY(
                         FlowLayout.encloseIn(menuButton),
                         BorderLayout.centerAbsolute(
                                 BoxLayout.encloseY(
-                                    new Label("Hidaya Mcharek", "Title"),
+                                    new Label(Session.u.getName(), "Title"),
                                     new Label("Developer", "SubTitle")
                                 )
-                            ).add(BorderLayout.WEST, profilePic),
+                            ).add(BorderLayout.WEST, profilePicLabel),
                         GridLayout.encloseIn(2, remainingTasks, completedTasks)
                 );
         
@@ -115,25 +115,9 @@ Container remainingTasks = BoxLayout.encloseY(
         
         //kn clika ala doing
         Events.addActionListener(l->{
-             ArrayList<Tasks> listT = null;
             if(Events.isSelected())
             {
-             TasksService pr = new TasksService();
-            Map m = pr.getResponse("Tasks/show");
-        
-             listT = pr.getAllTasks(m);
-            FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
-
-        for (int i = 0; i < listT.size(); i++) {
-            Tasks p = listT.get(i);
-            if (p.getStatus().equals("Done")){
-                System.out.println(p.getTitle());
-            Container c = new Container(BoxLayout.x());
-
-            c.setName(p.getTitle());
-            addButtonBottom(arrowDown, c, p);}
-
-            }
+                System.out.println("tt");
             }
         });
         //kn clika ala done
@@ -158,8 +142,23 @@ Container remainingTasks = BoxLayout.encloseY(
   
         add(new Label("Tasks", "TodayTitle"));
 
-        
+        FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
+
+             TasksService pr = new TasksService();
+             Map m = pr.getResponse("Tasks/show");
+             ArrayList<Tasks> listT = null;
+
+             listT = pr.getAllTasks(m);
+           
+        for (int i = 0; i < listT.size(); i++) {
+            Tasks p = listT.get(i);
        
+            Container c = new Container(BoxLayout.x());
+
+            c.setName(p.getTitle());
+            addButtonBottom(arrowDown, c, p);
+
+            }
         fab.addActionListener((evt) -> {
             new AddTasks(res).show();
         });
@@ -199,32 +198,7 @@ Container remainingTasks = BoxLayout.encloseY(
         return img;
     }
 
-    @Override
-    protected void showOtherForm(Resources res) {
-        new AddProject(res).show();
-    }
 
-    @Override
-    protected void showDashboard(Resources res) {
-        new Dashboard(res).show();
-    }
-
-    @Override
-    protected void showProjects(Resources res) {
-        new ProjectsForm(res, this).show();
-    }
-    
-    @Override
-    protected void showTeamForm(Resources res) {
-        new TeamForm(res, this).show();
-    }
-
-    @Override
-    protected void showTasks(Resources res) {
-         new TasksForm(res).show();
-    }
-
-   
   
     
     

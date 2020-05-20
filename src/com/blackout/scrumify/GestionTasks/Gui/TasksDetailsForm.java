@@ -43,7 +43,7 @@ public class TasksDetailsForm extends SideMenuBaseForm {
                  new  TasksForm(res).showBack()    ;        
         };
         };
-        Image profilePic = res.getImage("scrumify.png");
+        Image profilePic = res.getImage("task.jpg");
         Image mask = res.getImage("round-mask.png");
         profilePic = profilePic.fill(mask.getWidth() / 2, mask.getHeight() / 2);
         Label profilePicLabel = new Label(profilePic, "ProfilePicTitle");
@@ -56,8 +56,8 @@ public class TasksDetailsForm extends SideMenuBaseForm {
                 FlowLayout.encloseIn(menuButton),
                 BorderLayout.centerAbsolute(
                         BoxLayout.encloseY(
-                                  new Label(p.getTitle(), "Title"),
-                                new Label(p.getDescription(), "Title")
+                                  new Label("Task details", "Title")
+                               
                                 
                         )
                 ).add(BorderLayout.WEST, profilePicLabel)
@@ -74,8 +74,8 @@ public class TasksDetailsForm extends SideMenuBaseForm {
         Button edit = new Button("EDIT");
         Button archive = new Button("ARCHIVE");
 
-        edit.setUIID("LoginButton");
-        archive.setUIID("LoginButton");
+        edit.setUIID("SkipButton");
+        archive.setUIID("SkipButton");
 
         add(BoxLayout.encloseYBottom(edit,archive));
         
@@ -93,30 +93,6 @@ public class TasksDetailsForm extends SideMenuBaseForm {
                 
     }
 
-  @Override
-    protected void showOtherForm(Resources res) {
-        new AddProject(res).show();
-    }
-
-    @Override
-    protected void showDashboard(Resources res) {
-        new Dashboard(res).show();
-    }
-
-    @Override
-    protected void showProjects(Resources res) {
-        new ProjectsForm(res, this).show();
-    }
-    
-    @Override
-    protected void showTeamForm(Resources res) {
-        new TeamForm(res, this).show();
-    }
-
-    @Override
-    protected void showTasks(Resources res) {
-         new TasksForm(res).show();
-    }
   
     
 }

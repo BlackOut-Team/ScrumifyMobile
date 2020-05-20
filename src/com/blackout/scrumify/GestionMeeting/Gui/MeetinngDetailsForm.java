@@ -10,6 +10,7 @@ import com.blackout.scrumify.GestionMeeting.Services.MeetingService;
 import com.blackout.scrumify.GestionProjets.Entities.Project;
 import com.blackout.scrumify.GestionProjets.Gui.AddProject;
 import com.blackout.scrumify.GestionProjets.Gui.Dashboard;
+import com.blackout.scrumify.GestionProjets.Gui.ProjectDetailsForm;
 import com.blackout.scrumify.Utils.SideMenuBaseForm;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
@@ -48,11 +49,13 @@ SideMenuBaseForm current ;
         Label profilePicLabel = new Label(profilePic, "ProfilePicTitle");
         profilePicLabel.setMask(mask.createMask());
         
-         Button menuButton = new Button("");
-        menuButton.setUIID("Title");
-        FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
+             Button returnButton = new Button("");
+        returnButton.setUIID("Title");
+        FontImage.setMaterialIcon(returnButton, FontImage.MATERIAL_ARROW_BACK);
+        returnButton.addActionListener(e -> new MeetingsForm(res, current,p).showBack());
+        
         Container titleCmp = BoxLayout.encloseY(
-                FlowLayout.encloseIn(menuButton),
+                FlowLayout.encloseIn(returnButton),
                 BorderLayout.centerAbsolute(
                         BoxLayout.encloseY(
                                   new Label(p.getName(), "Title"),
@@ -61,7 +64,6 @@ SideMenuBaseForm current ;
                 ).add(BorderLayout.WEST, profilePicLabel)
                 );
                getToolbar().setTitleComponent(titleCmp);
-        menuButton.addActionListener(e -> getToolbar().openSideMenu());
         
         add(new Label(p.getName(), "TodayTitle"));
             Container rightContainer = new Container(BoxLayout.y());
@@ -93,35 +95,8 @@ SideMenuBaseForm current ;
                 
     }
 
-  @Override
-    protected void showOtherForm(Resources res) {
-        new AddProject(res).show();
-    }
+  
 
-    @Override
-    protected void showDashboard(Resources res) {
-        new Dashboard(res).show();
-    }
-
-    protected void showProjects(Resources res, Project p) {
-        new MeetingsForm(res, this ,p).show();
-    }
-
-    @Override
-    protected void showProjects(Resources res) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    protected void showTeamForm(Resources res) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    protected void showTasks(Resources res) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
   
     
 }

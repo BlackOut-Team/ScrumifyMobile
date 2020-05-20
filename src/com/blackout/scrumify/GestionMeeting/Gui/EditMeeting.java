@@ -9,6 +9,8 @@ import com.blackout.scrumify.GestionMeeting.Entities.Meeting;
 import com.blackout.scrumify.GestionMeeting.Services.MeetingService;
 import com.blackout.scrumify.GestionProjets.Entities.Project;
 import com.blackout.scrumify.GestionProjets.Gui.Dashboard;
+import com.blackout.scrumify.GestionProjets.Gui.ProjectDetailsForm;
+import com.blackout.scrumify.GestionProjets.Gui.ProjectsForm;
 import com.blackout.scrumify.GestionSprints.Entities.Sprint;
 import com.blackout.scrumify.GestionSprints.Services.ServiceSprint;
 import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
@@ -48,13 +50,13 @@ public class EditMeeting extends SideMenuBaseForm {
         setTitle("Scrumify");
         setLayout(BoxLayout.y());
         getToolbar().setTitleCentered(false);
-        Button menuButton = new Button("");
-        menuButton.setUIID("Title");
-        FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
-
-        menuButton.addActionListener(e -> getToolbar().openSideMenu());
+       Button returnButton = new Button("");
+        returnButton.setUIID("Title");
+        FontImage.setMaterialIcon(returnButton, FontImage.MATERIAL_ARROW_BACK);
+        returnButton.addActionListener(e -> new ProjectDetailsForm(res, current,p).showBack());
+        
         Container titleCmp = BoxLayout.encloseY(
-                FlowLayout.encloseIn(menuButton)
+                FlowLayout.encloseIn(returnButton)
         );
         getToolbar().setTitleComponent(titleCmp);
 
@@ -68,7 +70,7 @@ public class EditMeeting extends SideMenuBaseForm {
         
         
         
-        meetingDate.setFormatter(new SimpleDateFormat("dd/MM/yyyy"));
+        meetingDate.setFormatter(new SimpleDateFormat("MM-dd-yyyy"));
         meetingDate.setText(m.getMeetingDate()
         );
         ComboBox<String> sprint = new ComboBox<String>();
@@ -96,7 +98,7 @@ public class EditMeeting extends SideMenuBaseForm {
                         int ind = sprint.getSelectedIndex();
                         Sprint te = listT.get(ind);
                         int sprintId = te.getId();
-                        Meeting m = new Meeting(mm.getId(),tfName.getText(), tfplace.getText(), tftype.getText(),Integer.toString(sprintId), meetingDate.getText());
+                        Meeting m = new Meeting(mm.getId(),tfName.getText(), tfplace.getText(), tftype.getText(),sprintId, meetingDate.getText());
                         if(MeetingService.getInstance().editMeeting(m)){
                         new MeetingsForm(res, current ,pp).show();
                         }
@@ -113,29 +115,5 @@ public class EditMeeting extends SideMenuBaseForm {
 
     }
 
-    @Override
-    protected void showOtherForm(Resources res) {
-        new AddMeeting(res, pp).show();
-    }
-
-    @Override
-    protected void showDashboard(Resources res) {
-        new Dashboard(res).show();
-    }
-
-    @Override
-    protected void showProjects(Resources res) {
-        new MeetingsForm(res, this, pp).show();
-    }
-    
-    @Override
-    protected void showTeamForm(Resources res) {
-        new TeamForm(res, this).show();
-    }
-
-    @Override
-    protected void showTasks(Resources res) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 }

@@ -109,11 +109,13 @@ import java.util.Map;
 
                 Meeting t = new Meeting();
                 float id = Float.parseFloat(g.get("id").toString());
+                                float sp = Float.parseFloat(g.get("sprint").toString());
+
                 t.setId((int) id);
                 t.setName(g.get("name").toString());
                 t.setPlace(g.get("place").toString());
                 t.setType(g.get("type").toString());
-                t.setSprint(g.get("sprint").toString());
+                t.setSprint((int) sp);
                 Map<String, Object> MapMeetingDate = (Map<String, Object>) g.get("meetingDate");
 
                 float datedebut = Float.parseFloat(MapMeetingDate.get("timestamp").toString());

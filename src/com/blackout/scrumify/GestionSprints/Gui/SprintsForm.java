@@ -47,16 +47,16 @@ public class SprintsForm extends SideMenuBaseForm {
         getToolbar().setTitleCentered(false);
         projett = projet;
 
-        Button menuButton = new Button("");
-        menuButton.setUIID("Title");
-        FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
-
-        menuButton.addActionListener(e -> getToolbar().openSideMenu());
+        Button returnButton = new Button("");
+        returnButton.setUIID("Title");
+        FontImage.setMaterialIcon(returnButton, FontImage.MATERIAL_ARROW_BACK);
+        returnButton.addActionListener(e -> new ProjectDetailsForm(res, this, projet).showBack());
+        
         Container Allsprints = BoxLayout.encloseY(
                 new Label("All ", "CenterTitle")
         );
          Container titleCmp = BoxLayout.encloseY(
-                FlowLayout.encloseIn(menuButton),
+                FlowLayout.encloseIn(returnButton),
                 BorderLayout.centerAbsolute(
                         BoxLayout.encloseY()
                 ),
@@ -74,7 +74,7 @@ public class SprintsForm extends SideMenuBaseForm {
         Map m = ServiceSprint.getResponse("Sprint/sprint/"+ projet.getId());
         ArrayList<Sprint> listT = pr.getAllSprints(m);
         FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
-
+if(m!=null){
         for (int i = 0; i < listT.size(); i++) {
 
             Sprint p = listT.get(i);
@@ -84,6 +84,20 @@ public class SprintsForm extends SideMenuBaseForm {
             c.setName(p.getName());
             addButtonBottom(arrowDown, c,projet, p);
 
+        }
+}else
+        {
+                    Image empty = res.getImage("landing_1.png");
+                    Container ct = new Container(BoxLayout.yCenter());
+                    ct.add(empty );
+                    ct.add(new Label("No  active sprints in this project !","TodayTitle"));
+                    Button add = new Button("Get started");
+                    add.setUIID("LoginButton");
+                    add.addActionListener((evt) -> {
+                        new AddSprint(res,projet).show();
+                    });
+                    ct.add(add);
+                    add(FlowLayout.encloseCenterMiddle(ct));
         }
         fab.addActionListener((evt) -> {
             new AddSprint(res,projet).show();

@@ -37,13 +37,13 @@ public class AddTeam extends SideMenuBaseForm {
         setTitle("Scrumify");
         setLayout(BoxLayout.y());
         getToolbar().setTitleCentered(false);
-        Button menuButton = new Button("");
-        menuButton.setUIID("Title");
-        FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
-
-        menuButton.addActionListener(e -> getToolbar().openSideMenu());
+            Button returnButton = new Button("");
+        returnButton.setUIID("Title");
+        FontImage.setMaterialIcon(returnButton, FontImage.MATERIAL_ARROW_BACK);
+        returnButton.addActionListener(e -> new ProjectsForm(res, current).showBack());
+        
         Container titleCmp = BoxLayout.encloseY(
-                FlowLayout.encloseIn(menuButton)
+                FlowLayout.encloseIn(returnButton)
                   
         );
         getToolbar().setTitleComponent(titleCmp);
@@ -54,7 +54,8 @@ public class AddTeam extends SideMenuBaseForm {
         TextField tfName = new TextField("", "Team Name");
  
         Button btnValider = new Button("Add team");
-
+        
+        btnValider.setUIID("LoginButton");
         btnValider.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -84,28 +85,6 @@ public class AddTeam extends SideMenuBaseForm {
 
     }
 
-    @Override
-    protected void showOtherForm(Resources res) {
-        new AddProject(res).show();
-    }
-
-    @Override
-    protected void showDashboard(Resources res) {
-        new Dashboard(res).show();
-    }
-
-    @Override
-    protected void showProjects(Resources res) {
-        new ProjectsForm(res, this).show();
-    }
-
-   @Override
-    protected void showTeamForm(Resources res) {
-        new TeamForm(res, this).show();
-    }
-     @Override
-    protected void showTasks(Resources res) {
-        new TasksForm(res).show();
-    }
+ 
 
 }

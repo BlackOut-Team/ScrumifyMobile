@@ -11,6 +11,7 @@ import com.blackout.scrumify.GestionTasks.Gui.TasksForm;
 import com.blackout.scrumify.GestionTeams.Entities.Team;
 import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
 import com.blackout.scrumify.GestionTeams.services.ServiceTeam;
+import com.blackout.scrumify.Utils.Session;
 import com.blackout.scrumify.Utils.SideMenuBaseForm;
 import com.codename1.components.FloatingActionButton;
 import com.codename1.l10n.SimpleDateFormat;
@@ -42,42 +43,47 @@ import com.codename1.ui.util.Resources;
  * @author AmiraDoghri
  */
 public class AddProject extends SideMenuBaseForm {
+
     SideMenuBaseForm current;
- public static int id;
+    public static int id;
+
     public AddProject(Resources res) {
-        current = this ;
+        current = this;
         setTitle("Scrumify");
         setLayout(BoxLayout.y());
         getToolbar().setTitleCentered(false);
-        Button menuButton = new Button("");
-        menuButton.setUIID("Title");
-        FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
 
-        menuButton.addActionListener(e -> getToolbar().openSideMenu());
+        Button returnButton = new Button("");
+        returnButton.setUIID("Title");
+        FontImage.setMaterialIcon(returnButton, FontImage.MATERIAL_ARROW_BACK);
+        returnButton.addActionListener(e -> new ProjectsForm(res, current).showBack());
+
         Container titleCmp = BoxLayout.encloseY(
-                FlowLayout.encloseIn(menuButton)
-                  
+                FlowLayout.encloseIn(returnButton)
         );
         getToolbar().setTitleComponent(titleCmp);
 
         setupSideMenu(res);
 
         add(new Label("Add a project", "TodayTitle"));
-        TextField tfName = new TextField("", "Project Name");
-        TextField tfDescription = new TextField("", "Description");
+        TextField tfName = new TextField("Project Name", "Project Name");
+        TextField tfDescription = new TextField("Description", "Description");
         Picker tfDuedate = new Picker();
 
-        tfDuedate.setFormatter(new SimpleDateFormat("MM/dd/yyyy"));
+        tfDuedate.setFormatter(new SimpleDateFormat("MM-dd-yyyy"));
         ComboBox<String> team = new ComboBox<String>();
+                    team.setActAsSpinnerDialog(true);
+
         ServiceTeam ser = new ServiceTeam();
 
-        Map x = ser.getResponse("affteam");
+        Map x = ser.getResponse("affteam/"+Session.u.getId());
         ArrayList<Team> listT = ser.getAllTeams(x);
         for (Team ev : listT) {
             team.addItem(ev.getName());
         }
 
-        Button btnValider = new Button("Add task");
+        Button btnValider = new Button("Add Project");
+        btnValider.setUIID("LoginButton");
 
         btnValider.addActionListener(new ActionListener() {
             @Override
@@ -87,15 +93,13 @@ public class AddProject extends SideMenuBaseForm {
                 } else {
                     try {
 
-                  
-
                         int ind = team.getSelectedIndex();
                         Team te = listT.get(ind);
                         Project t = new Project(tfName.getText(), tfDescription.getText(), tfDuedate.getText(), tfDuedate.getText(), 1, te.getId(), 1, 1);
-                        if(ServiceProjet.getInstance().addProject(t)){
-                        new ProjectsForm(res, current).show();
+                        if (ServiceProjet.getInstance().addProject(t)) {
+                            new ProjectsForm(res, current).show();
                         }
-                       
+
                     } catch (NumberFormatException e) {
                         Dialog.show("ERROR", "type", new Command("OK"));
                     }
@@ -104,34 +108,12 @@ public class AddProject extends SideMenuBaseForm {
 
             }
         });
-
-        addAll(tfName, tfDescription, tfDuedate, team, btnValider);
+        add(FlowLayout.encloseCenterMiddle(BoxLayout.encloseY(tfName, tfDescription, tfDuedate, team,btnValider)));
 
     }
 
-    @Override
-    protected void showOtherForm(Resources res) {
-        new AddProject(res).show();
-    }
-
-    @Override
-    protected void showDashboard(Resources res) {
-        new Dashboard(res).show();
-    }
-
-    @Override
-    protected void showProjects(Resources res) {
-        new ProjectsForm(res, this).show();
-    }
-    
-    @Override
-    protected void showTeamForm(Resources res) {
-        new TeamForm(res, this).show();
-    }
-
-    @Override
-    protected void showTasks(Resources res) {
-        new TasksForm(res).show();
-    }
-
+//    @Override
+//    protected void goBack(Resources res, Form previous) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 }

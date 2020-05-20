@@ -27,6 +27,7 @@ import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.spinner.Picker;
@@ -51,13 +52,13 @@ public class EditSprint extends SideMenuBaseForm {
         setTitle("Scrumify");
         setLayout(BoxLayout.y());
         getToolbar().setTitleCentered(false);
-        Button menuButton = new Button("");
-        menuButton.setUIID("Title");
-        FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
-
-        menuButton.addActionListener(e -> getToolbar().openSideMenu());
+          Button returnButton = new Button("");
+        returnButton.setUIID("Title");
+        FontImage.setMaterialIcon(returnButton, FontImage.MATERIAL_ARROW_BACK);
+        returnButton.addActionListener(e -> new ProjectsForm(res, current).showBack());
+        
         Container titleCmp = BoxLayout.encloseY(
-                FlowLayout.encloseIn(menuButton)
+                FlowLayout.encloseIn(returnButton)
         );
         getToolbar().setTitleComponent(titleCmp);
 
@@ -72,6 +73,7 @@ public class EditSprint extends SideMenuBaseForm {
 
       
         Button btnValider = new Button("Submit");
+        btnValider.setUIID("LoginButton");
 
         btnValider.addActionListener(new ActionListener() {
             @Override
@@ -96,32 +98,13 @@ public class EditSprint extends SideMenuBaseForm {
             }
         });
 
-        addAll(tfName, tfDescription, tfDuedate,  btnValider);
+        add(BorderLayout.centerAbsolute(BoxLayout.encloseY(tfName, tfDescription, tfDuedate,BorderLayout
+                .south(btnValider))));
 
     }
 
-    @Override
-    protected void showOtherForm(Resources res) {
-        new SprintsForm(res, this,projet).show();
-    }
 
-    @Override
-    protected void showDashboard(Resources res) {
-        new Dashboard(res).show();
-    }
 
-    @Override
-    protected void showProjects(Resources res) {
-        new ProjectsForm(res, this).show();
-    }
 
-    @Override
-    protected void showTeamForm(Resources res) {
-        new TeamForm(res, this).show();
-    }
-     @Override
-    protected void showTasks(Resources res) {
-        new TasksForm(res).show();
-    }
 
 }

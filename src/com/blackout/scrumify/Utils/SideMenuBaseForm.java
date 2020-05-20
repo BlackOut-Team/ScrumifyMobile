@@ -16,10 +16,14 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-
 package com.blackout.scrumify.Utils;
 
+import com.blackout.scrumify.GestionProjets.Gui.AddProject;
+import com.blackout.scrumify.GestionProjets.Gui.CalendarForm;
+import com.blackout.scrumify.GestionProjets.Gui.Dashboard;
+import com.blackout.scrumify.GestionProjets.Gui.ProjectsForm;
 import com.blackout.scrumify.GestionTasks.Gui.TasksForm;
+import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
 import com.blackout.scrumify.GestionUsers.gui.LoginForm;
 import com.codename1.components.ToastBar;
 import com.codename1.ui.Button;
@@ -35,13 +39,13 @@ import com.codename1.ui.util.Resources;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
+
 /**
  * Common code that can setup the side menu
  *
  * @author Shai Almog
  */
 public abstract class SideMenuBaseForm extends Form {
-
     public SideMenuBaseForm(String title, Layout contentPaneLayout) {
         super(title, contentPaneLayout);
     }
@@ -56,46 +60,73 @@ public abstract class SideMenuBaseForm extends Form {
     public SideMenuBaseForm(Layout contentPaneLayout) {
         super(contentPaneLayout);
     }
-    
+
     public void setupSideMenu(Resources res) {
-        
-         
-         
-         
+
         Image profilePic = res.getImage("Image3.png");
         Image mask = res.getImage("round-mask.png");
         mask = mask.scaledHeight(mask.getHeight() / 4 * 3);
         profilePic = profilePic.fill(mask.getWidth(), mask.getHeight());
-        Label profilePicLabel = new Label("Amira Doghri", profilePic, "SideMenuTitle");
+        Label profilePicLabel = new Label(" Hello , "+Session.u.getName(), profilePic, "SideMenuTitle");
         Button profile = new Button();
         profilePicLabel.setMask(mask.createMask());
         Container sidemenuTop = BorderLayout.center(profilePicLabel);
         sidemenuTop.setUIID("SidemenuTop");
         sidemenuTop.setLeadComponent(profile);
         getToolbar().addComponentToSideMenu(sidemenuTop);
-        getToolbar().addMaterialCommandToSideMenu("  Dashboard", FontImage.MATERIAL_DASHBOARD,  e -> showDashboard(res));
-        getToolbar().addMaterialCommandToSideMenu("  Projects", FontImage.MATERIAL_VIEW_LIST,  e -> showProjects(res));
-        getToolbar().addMaterialCommandToSideMenu("  Tasks", FontImage.MATERIAL_ACCESS_TIME,  e -> showTasks(res));
-        getToolbar().addMaterialCommandToSideMenu("  Activity", FontImage.MATERIAL_TRENDING_UP,  e -> showOtherForm(res));
-         getToolbar().addMaterialCommandToSideMenu("  Teams", FontImage.MATERIAL_GROUP,  e -> showTeamForm(res));
-        getToolbar().addMaterialCommandToSideMenu("  Account Settings", FontImage.MATERIAL_SETTINGS,  e -> showOtherForm(res));
-        getToolbar().addMaterialCommandToSideMenu("  Logout", FontImage.MATERIAL_EXIT_TO_APP,  e -> new LoginForm(res).show());
-        
+       // getToolbar().addMaterialCommandToRightBar("", FontImage.MATERIAL_ARROW_BACK, e -> goBack(res, new Form()));
+        getToolbar().addMaterialCommandToSideMenu("  Dashboard", FontImage.MATERIAL_DASHBOARD, e -> showDashboard(res));
+        getToolbar().addMaterialCommandToSideMenu("  Projects", FontImage.MATERIAL_VIEW_LIST, e -> showProjects(res));
+        getToolbar().addMaterialCommandToSideMenu("  Calendar", FontImage.MATERIAL_CALENDAR_TODAY, e -> showCalendar(res));
+        getToolbar().addMaterialCommandToSideMenu("  Tasks", FontImage.MATERIAL_ACCESS_TIME, e -> showTasks(res));
+        getToolbar().addMaterialCommandToSideMenu("  Activity", FontImage.MATERIAL_TRENDING_UP, e -> showOtherForm(res));
+        getToolbar().addMaterialCommandToSideMenu("  Teams", FontImage.MATERIAL_GROUP, e -> showTeamForm(res));
+        getToolbar().addMaterialCommandToSideMenu("  Account Settings", FontImage.MATERIAL_SETTINGS, e -> showOtherForm(res));
+        getToolbar().addMaterialCommandToSideMenu("  Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> new LoginForm(res).show());
+
         profile.addActionListener((evt) -> {
-         
+
             //returns session 
-                //Object result =Storage.getInstance().readObject("session");
+            //Object result =Storage.getInstance().readObject("session");
         });
     }
-    
-    protected abstract void showOtherForm(Resources res);
-    protected abstract void showDashboard(Resources res);
-    protected abstract void showProjects(Resources res);
-        protected abstract void showTasks(Resources res);
 
-      protected abstract void showTeamForm(Resources res);
+    protected void showOtherForm(Resources res) {
+        new AddProject(res).show();
+    }
 
-   
+    protected void showDashboard(Resources res) {
+        new Dashboard(res).show();
+    }
+
+    protected void showProjects(Resources res) {
+        new ProjectsForm(res, this).show();
+
+        /* DropboxAccess.setConsumerKey("4wwgb8kt70pr31r");
+        DropboxAccess.setConsumerSecret("rhm6b48dzsl166g");
+        DropboxAccess.getInstance().showAuthentication(new ActionListener() {
+            @Override
+
+            public void actionPerformed(ActionEvent evt) {
+                if (evt.getSource() != null) {
+                    Dropbox drop = new Dropbox();
+                    drop.showDropboxFilePicker(true);
+                }
+            }
+
+        });*/
+    }
+    protected void showCalendar(Resources res) {
+             new CalendarForm(res).show();
+
+    }
+    protected void showTeamForm(Resources res) {
+        new TeamForm(res, this).show();
+    }
+
+    protected void showTasks(Resources res) {
+        new TasksForm(res).show();
+    }
 
 
 }

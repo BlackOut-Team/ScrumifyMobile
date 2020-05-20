@@ -185,6 +185,10 @@ return t ;
             Project t = new Project();
             float id = Float.parseFloat(f.get("id").toString());
             t.setId((int) id);
+                        Map<String, Object> team = (Map<String, Object>) f.get("team");
+                        float team_id = Float.parseFloat(team.get("id").toString());
+
+            t.setId((int) id);
             t.setEtat(((int) Float.parseFloat(f.get("etat").toString())));
             t.setName(f.get("name").toString());
             t.setDescription(f.get("description").toString());
@@ -198,6 +202,7 @@ return t ;
             String duedate = new SimpleDateFormat("MM/dd/yyyy").format(new Date((long) (datefin * 1000L)));
             t.setCreated(created);
             t.setDuedate(duedate);
+            t.setTeam_id((int) team_id);
 
             listP.add(t);
         }
