@@ -76,7 +76,7 @@ public class LoginForm extends Form {
       Label profilePicLabel = new Label(profilePic, "ProfilePic");
       profilePicLabel.setMask(mask.createMask());
         
-        TextField login = new TextField("rami", "Login", 20, TextField.EMAILADDR) ;
+        TextField login = new TextField("iheb", "Login", 20, TextField.EMAILADDR) ;
         TextField password = new TextField("123456", "Password", 20, TextField.PASSWORD) ;
         login.getAllStyles().setMargin(LEFT, 0);
         password.getAllStyles().setMargin(LEFT, 0);

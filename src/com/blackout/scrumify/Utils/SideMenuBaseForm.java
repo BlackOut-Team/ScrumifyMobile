@@ -23,6 +23,7 @@ import com.blackout.scrumify.GestionProjets.Gui.CalendarForm;
 import com.blackout.scrumify.GestionProjets.Gui.Dashboard;
 import com.blackout.scrumify.GestionProjets.Gui.ProjectsForm;
 import com.blackout.scrumify.GestionTasks.Gui.TasksForm;
+import com.blackout.scrumify.GestionTeams.Gui.Email;
 import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
 import com.blackout.scrumify.GestionUsers.gui.LoginForm;
 import com.codename1.components.ToastBar;
@@ -81,6 +82,7 @@ public abstract class SideMenuBaseForm extends Form {
         getToolbar().addMaterialCommandToSideMenu("  Tasks", FontImage.MATERIAL_ACCESS_TIME, e -> showTasks(res));
         getToolbar().addMaterialCommandToSideMenu("  Activity", FontImage.MATERIAL_TRENDING_UP, e -> showOtherForm(res));
         getToolbar().addMaterialCommandToSideMenu("  Teams", FontImage.MATERIAL_GROUP, e -> showTeamForm(res));
+        getToolbar().addMaterialCommandToSideMenu("  Report Problem", FontImage.MATERIAL_GROUP, e -> Email(res));
         getToolbar().addMaterialCommandToSideMenu("  Account Settings", FontImage.MATERIAL_SETTINGS, e -> showOtherForm(res));
         getToolbar().addMaterialCommandToSideMenu("  Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> new LoginForm(res).show());
 
@@ -126,6 +128,10 @@ public abstract class SideMenuBaseForm extends Form {
 
     protected void showTasks(Resources res) {
         new TasksForm(res).show();
+    }
+
+    private void Email(Resources res) {
+            new Email(res).show();
     }
 
 

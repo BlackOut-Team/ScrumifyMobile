@@ -25,6 +25,8 @@ import com.codename1.components.InteractionDialog;
 import com.codename1.components.MultiButton;
 import com.codename1.ui.Button;
 import com.codename1.ui.ComboBox;
+import static com.codename1.ui.Component.RIGHT;
+import static com.codename1.ui.Component.TOP;
 import com.codename1.ui.Display;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
@@ -70,7 +72,7 @@ public class DisplayAllForm extends SideMenuBaseForm {
        //getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e-> previous.showBack());
         getToolbar().setTitleComponent(fab.bindFabToContainer(titleCmp, RIGHT, TOP));
 
-               getToolbar().setTitleComponent(titleCmp);
+               
 
 
 
