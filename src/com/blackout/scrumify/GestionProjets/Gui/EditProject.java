@@ -13,12 +13,15 @@ import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
 import com.blackout.scrumify.GestionTeams.services.ServiceTeam;
 import com.blackout.scrumify.Utils.Session;
 import com.blackout.scrumify.Utils.SideMenuBaseForm;
+import com.codename1.components.ToastBar;
 import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.Button;
 import com.codename1.ui.ComboBox;
 import com.codename1.ui.Command;
+import static com.codename1.ui.Component.TOP;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
+import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
@@ -92,6 +95,12 @@ public class EditProject extends SideMenuBaseForm {
                         p.setDuedate(tfDuedate.getText());
                         p.setTeam_id(te.getId());
                         if(ServiceProjet.getInstance().editProject(p)){
+                              ToastBar.getInstance().setPosition(TOP);
+                            ToastBar.Status status = ToastBar.getInstance().createStatus();
+                            status.setIcon(res.getImage("scrumify.png").scaledSmallerRatio(Display.getInstance().getDisplayWidth()/10, Display.getInstance().getDisplayWidth()/15));                    
+                            status.setMessage("Project edited successfully");
+                            status.setExpires(3000);  // only show the status for 3 seconds, then have it automatically clear
+                            status.show();
                         new ProjectDetailsForm(res, current, p).show();}
 
                     } catch (NumberFormatException e) {

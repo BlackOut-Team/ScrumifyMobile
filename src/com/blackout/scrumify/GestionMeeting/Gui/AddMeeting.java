@@ -38,23 +38,24 @@ import com.codename1.ui.util.Resources;
  * @author AmiraDoghri
  */
 public class AddMeeting extends SideMenuBaseForm {
+
     SideMenuBaseForm current;
- public static int id;
+    public static int id;
     Project pp;
-    public AddMeeting(Resources res ,Project p ) {
+
+    public AddMeeting(Resources res, Project p) {
         this.pp = p;
-        current = this ;
+        current = this;
         setTitle("Scrumify");
         setLayout(BoxLayout.y());
         getToolbar().setTitleCentered(false);
-              Button returnButton = new Button("");
+        Button returnButton = new Button("");
         returnButton.setUIID("Title");
         FontImage.setMaterialIcon(returnButton, FontImage.MATERIAL_ARROW_BACK);
-        returnButton.addActionListener(e -> new ProjectDetailsForm(res, current,p).showBack());
-        
+        returnButton.addActionListener(e -> new ProjectDetailsForm(res, current, p).showBack());
+
         Container titleCmp = BoxLayout.encloseY(
                 FlowLayout.encloseIn(returnButton)
-                  
         );
         getToolbar().setTitleComponent(titleCmp);
 
@@ -62,16 +63,19 @@ public class AddMeeting extends SideMenuBaseForm {
 
         add(new Label("Add Meeting", "TodayTitle"));
         TextField tfName = new TextField("", "Name");
-        TextField tftype = new TextField("", "type");
+        ComboBox<String> tftype = new ComboBox<String>();
+        //TextField tftype = new TextField("", "type");
         TextField tfplace = new TextField("", "place");
         Picker meetingDate = new Picker();
 
         meetingDate.setFormatter(new SimpleDateFormat("MM-dd-yyyy"));
         ComboBox<String> sprint = new ComboBox<String>();
         ServiceSprint ser = new ServiceSprint();
-
-        Map x = ser.getResponse("Sprint/sprint/"+ p.getId());
-        System.out.println("Sprint/sprint/"+ p.getId());
+        tftype.addItem("Daily");
+        tftype.addItem("Sprint Retro ");
+        tftype.addItem("Sprint Review");
+        Map x = ser.getResponse("Sprint/sprint/" + p.getId());
+        System.out.println("Sprint/sprint/" + p.getId());
         ArrayList<Sprint> listT = ser.getAllSprints(x);
         for (Sprint ev : listT) {
             sprint.addItem(ev.getName());
@@ -85,20 +89,14 @@ public class AddMeeting extends SideMenuBaseForm {
                 if ((tfName.getText().length() == 0) || (meetingDate.getText().length() == 0) || (meetingDate.getValue() == null)) {
                     Dialog.show("Alert", "Please fill all the fields", new Command("OK"));
                 } else {
-                    try {
 
-                  
-
-                        int ind = sprint.getSelectedIndex();
-                        Sprint te = listT.get(ind);
-                        int sprintId = te.getId();
-                        Meeting m = new Meeting(tfName.getText(), tfplace.getText(), tftype.getText(),sprintId, meetingDate.getText());
-                        if(MeetingService.getInstance().addMeeting(m)){
-                        new MeetingsForm(res, current ,pp).show();
-                        }
-                       
-                    } catch (NumberFormatException e) {
-                        Dialog.show("ERROR", "type", new Command("OK"));
+                    int ind = sprint.getSelectedIndex();
+                    Sprint te = listT.get(ind);
+                    int sprintId = te.getId();
+                    System.out.println(tftype.getSelectedItem());
+                    Meeting m = new Meeting(tfName.getText(), tfplace.getText(), tftype.getSelectedItem(), sprintId, meetingDate.getText());
+                    if (MeetingService.getInstance().addMeeting(m)) {
+                        new MeetingsForm(res, current, pp).show();
                     }
 
                 }
@@ -109,8 +107,5 @@ public class AddMeeting extends SideMenuBaseForm {
         addAll(tfName, tftype, tfplace, meetingDate, sprint, btnValider);
 
     }
-
-  
-
 
 }

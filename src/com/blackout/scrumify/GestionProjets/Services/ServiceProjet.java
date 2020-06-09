@@ -63,11 +63,11 @@ public class ServiceProjet {
             String s = new String(data);
             System.out.println(s);
             if (!s.contains("erreur")) {
-                Dialog.show("Confirmation", "success", "Ok", null);
                 ArrayList<Project> pr = parseProjects(s);
                 p.setId(pr.get(0).getId());
                 System.out.println(p.getId());
                  t= true;
+                //Dialog.show("Confirmation", "success", "Ok", null);
             } else {
                 Dialog.show("Erreur", "date", "Ok", null);
                 t=false;

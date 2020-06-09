@@ -19,10 +19,14 @@ import com.blackout.scrumify.Utils.SideMenuBaseForm;
 import com.codename1.components.FloatingActionButton;
 import com.codename1.components.MultiButton;
 import com.codename1.ui.Button;
+import static com.codename1.ui.Component.BOTTOM;
+import static com.codename1.ui.Component.RIGHT;
+import static com.codename1.ui.Component.TOP;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.layouts.GridLayout;
 import java.util.ArrayList;
 import java.util.Map;
 import com.codename1.ui.util.Resources;
@@ -35,33 +39,38 @@ public class MeetingsForm extends SideMenuBaseForm {
 
     public static Resources res;
     Project pp;
+
     public MeetingsForm(Resources res, Form previous, Project p) {
-        
+
         super(BoxLayout.y());
         this.res = res;
         this.pp = p;
         getToolbar().setTitleCentered(true);
 
-          Button returnButton = new Button("");
+        Container Allsprints = BoxLayout.encloseY(
+                new Label("All ", "CenterTitle")
+        );
+
+        Button returnButton = new Button("");
         returnButton.setUIID("Title");
         FontImage.setMaterialIcon(returnButton, FontImage.MATERIAL_ARROW_BACK);
-        returnButton.addActionListener(e -> new ProjectDetailsForm(res, this,p).showBack());
-        
-        add(new Label("Meetings", "TodayTitle"));
-Container titleCmp = BoxLayout.encloseY(
+        returnButton.addActionListener(e -> new ProjectDetailsForm(res, this, p).showBack());
+
+        Container titleCmp = BoxLayout.encloseY(
                 FlowLayout.encloseIn(returnButton),
                 BorderLayout.centerAbsolute(
                         BoxLayout.encloseY()
                 )
         );
 
-
-           FloatingActionButton fab = FloatingActionButton.createFAB(FontImage.MATERIAL_ADD);
+        FloatingActionButton fab = FloatingActionButton.createFAB(FontImage.MATERIAL_ADD);
         fab.getAllStyles().setMarginUnit(Byte.MAX_VALUE);
-         getToolbar().setTitleComponent(fab.bindFabToContainer(titleCmp, RIGHT, TOP));
+        fab.getAllStyles().setMargin(BOTTOM, returnButton.getPreferredH() - fab.getPreferredH() / 2);
+        getToolbar().setTitleComponent(fab.bindFabToContainer(titleCmp, RIGHT, TOP));
+        add(new Label("Meetings", "TodayTitle"));
 
         MeetingService mr = new MeetingService();
-        Map m = mr.getResponse("afficher_meetings/"+p.getId());
+        Map m = mr.getResponse("afficher_meetings/" + p.getId());
         ArrayList<Meeting> listT = mr.getAllMeetings(m);
         FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
 
@@ -73,17 +82,17 @@ Container titleCmp = BoxLayout.encloseY(
             Label sprint = new Label();
             Label type = new Label();
             Label place = new Label();
-            c.setName(mm.getName());    
-            addButtonBottom(arrowDown, c, mm,p);
+            c.setName(mm.getName());
+            addButtonBottom(arrowDown, c, mm, p);
 
         }
         fab.addActionListener((evt) -> {
-            new AddMeeting(res,pp).show();
+            new AddMeeting(res, pp).show();
         });
         setupSideMenu(res);
     }
 
-    private void addButtonBottom(Image arrowDown, Container c, Meeting m,Project p) {
+    private void addButtonBottom(Image arrowDown, Container c, Meeting m, Project p) {
         MultiButton finishLandingPage = new MultiButton(c.getName());
         finishLandingPage.setEmblem(arrowDown);
         finishLandingPage.setUIID("MeetingItem");
@@ -91,7 +100,7 @@ Container titleCmp = BoxLayout.encloseY(
         add(BoxLayout.encloseY(finishLandingPage));
         Button gt = new Button();
         gt.addActionListener((evt) -> {
-            new MeetinngDetailsForm(res, this, m,p).show();
+            new MeetinngDetailsForm(res, this, m, p).show();
         });
         finishLandingPage.setLeadComponent(gt);
     }

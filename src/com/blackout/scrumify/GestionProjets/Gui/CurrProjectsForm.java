@@ -18,8 +18,11 @@ import com.codename1.components.MultiButton;
 import com.blackout.scrumify.GestionTeams.Entities.Team;
 import com.blackout.scrumify.GestionTeams.Gui.TeamDetailsForm;
 import com.blackout.scrumify.GestionTeams.services.ServiceTeam;
+import com.codename1.components.ToastBar;
 import com.codename1.io.Preferences;
 import com.codename1.ui.Button;
+import static com.codename1.ui.Component.TOP;
+import com.codename1.ui.Display;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.layouts.BorderLayout;
@@ -39,12 +42,12 @@ public class CurrProjectsForm extends SideMenuBaseForm {
     ServiceProjet pr = new ServiceProjet();
     Map m;
     ArrayList<Project> listT;
-SideMenuBaseForm current ;
+    SideMenuBaseForm current;
 
     public CurrProjectsForm(Resources res, Form previous) {
         super(BoxLayout.y());
         this.res = res;
-current =this;
+        current = this;
         getToolbar().setTitleCentered(false);
 
         Button menuButton = new Button("");
@@ -87,58 +90,63 @@ current =this;
         setupSideMenu(res);
         all.addActionListener((evt) -> {
 
-           
-           new ProjectsForm(res, current).show();
+            new ProjectsForm(res, current).show();
         });
-       
+
         comp.addActionListener((evt) -> {
             new CompProjectsForm(res, current).show();
         });
 
-       
         currentProjects.setLeadComponent(curr);
         completedProjects.setLeadComponent(comp);
         Allprojects.setLeadComponent(all);
         FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
-                m = ServiceProjet.getResponse("Project/showC/" + Preferences.get("user", 0));
+        m = ServiceProjet.getResponse("Project/showC/" + Preferences.get("user", 0));
 
-        if(m!=null){
+        if (m != null) {
 
-        listT = pr.getAllProjects(m);
+            listT = pr.getAllProjects(m);
+            if (!listT.isEmpty()) {
+                for (int i = 0; i < listT.size(); i++) {
 
-        for (int i = 0; i < listT.size(); i++) {
+                    Project p = listT.get(i);
 
-            Project p = listT.get(i);
+                    Container c = new Container(BoxLayout.x());
 
-            Container c = new Container(BoxLayout.x());
+                    c.setName(p.getName());
+                    addProjectBox(p);
 
-            c.setName(p.getName());
-            addProjectBox(p);
+                }
+            } else {
 
-        }
-        }
-else
-        {
-                    Image empty = res.getImage("landing_1.png");
-                    Container c = new Container(new FlowLayout(CENTER,CENTER));
-                    Container ct = new Container(BoxLayout.yCenter());
-                    ct.add(empty );
-                    ct.add(new Label("No current project !","TodayTitle"));
-                    Button add = new Button("Get started");
-                                        add.setUIID("LoginButton");
+                Image empty = res.getImage("landing_1.png").scaledSmallerRatio(Display.getInstance().getDisplayWidth() / 3, Display.getInstance().getDisplayHeight() / 4);
+                Container c = new Container(new FlowLayout(CENTER, CENTER));
+                Container ct = new Container(BoxLayout.yCenter());
+                ct.add(empty);
+                ct.add(new Label("No current project !", "TodayTitle"));
+                Button add = new Button("Get started");
+                add.setUIID("LoginButton");
 
-                    add.addActionListener((evt) -> {
-                        new AddProject(res).show();
-                    });
-                    ct.add(add);
-                    c.add(ct);
-                    add(c);
+                add.addActionListener((evt) -> {
+                    new AddProject(res).show();
+                });
+                ct.add(add);
+                c.add(ct);
+                add(c);
+                ToastBar.getInstance().setPosition(TOP);
+                ToastBar.Status status = ToastBar.getInstance().createStatus();
+                status.setIcon(res.getImage("scrumify.png").scaledSmallerRatio(Display.getInstance().getDisplayWidth() / 10, Display.getInstance().getDisplayWidth() / 15));
+                status.setMessage("No current projects ");
+                status.setExpires(3000);  // only show the status for 3 seconds, then have it automatically clear
+                status.show();
+
+            }
         }
         completedProjects.setUIID("CompletedTasks");
 
     }
 
-   private void addProjectBox(Project p) {
+    private void addProjectBox(Project p) {
         FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_MORE_HORIZ, "Label", 6);
         MultiButton projectBox = new MultiButton(p.getName());
 
@@ -161,9 +169,8 @@ else
         showt.addActionListener((evt) -> {
             new TeamDetailsForm(res, current, tt).show();
         });
-       // projectBox.getTextLine3().setLeadComponent(showt);
-        
-        
+        // projectBox.getTextLine3().setLeadComponent(showt);
+
         projectBox.setLeadComponent(gt);
         add(BoxLayout.encloseY(projectBox));
 
@@ -184,10 +191,5 @@ else
         g.fillArc(height / 2 - height / 4, height / 6, height / 2, height / 2, 0, 360);
         return img;
     }
-
-
-   
- 
-
 
 }

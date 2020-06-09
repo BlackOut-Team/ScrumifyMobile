@@ -72,7 +72,8 @@ public class Dashboard extends SideMenuBaseForm {
         settingsButton.setUIID("Title");
         FontImage.setMaterialIcon(settingsButton, FontImage.MATERIAL_SETTINGS);
         settingsButton.addActionListener((evt) -> {
-            new settingsForm(res).show();
+            //new settingsForm(res).show();
+            Display.getInstance().minimizeApplication();
         });
 
         Container remainingTasks = BoxLayout.encloseY(

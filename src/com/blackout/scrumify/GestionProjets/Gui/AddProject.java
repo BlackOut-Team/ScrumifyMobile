@@ -14,6 +14,7 @@ import com.blackout.scrumify.GestionTeams.services.ServiceTeam;
 import com.blackout.scrumify.Utils.Session;
 import com.blackout.scrumify.Utils.SideMenuBaseForm;
 import com.codename1.components.FloatingActionButton;
+import com.codename1.components.ToastBar;
 import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.Button;
 import com.codename1.ui.ComboBox;
@@ -23,6 +24,7 @@ import static com.codename1.ui.Component.RIGHT;
 import static com.codename1.ui.Component.TOP;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
+import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
@@ -72,11 +74,11 @@ public class AddProject extends SideMenuBaseForm {
 
         tfDuedate.setFormatter(new SimpleDateFormat("MM-dd-yyyy"));
         ComboBox<String> team = new ComboBox<String>();
-                    team.setActAsSpinnerDialog(true);
+        team.setActAsSpinnerDialog(true);
 
         ServiceTeam ser = new ServiceTeam();
 
-        Map x = ser.getResponse("affteam/"+Session.u.getId());
+        Map x = ser.getResponse("affteam/" + Session.u.getId());
         ArrayList<Team> listT = ser.getAllTeams(x);
         for (Team ev : listT) {
             team.addItem(ev.getName());
@@ -97,6 +99,14 @@ public class AddProject extends SideMenuBaseForm {
                         Team te = listT.get(ind);
                         Project t = new Project(tfName.getText(), tfDescription.getText(), tfDuedate.getText(), tfDuedate.getText(), 1, te.getId(), 1, 1);
                         if (ServiceProjet.getInstance().addProject(t)) {
+                            ToastBar.getInstance().setPosition(TOP);
+
+                            ToastBar.Status status = ToastBar.getInstance().createStatus();
+                            status.setIcon(res.getImage("scrumify.png").scaledSmallerRatio(Display.getInstance().getDisplayWidth() / 10, Display.getInstance().getDisplayWidth() / 15));
+
+                            status.setMessage("Project added successfully");
+                            status.setExpires(3000);  // only show the status for 3 seconds, then have it automatically clear
+                            status.show();
                             new ProjectsForm(res, current).show();
                         }
 
@@ -108,7 +118,7 @@ public class AddProject extends SideMenuBaseForm {
 
             }
         });
-        add(FlowLayout.encloseCenterMiddle(BoxLayout.encloseY(tfName, tfDescription, tfDuedate, team,btnValider)));
+        add(FlowLayout.encloseCenterMiddle(BoxLayout.encloseY(tfName, tfDescription, tfDuedate, team, btnValider)));
 
     }
 

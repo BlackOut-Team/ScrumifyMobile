@@ -51,7 +51,7 @@ public class AddSprint extends SideMenuBaseForm {
  
     public AddSprint(Resources res , Project p) {
         current = this ;
-        projet = p;
+      
         setTitle("Scrumify");
         setLayout(BoxLayout.y());
         getToolbar().setTitleCentered(false);
@@ -93,7 +93,7 @@ public class AddSprint extends SideMenuBaseForm {
                      
                         Sprint t = new Sprint(tfName.getText(), tfDescription.getText(), tfDuedate.getText(), tfDuedate.getText(),1);
                         if(ServiceSprint.getInstance().addSprint(p,t)){
-                        new SprintsForm(res, current,projet).show();
+                        new ProjectsForm(res,current).show();
                         }
                        
                     } catch (NumberFormatException e) {

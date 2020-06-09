@@ -19,7 +19,10 @@ import com.blackout.scrumify.GestionTeams.Entities.Team;
 import com.blackout.scrumify.GestionTeams.Gui.TeamDetailsForm;
 import com.blackout.scrumify.GestionTeams.services.ServiceTeam;
 import com.blackout.scrumify.Utils.Session;
+import com.codename1.components.ToastBar;
 import com.codename1.ui.Button;
+import static com.codename1.ui.Component.TOP;
+import com.codename1.ui.Display;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.layouts.BorderLayout;
@@ -102,34 +105,40 @@ public class ProjectsForm extends SideMenuBaseForm {
         Allprojects.setLeadComponent(all);
         m = ServiceProjet.getResponse("Project/showP/" + Session.u.getId());
 
-       if(m != null ){
+        if (m != null) {
+            listT = pr.getAllProjects(m);
+            if (!listT.isEmpty()) {
 
-        listT = pr.getAllProjects(m);
-        for (int i = 0; i < listT.size(); i++) {
+                for (int i = 0; i < listT.size(); i++) {
 
-            Project p = listT.get(i);
+                    Project p = listT.get(i);
 
-            addProjectBox(p);
+                    addProjectBox(p);
 
+                }
+            } else {
+
+                Image empty = res.getImage("landing_1.png").scaledSmallerRatio(Display.getInstance().getDisplayWidth() / 3, Display.getInstance().getDisplayHeight() / 4);
+
+                Container ct = new Container(BoxLayout.yCenter());
+                ct.add(empty);
+                ct.add(new Label("No active project !", "TodayTitle"));
+                Button add = new Button("Get started");
+                add.setUIID("LoginButton");
+                add.addActionListener((evt) -> {
+                    new AddProject(res).show();
+                });
+                ct.add(add);
+                add(FlowLayout.encloseCenterMiddle(ct));
+                
+                ToastBar.getInstance().setPosition(TOP);
+                ToastBar.Status status = ToastBar.getInstance().createStatus();
+                status.setIcon(res.getImage("scrumify.png").scaledSmallerRatio(Display.getInstance().getDisplayWidth() / 10, Display.getInstance().getDisplayWidth() / 15));
+                status.setMessage("No projects yet");
+                status.setExpires(3000);  // only show the status for 3 seconds, then have it automatically clear
+                status.show();
+            }
         }
-        }
-        else
-        {
-                    Image empty = res.getImage("landing_1.png");
-                 
-                    Container ct = new Container(BoxLayout.yCenter());
-                    ct.add(empty );
-                    ct.add(new Label("No active project !","TodayTitle"));
-                    Button add = new Button("Get started");
-                    add.setUIID("LoginButton");
-                    add.addActionListener((evt) -> {
-                        new AddProject(res).show();
-                    });
-                    ct.add(add);
-                    add(FlowLayout.encloseCenterMiddle(ct));
-
-        }
-
     }
 
     private void addProjectBox(Project p) {
@@ -155,9 +164,8 @@ public class ProjectsForm extends SideMenuBaseForm {
         showt.addActionListener((evt) -> {
             new TeamDetailsForm(res, current, tt).show();
         });
-       // projectBox.getTextLine3().setLeadComponent(showt);
-        
-        
+        // projectBox.getTextLine3().setLeadComponent(showt);
+
         projectBox.setLeadComponent(gt);
         add(BoxLayout.encloseY(projectBox));
 

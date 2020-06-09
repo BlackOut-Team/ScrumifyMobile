@@ -11,8 +11,11 @@ import static com.blackout.scrumify.GestionUsers.services.userService.getRespons
 import com.codename1.capture.Capture;
 import com.codename1.components.ImageViewer;
 import com.codename1.components.InfiniteProgress;
+import com.codename1.io.FileSystemStorage;
 import com.codename1.io.MultipartRequest;
 import com.codename1.io.NetworkManager;
+import com.codename1.io.Storage;
+import com.codename1.io.Util;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
@@ -32,6 +35,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -204,7 +209,13 @@ public class RegisterForm extends Form {
                 MultipartRequest cr = new MultipartRequest();
                 String filePath = Capture.capturePhoto(Display.getInstance().getDisplayWidth(), -1);
                 String url = "http://localhost/scrumifyApi/web/s.php";
-
+//                if (filePath != null) {
+//                    try {
+//                        Util.copy(FileSystemStorage.getInstance().openInputStream(filePath), Storage.getInstance().createOutputStream("C"));
+//                    } catch (IOException ex) {
+//                        Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                }
                 cr.setUrl(url);
                 cr.setPost(true);
                 String mime = "image/jpeg";

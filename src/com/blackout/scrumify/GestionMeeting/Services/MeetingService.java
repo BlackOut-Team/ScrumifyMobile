@@ -25,8 +25,7 @@ import java.util.Map;
  *
  * @author hp
  */
-
-   public class MeetingService {
+public class MeetingService {
 
     public ArrayList<Meeting> meetings;
     static Map g;
@@ -35,7 +34,7 @@ import java.util.Map;
     public static MeetingService instance = null;
     public boolean resultOK;
     private ConnectionRequest req;
-                    boolean t;
+    boolean t;
 
     public MeetingService() {
         req = new ConnectionRequest();
@@ -49,7 +48,7 @@ import java.util.Map;
     }
 
     public boolean addMeeting(Meeting m) {
-          String url = "http://localhost/scrumifyApi/web/app_dev.php/Meeting/Add?name=" + m.getName() + "&type=" + m.getType()+ "&place=" + m.getPlace()+ "&sprint_id=" + m.getSprint()+ "&date=" + m.getMeetingDate();
+        String url = "http://localhost/scrumifyApi/web/app_dev.php/Meeting/Add?name=" + m.getName() + "&type=" + m.getType() + "&place=" + m.getPlace() + "&sprint_id=" + m.getSprint() + "&date=" + m.getMeetingDate();
         ConnectionRequest con = new ConnectionRequest();
         con.setUrl(url);
         con.setPost(true);
@@ -59,24 +58,24 @@ import java.util.Map;
             String s = new String(data);
             System.out.println(s);
             if (!s.contains("erreur")) {
-                Dialog.show("Confirmation", "success", "Ok", null);
                 ArrayList<Meeting> pr = parseMeetings(s);
                 m.setId(pr.get(0).getId());
                 System.out.println(m.getId());
-                 t= true;
+                Dialog.show("Confirmation", "success", "Ok", null);
+                t = true;
             } else {
                 Dialog.show("Erreur", "date", "Ok", null);
-                t=false;
+                t = false;
             }
 
         });
         NetworkManager.getInstance().addToQueueAndWait(con);
-       return t;
+        return t;
     }
 
     public boolean editMeeting(Meeting m) {
-        
-          String url = "http://localhost/scrumifyApi/web/app_dev.php/update_meeting/"+m.getId()+"?name=" + m.getName() + "&type=" + m.getType()+ "&place=" + m.getPlace()+ "&sprint_id=" + m.getSprint()+ "&date=" + m.getMeetingDate();
+
+        String url = "http://localhost/scrumifyApi/web/app_dev.php/update_meeting/" + m.getId() + "?name=" + m.getName() + "&type=" + m.getType() + "&place=" + m.getPlace() + "&sprint_id=" + m.getSprint() + "&date=" + m.getMeetingDate();
         ConnectionRequest con = new ConnectionRequest();
         con.setUrl(url);
         con.setPost(true);
@@ -86,18 +85,19 @@ import java.util.Map;
             System.out.println(s);
             if (!s.contains("erreur")) {
                 Dialog.show("Confirmation", "success", "Ok", null);
-                t=true;
+                t = true;
 
             } else {
                 Dialog.show("Erreur", "date", "Ok", null);
-                t=false;
+                t = false;
 
             }
         });
 
         NetworkManager.getInstance().addToQueueAndWait(con);
-        return t ;
+        return t;
     }
+
     public ArrayList<Meeting> parseMeetings(String jsonText) {
         try {
 
@@ -109,7 +109,8 @@ import java.util.Map;
 
                 Meeting t = new Meeting();
                 float id = Float.parseFloat(g.get("id").toString());
-                                float sp = Float.parseFloat(g.get("sprint").toString());
+                Map<String, Object> sprint = (Map<String, Object>) g.get("sprint");
+                float sp = Float.parseFloat(sprint.get("id").toString());
 
                 t.setId((int) id);
                 t.setName(g.get("name").toString());
@@ -146,7 +147,7 @@ import java.util.Map;
             t.setName(f.get("name").toString());
             t.setPlace(f.get("place").toString());
             t.setType(f.get("type").toString());
-            
+
             Map<String, Object> MapMeetingDate = (Map<String, Object>) f.get("meetingDate");
 
             float datedebut = Float.parseFloat(MapMeetingDate.get("timestamp").toString());
@@ -158,10 +159,8 @@ import java.util.Map;
         return listM;
 
     }
-    
-    
-    
-     public void deleteMeeting(Meeting m) {
+
+    public void deleteMeeting(Meeting m) {
         String url = "http://localhost/scrumifyApi/web/app_dev.php/Meeting/delete/" + m.getId();
         ConnectionRequest con = new ConnectionRequest();
         con.setUrl(url);

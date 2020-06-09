@@ -18,8 +18,11 @@ import com.codename1.components.MultiButton;
 import com.blackout.scrumify.GestionTeams.Entities.Team;
 import com.blackout.scrumify.GestionTeams.Gui.TeamDetailsForm;
 import com.blackout.scrumify.GestionTeams.services.ServiceTeam;
+import com.codename1.components.ToastBar;
 import com.codename1.io.Preferences;
 import com.codename1.ui.Button;
+import static com.codename1.ui.Component.TOP;
+import com.codename1.ui.Display;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.layouts.BorderLayout;
@@ -107,7 +110,7 @@ public class CompProjectsForm extends SideMenuBaseForm {
         if (m!= null) {
 
         listT = pr.getAllProjects(m);
-
+if(!listT.isEmpty()){
         for (int i = 0; i < listT.size(); i++) {
 
             Project p = listT.get(i);
@@ -118,9 +121,13 @@ public class CompProjectsForm extends SideMenuBaseForm {
             addProjectBox( p);
 
         }
-        }else
+        }
+        else
         {
-                    Image empty = res.getImage("landing_1.png");
+            
+             
+         
+                Image empty = res.getImage("landing_1.png").scaledSmallerRatio(Display.getInstance().getDisplayWidth() / 3, Display.getInstance().getDisplayHeight() / 4);
                     Container c = new Container(new FlowLayout(CENTER,CENTER));
                     Container ct = new Container(BoxLayout.yCenter());
                     ct.add(empty );
@@ -134,6 +141,13 @@ public class CompProjectsForm extends SideMenuBaseForm {
                     ct.add(add);
                     c.add(ct);
                     add(c);
+                    ToastBar.getInstance().setPosition(TOP);
+                            ToastBar.Status status = ToastBar.getInstance().createStatus();
+                            status.setIcon(res.getImage("scrumify.png").scaledSmallerRatio(Display.getInstance().getDisplayWidth()/10, Display.getInstance().getDisplayWidth()/15));                    
+                            status.setMessage("No completed projects yet");
+                            status.setExpires(3000);  // only show the status for 3 seconds, then have it automatically clear
+                            status.show();
+        }
         }
         completedProjects.setUIID("CompletedTasks");
 

@@ -21,7 +21,10 @@ import com.codename1.ui.Label;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.util.Resources;
 import com.blackout.scrumify.Utils.SideMenuBaseForm;
+import com.codename1.components.ToastBar;
 import com.codename1.ui.Button;
+import static com.codename1.ui.Component.TOP;
+import com.codename1.ui.Display;
 import com.codename1.ui.Image;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
@@ -111,6 +114,12 @@ public class ProjectDetailsForm extends SideMenuBaseForm {
 
         archive.addActionListener((evt) -> {
             ServiceProjet.getInstance().archiveProject(p);
+            ToastBar.getInstance().setPosition(TOP);
+                            ToastBar.Status status = ToastBar.getInstance().createStatus();
+                            status.setIcon(res.getImage("scrumify.png").scaledSmallerRatio(Display.getInstance().getDisplayWidth()/10, Display.getInstance().getDisplayWidth()/15));                    
+                            status.setMessage("Project archived successfully");
+                            status.setExpires(3000);  // only show the status for 3 seconds, then have it automatically clear
+                            status.show();
             new ProjectsForm(res, current).show();
         });
         meeting.addActionListener((evt) -> {
