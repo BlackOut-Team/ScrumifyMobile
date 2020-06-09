@@ -25,6 +25,8 @@ import com.codename1.components.InteractionDialog;
 import com.codename1.components.MultiButton;
 import com.codename1.ui.Button;
 import com.codename1.ui.ComboBox;
+import static com.codename1.ui.Component.RIGHT;
+import static com.codename1.ui.Component.TOP;
 import com.codename1.ui.Display;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
@@ -64,10 +66,17 @@ public class DisplayAllForm extends SideMenuBaseForm {
                 GridLayout.encloseIn()
         );
 
-               getToolbar().setTitleComponent(titleCmp);
+
+        FloatingActionButton fab = FloatingActionButton.createFAB(FontImage.MATERIAL_BACKSPACE);
+        fab.getAllStyles().setMarginUnit(Byte.MAX_VALUE);
+       //getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e-> previous.showBack());
+        getToolbar().setTitleComponent(fab.bindFabToContainer(titleCmp, RIGHT, TOP));
+
+               
 
 
-        add(new Label("Teams", "TodayTitle"));
+
+        add(new Label("Users", "TodayTitle"));
 
         ServiceTeam pr = new ServiceTeam();
         Map m = pr.getResponse("allusers");
@@ -84,6 +93,11 @@ public class DisplayAllForm extends SideMenuBaseForm {
             addButtonBottom(arrowDown, c, t);
 
         }
+
+       // fab.addActionListener((evt) -> {
+          //  new AddTeam(res).show();
+      //  });
+
       
         setupSideMenu(res);
     }
