@@ -55,6 +55,8 @@ import java.util.Map;
 public class CalendarForm extends SideMenuBaseForm {
 
     SimpleDateFormat p1 = new SimpleDateFormat("yyyy-MM-dd");
+    ServiceProjet pr = new ServiceProjet();
+    ServiceSprint sr = new ServiceSprint();
 
     public CalendarForm() {
     }
@@ -86,14 +88,61 @@ public class CalendarForm extends SideMenuBaseForm {
                 GridLayout.encloseIn()
         );
         getToolbar().setTitleComponent(titleCmp);
-       Container re = new Container(BoxLayout.y());
-       add(re);
+        Container re = new Container(BoxLayout.y());
+
         Picker p = new Picker();
         b.addActionListener(e -> {
             p.pressed();
             p.released();
         });
-        p.addActionListener(e -> {
+        re.removeAll();
+        Date dt = gui_Calendar_1.getDate();
+        String df1 = p1.format(dt);
+        Map m11 = ServiceProjet.getResponse("Project/showDeadlines/" + Session.u.getId() + "?date=" + df1);
+        Map ms1 = ServiceProjet.getResponse("Project/showDeadliness/" + Session.u.getId() + "?date=" + df1);
+
+        p.setFormatter(new SimpleDateFormat("MMMM"));
+
+        if (!(m11 == null && ms1 == null)) {
+
+            ArrayList<Project> listT = pr.getAllProjects(m11);
+            ArrayList<Sprint> listS = sr.getAllSprints(ms1);
+            if (!listT.isEmpty() || !listS.isEmpty()) {
+                for (int i = 0; i < listT.size(); i++) {
+                    Project prr = listT.get(i);
+
+                    ServiceTeam s = new ServiceTeam();
+                    Map m1 = s.getResponse("gett/" + prr.getTeam_id());
+                    Team tt = s.getTeam(m1);
+
+                    re.add(createEntry(resourceObjectInstance, false, "", "", tt.getId() + "", prr.getName(), prr.getDescription(), "contact-a.png", "contact-b.png", "contact-c.png"));
+                }
+                for (int i = 0; i < listS.size(); i++) {
+                    Sprint prr = listS.get(i);
+                    re.add(createEntry(resourceObjectInstance, false, "", "", "", prr.getName(), prr.getDescription(), "contact-a.png", "contact-b.png", "contact-c.png"));
+                }
+            } else {
+                Image empty = resourceObjectInstance.getImage("landing_1.png");
+                empty.scaled(empty.getWidth() / 3, empty.getHeight() / 3);
+
+                Container ct = new Container(BoxLayout.yCenter());
+                ct.add(empty);
+                ct.add(new Label("No deadlines this day !", "TodayTitle"));
+
+                re.add(FlowLayout.encloseCenterMiddle(ct));
+            }
+        } else {
+            Image empty = resourceObjectInstance.getImage("landing_1.png");
+            empty.scaled(empty.getWidth() / 3, empty.getHeight() / 3);
+
+            Container ct = new Container(BoxLayout.yCenter());
+            ct.add(empty);
+            ct.add(new Label("No deadlines this day !", "TodayTitle"));
+
+            re.add(FlowLayout.encloseCenterMiddle(ct));
+
+        }
+        gui_Calendar_1.addDataChangedListener((type, index) -> {
             re.removeAll();
             Date d = gui_Calendar_1.getDate();
             String df = p1.format(d);
@@ -101,27 +150,50 @@ public class CalendarForm extends SideMenuBaseForm {
             Map ms = ServiceProjet.getResponse("Project/showDeadliness/" + Session.u.getId() + "?date=" + df);
 
             p.setFormatter(new SimpleDateFormat("MMMM"));
-            ServiceProjet pr = new ServiceProjet();
-            ServiceSprint sr = new ServiceSprint();
+            if (!(m11 == null && ms1 == null)) {
 
-            ArrayList<Project> listT = pr.getAllProjects(m);
-            ArrayList<Sprint> listS = sr.getAllSprints(ms);
+                ArrayList<Project> listT = pr.getAllProjects(m);
+                ArrayList<Sprint> listS = sr.getAllSprints(ms);
+                if (!listT.isEmpty() || !listS.isEmpty()) {
 
-            for (int i = 0; i < listT.size(); i++) {
-                Project prr = listT.get(i);
+                    for (int i = 0; i < listT.size(); i++) {
+                        Project prr = listT.get(i);
 
-                ServiceTeam s = new ServiceTeam();
-                Map m1 = s.getResponse("gett/" + prr.getTeam_id());
-                Team tt = s.getTeam(m1);
+                        ServiceTeam s = new ServiceTeam();
+                        Map m1 = s.getResponse("gett/" + prr.getTeam_id());
+                        Team tt = s.getTeam(m1);
 
-                re.add(createEntry(resourceObjectInstance, false, "", "", tt.getId() + "", prr.getName(), prr.getDescription(), "contact-a.png", "contact-b.png", "contact-c.png"));
+                        re.add(createEntry(resourceObjectInstance, false, "", "", tt.getId() + "", prr.getName(), prr.getDescription(), "contact-a.png", "contact-b.png", "contact-c.png"));
+                    }
+                    for (int i = 0; i < listS.size(); i++) {
+                        Sprint prr = listS.get(i);
+                        re.add(createEntry(resourceObjectInstance, true, "", "", "", prr.getName(), prr.getDescription(), "contact-a.png", "contact-b.png", "contact-c.png"));
+
+                    }
+                } else {
+                    Image empty = resourceObjectInstance.getImage("landing_1.png");
+                    empty.scaled(empty.getWidth() / 3, empty.getHeight() / 3);
+                    Container ct = new Container(BoxLayout.yCenter());
+                    ct.add(empty);
+                    ct.add(new Label("No deadlines this day !", "TodayTitle"));
+
+                    re.add(FlowLayout.encloseCenterMiddle(ct));
+
+                }
+            } else {
+                Image empty = resourceObjectInstance.getImage("landing_1.png");
+                empty.scaled(empty.getWidth() / 3, empty.getHeight() / 3);
+
+                Container ct = new Container(BoxLayout.yCenter());
+                ct.add(empty);
+                ct.add(new Label("No deadlines this day !", "TodayTitle"));
+
+                re.add(FlowLayout.encloseCenterMiddle(ct));
+
             }
-            for (int i = 0; i < listS.size(); i++) {
-                Sprint prr = listS.get(i);
-                re.add(createEntry(resourceObjectInstance, true, "", "",  "", prr.getName(), prr.getDescription(), "contact-a.png", "contact-b.png", "contact-c.png"));
 
-            }
         });
+
         gui_Calendar_1.addActionListener((evt) -> {
             re.removeAll();
             Date d = gui_Calendar_1.getDate();
@@ -132,38 +204,46 @@ public class CalendarForm extends SideMenuBaseForm {
             p.setFormatter(new SimpleDateFormat("MMMM"));
             ServiceProjet pr = new ServiceProjet();
             ServiceSprint sr = new ServiceSprint();
-if(!(m==null && ms==null)){
+            if (!(m == null && ms == null)) {
 
-            ArrayList<Project> listT = pr.getAllProjects(m);
-            ArrayList<Sprint> listS = sr.getAllSprints(ms);
-            for (int i = 0; i < listT.size(); i++) {
-                Project prr = listT.get(i);
+                ArrayList<Project> listT = pr.getAllProjects(m);
+                ArrayList<Sprint> listS = sr.getAllSprints(ms);
+                if (!listT.isEmpty() || !listS.isEmpty()) {
+                    for (int i = 0; i < listT.size(); i++) {
+                        Project prr = listT.get(i);
 
-                ServiceTeam s = new ServiceTeam();
-                Map m1 = s.getResponse("gett/" + prr.getTeam_id());
-                Team tt = s.getTeam(m1);
+                        ServiceTeam s = new ServiceTeam();
+                        Map m1 = s.getResponse("gett/" + prr.getTeam_id());
+                        Team tt = s.getTeam(m1);
 
-                re.add(createEntry(resourceObjectInstance, false, "", "", tt.getId() + "", prr.getName(), prr.getDescription(), "contact-a.png", "contact-b.png", "contact-c.png"));
-            }
-            for (int i = 0; i < listS.size(); i++) {
-                Sprint prr = listS.get(i);
-                re.add(createEntry(resourceObjectInstance, false, "", "",  "", prr.getName(), prr.getDescription(), "contact-a.png", "contact-b.png", "contact-c.png"));
-
-            }
-            
-}else
-        {
+                        re.add(createEntry(resourceObjectInstance, false, "", "", tt.getId() + "", prr.getName(), prr.getDescription(), "contact-a.png", "contact-b.png", "contact-c.png"));
+                    }
+                    for (int i = 0; i < listS.size(); i++) {
+                        Sprint prr = listS.get(i);
+                        re.add(createEntry(resourceObjectInstance, false, "", "", "", prr.getName(), prr.getDescription(), "contact-a.png", "contact-b.png", "contact-c.png"));
+                    }
+                } else {
                     Image empty = resourceObjectInstance.getImage("landing_1.png");
-                    Container ct = new Container(BoxLayout.yCenter());
-                    ct.add(empty );
-                    ct.add(new Label("No deadlines this day !","TodayTitle"));
-                    
-                  
-                                       re.add(FlowLayout.encloseCenterMiddle(ct));
+                    empty.scaled(empty.getWidth() / 3, empty.getHeight() / 3);
 
-        }
+                    Container ct = new Container(BoxLayout.yCenter());
+                    ct.add(empty);
+                    ct.add(new Label("No deadlines this day !", "TodayTitle"));
+
+                    re.add(FlowLayout.encloseCenterMiddle(ct));
+                }
+            } else {
+                Image empty = resourceObjectInstance.getImage("landing_1.png");
+                empty.scaled(empty.getWidth() / 3, empty.getHeight() / 3);
+                Container ct = new Container(BoxLayout.yCenter());
+                ct.add(empty);
+                ct.add(new Label("No deadlines this day !", "TodayTitle"));
+
+                re.add(FlowLayout.encloseCenterMiddle(ct));
+
+            }
         });
-        
+
         p.setDate(new Date());
         p.setUIID("CalendarDateTitle");
 
@@ -172,6 +252,7 @@ if(!(m==null && ms==null)){
                 p
         //new Label(resourceObjectInstance.getImage("calendar-separator.png"), "CenterLabel")
         );
+        add(re);
 
         BorderLayout bl = (BorderLayout) gui_Calendar_1.getLayout();
         Component combos = bl.getNorth();

@@ -205,8 +205,8 @@
             <entry key="Calendar.Thursday" value="Thu" />
             <entry key="ok" value="OK" />
             <entry key="Calendar.Saturday" value="Sat" />
-            <entry key="Calendar.Friday" value="Fri" />
             <entry key="select" value="Select" />
+            <entry key="Calendar.Friday" value="Fri" />
             <entry key="edit" value="Edit" />
             <entry key="Calendar.Monday" value="Mon" />
             <entry key="cancel" value="Cancel" />
@@ -376,7 +376,7 @@
         <val key="CenterTitle.padding" value="1.0,1.0,1.0,1.0" />
         <val key="CenterTitle.transparency" value="0" />
         <val key="ComboBox.bgColor" value="cccc" />
-        <border key="ComboBox.border" type="underline"  millimeters="false" thickness="1.0" color="52428" />
+        <border key="ComboBox.border" type="underline"  millimeters="false" thickness="2.0" color="52428" />
         <val key="ComboBox.fgColor" value="cccc" />
         <font key="ComboBox.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="4.0" />
         <val key="ComboBox.marUnit" value="2,2,2,2" />
@@ -409,6 +409,22 @@
         <val key="Current.bgType" value="6" />
         <val key="Current.padUnit" value="2,0,2,0" />
         <val key="Current.padding" value="3.0,3.0,0.0,0.0" />
+        <val key="Field.bgImage" value="text-field-underline.png" />
+        <val key="Field.bgType" value="30" />
+        <border key="Field.border" type="image" i1="TextField.borderTop_2.png" i2="TextField.borderBottom_2.png" i3="TextField.borderLeft_2.png" i4="TextField.borderRight_2.png" i5="TextField.borderTopL_2.png" i6="TextField.borderTopR_2.png" i7="TextField.borderBottomL_2.png" i8="TextField.borderBottomR_2.png" i9="TextField.borderCenter_2.png" />
+        <val key="Field.fgColor" value="ffffff" />
+        <font key="Field.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="3.0" />
+        <val key="Field.padUnit" value="2,2,2,2" />
+        <val key="Field.padding" value="1.0,1.0,1.0,1.0" />
+        <val key="Field.press#bgImage" value="text-field-underline.png" />
+        <val key="Field.press#bgType" value="30" />
+        <border key="Field.press#border" type="image" i1="TextField.borderTop_2.png" i2="TextField.borderBottom_2.png" i3="TextField.borderLeft_2.png" i4="TextField.borderRight_2.png" i5="TextField.borderTopL_2.png" i6="TextField.borderTopR_2.png" i7="TextField.borderBottomL_2.png" i8="TextField.borderBottomR_2.png" i9="TextField.borderCenter_2.png" />
+        <val key="Field.press#fgColor" value="ffffff" />
+        <font key="Field.press#font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="3.0" />
+        <val key="Field.press#padUnit" value="2,2,2,2" />
+        <val key="Field.press#padding" value="1.0,1.0,1.0,1.0" />
+        <val key="Field.press#transparency" value="0" />
+        <val key="Field.transparency" value="0" />
         <val key="FloatingActionButton.bgColor" value="ffffff" />
         <val key="FloatingActionButton.fgColor" value="0" />
         <val key="FloatingActionButton.press#bgColor" value="6aaff" />
@@ -490,6 +506,14 @@
         <val key="RemainingTasks.padUnit" value="2,0,2,0" />
         <val key="RemainingTasks.padding" value="3.0,3.0,0.0,0.0" />
         <val key="RemainingTasks.transparency" value="255" />
+        <val key="Side.align" value="1" />
+        <border key="Side.border" type="empty" />
+        <val key="Side.fgColor" value="ffffff" />
+        <font key="Side.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="6.0" />
+        <val key="Side.padUnit" value="2,2,2,2" />
+        <val key="Side.padding" value="3.0,2.0,3.0,2.0" />
+        <val key="Side.textDecoration" value="0" />
+        <val key="Side.transparency" value="0" />
         <val key="SideCommand.align" value="1" />
         <border key="SideCommand.border" type="empty" />
         <val key="SideCommand.fgColor" value="ffffff" />
@@ -570,16 +594,17 @@
         <val key="SubTitle.padUnit" value="2,2,2,2" />
         <val key="SubTitle.padding" value="1.0,3.0,1.0,1.0" />
         <val key="SubTitle.transparency" value="0" />
+        <val key="TextField.bgColor" value="ffffff" />
         <val key="TextField.bgImage" value="text-field-underline.png" />
         <val key="TextField.bgType" value="30" />
-        <border key="TextField.border" type="image" i1="TextField.borderTop_2.png" i2="TextField.borderBottom_2.png" i3="TextField.borderLeft_2.png" i4="TextField.borderRight_2.png" i5="TextField.borderTopL_2.png" i6="TextField.borderTopR_2.png" i7="TextField.borderBottomL_2.png" i8="TextField.borderBottomR_2.png" i9="TextField.borderCenter_2.png" />
+        <border key="TextField.border" type="underline"  millimeters="false" thickness="2.0" color="52428" />
         <val key="TextField.fgColor" value="9999" />
-        <font key="TextField.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="4.0" />
+        <font key="TextField.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="3.0" />
         <val key="TextField.padUnit" value="2,2,2,2" />
         <val key="TextField.padding" value="1.0,1.0,1.0,1.0" />
         <val key="TextField.sel#bgImage" value="text-field-underline.png" />
         <val key="TextField.sel#bgType" value="21" />
-        <border key="TextField.sel#border" type="empty" />
+        <border key="TextField.sel#border" type="underline"  millimeters="false" thickness="2.0" color="26214" />
         <val key="TextField.sel#fgColor" value="ffffff" />
         <font key="TextField.sel#font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="3.0" />
         <val key="TextField.sel#transparency" value="0" />

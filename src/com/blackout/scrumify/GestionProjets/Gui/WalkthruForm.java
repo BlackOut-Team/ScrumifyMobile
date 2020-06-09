@@ -120,7 +120,7 @@ public class WalkthruForm extends Form {
         
         Button skip = new Button("SKIP TUTORIAL");
         skip.setUIID("SkipButton");
-        skip.addActionListener(e -> new ProjectsForm(res,this).show());
+        skip.addActionListener(e -> new Dashboard(res).show());
         
         Container southLayout = BoxLayout.encloseY(
                         radioContainer,

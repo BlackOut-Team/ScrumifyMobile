@@ -35,10 +35,15 @@ public final class Session {
 
                  float id = Float.parseFloat(f.get("id").toString());
              u.setId((int) id);           
-             u.setName(f.get("username").toString());
-                  p.set("user", u.getId());
+             u.setUsername(f.get("username").toString());
+             u.setName(f.get("name").toString());
+             u.setLastname(f.get("lastname").toString());
+             u.setEmail(f.get("email").toString());
+             u.setAvatar(f.get("image").toString());
+             p.set("user", u.getId());
 
              System.out.println(u.getId());
+             System.out.println(u.getAvatar());
 
     }
     

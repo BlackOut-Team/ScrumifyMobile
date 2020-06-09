@@ -7,6 +7,9 @@ package com.blackout.scrumify.GestionProjets.Gui;
 
 import com.blackout.scrumify.GestionTasks.Gui.TasksForm;
 import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
+import com.blackout.scrumify.GestionUsers.entities.User;
+import com.blackout.scrumify.GestionUsers.gui.settingsForm;
+import com.blackout.scrumify.GestionUsers.services.userService;
 import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Label;
@@ -24,31 +27,42 @@ import com.codename1.charts.models.XYSeries;
 import com.codename1.charts.renderers.XYMultipleSeriesRenderer;
 import com.codename1.charts.renderers.XYSeriesRenderer;
 import com.codename1.charts.views.CubicLineChart;
+import com.codename1.components.ImageViewer;
+import com.codename1.components.MultiButton;
 import com.codename1.ui.Display;
+import com.codename1.ui.EncodedImage;
+import com.codename1.ui.URLImage;
+import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.layouts.GridLayout;
 
 /**
  *
  * @author AmiraDoghri
  */
-public class Dashboard  extends SideMenuBaseForm{
+public class Dashboard extends SideMenuBaseForm {
+
     private static final int[] COLORS = {0xf8e478, 0x60e6ce, 0x878aee};
     private static final String[] LABELS = {"Owner", "Scrum Master", "Developer"};
+    userService u = new userService();
 
-     public  Dashboard(Resources res) {
+    public Dashboard(Resources res) {
 
-
-  
         super(new BorderLayout());
         Toolbar tb = getToolbar();
         tb.setTitleCentered(false);
-        Image profilePic = res.getImage("Image1.png");        
-        Image tintedImage = Image.createImage(profilePic.getWidth(), profilePic.getHeight());
-        Graphics g = tintedImage.getGraphics();
-        g.drawImage(profilePic, 0, 0);
-        g.drawImage(res.getImage("gradient-overlay.png"), 0, 0, profilePic.getWidth(), profilePic.getHeight());
-        
-        tb.getUnselectedStyle().setBgImage(tintedImage);
-        
+        User us = u.profile();
+        String image = us.getAvatar();
+
+        EncodedImage placeholder = EncodedImage.createFromImage(res.getImage("Image6.png"), false);
+        URLImage profilePic = URLImage.createToStorage(placeholder, "http://localhost/scrumify/web/uploads/images/" + image,
+                "http://localhost/scrumify/web/uploads/images/" + image);
+
+        ImageViewer img = new ImageViewer(profilePic);
+        Image mask = res.getImage("round-mask.png");
+        //profilePic = profilePic.fill(mask.getWidth(), mask.getHeight());
+        Label profilePicLabel = new Label(profilePic, "ProfilePicTitle");
+        profilePicLabel.setMask(mask.createMask());
+
         Button menuButton = new Button("");
         menuButton.setUIID("Title");
         FontImage.setMaterialIcon(menuButton, FontImage.MATERIAL_MENU);
@@ -57,26 +71,50 @@ public class Dashboard  extends SideMenuBaseForm{
         Button settingsButton = new Button("");
         settingsButton.setUIID("Title");
         FontImage.setMaterialIcon(settingsButton, FontImage.MATERIAL_SETTINGS);
-        
+        settingsButton.addActionListener((evt) -> {
+            new settingsForm(res).show();
+        });
+
+        Container remainingTasks = BoxLayout.encloseY(
+                new Label("12", "CenterTitle"),
+                new Label("Projects", "CenterSubTitle")
+        );
+        remainingTasks.setUIID("RemainingTasks");
+        Container completedTasks = BoxLayout.encloseY(
+                new Label("32", "CenterTitle"),
+                new Label("Teams", "CenterSubTitle")
+        );
+        completedTasks.setUIID("CompletedTasks");
+        String username = us.getUsername();
+        String name = us.getName();
+        String lastname = us.getLastname();
+
         Label space = new Label("", "TitlePictureSpace");
         space.setShowEvenIfBlank(true);
-        Container titleComponent = 
-                BorderLayout.north(
-                    BorderLayout.west(menuButton).add(BorderLayout.EAST, settingsButton)
-                ).
-                add(BorderLayout.CENTER, space).
-                add(BorderLayout.SOUTH, 
-                        FlowLayout.encloseIn(
-                                new Label("  Amira ", "WelcomeBlue"),
-                                new Label("Doghri", "WelcomeWhite")
-                        ));
-        titleComponent.setUIID("BottomPaddingContainer");
-        tb.setTitleComponent(titleComponent);
-        
+        Container titleCmp
+                = BoxLayout.encloseY(
+                        BorderLayout.north(BorderLayout.west(menuButton).add(BorderLayout.EAST, settingsButton)),
+                        BorderLayout.centerAbsolute(
+                                BoxLayout.encloseY(
+                                        new Label(name + " " + lastname, "Title"),
+                                        new Label(username, "SubTitle")
+                                )
+                        ).add(BorderLayout.WEST, profilePicLabel),
+                        GridLayout.encloseIn(2, remainingTasks, completedTasks)
+                );
+        titleCmp.setUIID("BottomPaddingContainer");
+        tb.setTitleComponent(titleCmp);
+
         Label separator = new Label("", "BlueSeparatorLine");
         separator.setShowEvenIfBlank(true);
         add(BorderLayout.NORTH, separator);
-        
+
+//        FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
+//
+//        addButtonBottom(arrowDown, "Finish landing page concept", 0xd997f1, true);
+//        addButtonBottom(arrowDown, "Design app illustrations", 0x5ae29d, false);
+//        addButtonBottom(arrowDown, "Javascript training ", 0x4dc2ff, false);
+//        addButtonBottom(arrowDown, "Surprise Party for Matt", 0xffc06f, false);
 
         XYMultipleSeriesDataset multi = new XYMultipleSeriesDataset();
 
@@ -99,21 +137,20 @@ public class Dashboard  extends SideMenuBaseForm{
         seriesXY.add(8, 4);
 
         XYMultipleSeriesRenderer renderer = createChartMultiRenderer();
-        
+
         CubicLineChart chart = new CubicLineChart(multi, renderer,
                 0.5f);
-        
-        
-        Container enclosure = BorderLayout.center(new ChartComponent(chart)).
+
+        Container enclosure = BorderLayout.south(new ChartComponent(chart)).
                 add(BorderLayout.NORTH, FlowLayout.encloseCenter(
                         new Label(LABELS[0], colorCircle(COLORS[0])),
                         new Label(LABELS[1], colorCircle(COLORS[1])),
                         new Label(LABELS[2], colorCircle(COLORS[2]))
                 ));
-        
-        add(BorderLayout.CENTER, 
+
+        add(BorderLayout.SOUTH,
                 enclosure);
-        
+
         setupSideMenu(res);
     }
 
@@ -125,11 +162,35 @@ public class Dashboard  extends SideMenuBaseForm{
         g.fillArc(0, 0, size, size, 0, 360);
         return i;
     }
-    
+//    private void addButtonBottom(Image arrowDown, String text, int color, boolean first) {
+//        MultiButton finishLandingPage = new MultiButton(text);
+//        finishLandingPage.setEmblem(arrowDown);
+//        finishLandingPage.setUIID("Container");
+//        finishLandingPage.setUIIDLine1("TodayEntry");
+//        finishLandingPage.setIcon(createCircleLine(color, finishLandingPage.getPreferredH(),  first));
+//        finishLandingPage.setIconUIID("Container");
+//        this.add(BorderLayout.NORTH,FlowLayout.encloseIn(finishLandingPage));
+//    }
+
+    private Image createCircleLine(int color, int height, boolean first) {
+        Image img = Image.createImage(height, height, 0);
+        Graphics g = img.getGraphics();
+        g.setAntiAliased(true);
+        g.setColor(0xcccccc);
+        int y = 0;
+        if (first) {
+            y = height / 6 + 1;
+        }
+        g.drawLine(height / 2, y, height / 2, height);
+        g.drawLine(height / 2 - 1, y, height / 2 - 1, height);
+        g.setColor(color);
+        g.fillArc(height / 4 - height / 2, height / 6, height / 4, height / 2, 0, 360);
+        return img;
+    }
 
     private XYMultipleSeriesRenderer createChartMultiRenderer() {
         XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
-        for(int color : COLORS) {
+        for (int color : COLORS) {
             XYSeriesRenderer r = new XYSeriesRenderer();
             r.setColor(color);
             renderer.addSeriesRenderer(r);
@@ -152,21 +213,17 @@ public class Dashboard  extends SideMenuBaseForm{
         renderer.setXLabels(5);
         renderer.setYLabels(5);
         renderer.setShowGrid(true);
-        
-        renderer.setMargins(new int[] {0, 0, 0, 0});
+
+        renderer.setMargins(new int[]{0, 0, 0, 0});
         renderer.setMarginsColor(0xffffff);
 
         renderer.setShowLegend(false);
-        
+
         renderer.setXAxisMin(3);
         renderer.setXAxisMax(8);
         renderer.setYAxisMin(0);
         renderer.setYAxisMax(10);
         return renderer;
     }
-
-    
-
-
 
 }

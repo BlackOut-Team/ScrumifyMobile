@@ -22,7 +22,9 @@ package com.blackout.scrumify.GestionUsers.gui;
 import com.blackout.scrumify.GestionMeeting.Entities.Meeting;
 import com.blackout.scrumify.GestionProjets.Gui.ProjectsForm;
 import com.blackout.scrumify.GestionProjets.Gui.WalkthruForm;
+import com.blackout.scrumify.GestionUsers.services.userService;
 import com.blackout.scrumify.Utils.Session;
+import com.codename1.components.ImageViewer;
 import com.codename1.components.InfiniteProgress;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
@@ -59,25 +61,25 @@ import com.codename1.io.Storage;
 public class LoginForm extends Form {
     static Map g;
     Form current;
+    userService u = new userService();
     public LoginForm(Resources theme) {
         super(new BorderLayout(BorderLayout.CENTER_BEHAVIOR_CENTER_ABSOLUTE));
         setUIID("LoginForm");
-        Container welcome = FlowLayout.encloseCenter(
-                new Label("Welcome, ", "WelcomeWhite"),
-                new Label("Scrumifyer", "WelcomeWhite")
+                Container c = FlowLayout.encloseCenter(new ImageViewer(theme.getImage("scrumify.png").scaledSmallerRatio(Display.getInstance().getDisplayWidth() / 4, Display.getInstance().getDisplayHeight() / 10)));
+
+        Container welcome = BoxLayout.encloseYCenter(
+                c,
+                new Label("Welcome Scrumifyer,", "WelcomeWhite")
         );
          current=this;
 
         getTitleArea().setUIID("Container");
         
-        Image profilePic = theme.getImage("user-picture.jpg");
-        Image mask = theme.getImage("round-mask.png");
-       profilePic = profilePic.fill(mask.getWidth(), mask.getHeight());
-      Label profilePicLabel = new Label(profilePic, "ProfilePic");
-      profilePicLabel.setMask(mask.createMask());
+  
         
-        TextField login = new TextField("rami", "Login", 20, TextField.EMAILADDR) ;
-        TextField password = new TextField("123456", "Password", 20, TextField.PASSWORD) ;
+        TextField login = new TextField("", "Login", 20, TextField.EMAILADDR) ;
+        TextField password = new TextField("", "Password", 20, TextField.PASSWORD) ;
+        
         login.getAllStyles().setMargin(LEFT, 0);
         password.getAllStyles().setMargin(LEFT, 0);
         Label loginIcon = new Label("", "TextField");
@@ -92,7 +94,7 @@ public class LoginForm extends Form {
         loginButton.setUIID("LoginButton");
         loginButton.addActionListener(e -> {
             
-            if(connecting(login.getText(),password.getText())){
+            if(u.connecting(login.getText(),password.getText())){
                 Toolbar.setGlobalToolbar(false);
                 new WalkthruForm(theme).show();
                 Toolbar.setGlobalToolbar(true);
@@ -104,7 +106,8 @@ public class LoginForm extends Form {
         
         Button createNewAccount = new Button("CREATE NEW ACCOUNT");
         createNewAccount.setUIID("CreateNewAccountButton");
-        
+        Button resetP = new Button("Forgot password ?");
+        resetP.setUIID("CreateNewAccountButton");
         // We remove the extra space for low resolution devices so things fit better
         Label spaceLabel;
         if(!Display.getInstance().isTablet() && Display.getInstance().getDeviceDensity() < Display.DENSITY_VERY_HIGH) {
@@ -123,6 +126,7 @@ public class LoginForm extends Form {
                 BorderLayout.center(password).
                         add(BorderLayout.WEST, passwordIcon),
                 error,
+                resetP,
                 loginButton,
                 createNewAccount
         );
@@ -130,56 +134,17 @@ public class LoginForm extends Form {
         // for low res and landscape devices
         by.setScrollableY(true);
         by.setScrollVisible(false);
-    }
-    
-    
-    public boolean connecting(String login, String password){
         
-        Map m = getResponse("connect?username="+login+"&password="+password);
-      
-        ArrayList d = (ArrayList) m.get("root");
-
-        String n =   d.get(0).toString();
-        System.out.println(n);
-        if(n.equals("false") ){
-        return false;
-        }else{
-            Object data =  d.get(0);
-
-        System.out.println(data);
-         Storage session = new Storage();
-         session.writeObject("session", data);
-         Map f = (Map) Storage.getInstance().readObject("session");
-         float id = Float.parseFloat(f.get("id").toString());
-         Session s = new Session();
-      
-         System.out.println((Map)Storage.getInstance().readObject("session") );
-            return true;
-            
-        }
+        createNewAccount.addActionListener((evt) -> {
+            new RegisterForm(theme).show();
+        });
+        
+        resetP.addActionListener((evt) -> {
+            new resetPassword(theme).show();
+        });
     }
     
-     public static Map<String, Object> getResponse(String url) {
-        url = "http://localhost/scrumifyApi/web/app_dev.php/" + url;
-        System.out.println(url);
-        ConnectionRequest r = new ConnectionRequest();
-        r.setUrl(url);
-        r.setPost(false);
-        InfiniteProgress prog = new InfiniteProgress();
-        Dialog dlg = prog.showInfiniteBlocking();
-        r.setDisposeOnCompletion(dlg);
-        r.addResponseListener((evt) -> {
-            try {
-                JSONParser p = new JSONParser();
-                Reader targetReader = new InputStreamReader(new ByteArrayInputStream(r.getResponseData()));
-                g = p.parseJSON(targetReader);
-
-            } catch (IOException ex) {
-                //Logger.getLogger(MyApplication.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        });
-        NetworkManager.getInstance().addToQueueAndWait(r);
-        return g;
-    }
+    
+   
+  
 }

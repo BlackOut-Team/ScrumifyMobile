@@ -18,21 +18,27 @@
  */
 package com.blackout.scrumify.Utils;
 
+import com.blackout.scrumify.GestionActivity.Gui.ActivitiesForm;
 import com.blackout.scrumify.GestionProjets.Gui.AddProject;
 import com.blackout.scrumify.GestionProjets.Gui.CalendarForm;
 import com.blackout.scrumify.GestionProjets.Gui.Dashboard;
 import com.blackout.scrumify.GestionProjets.Gui.ProjectsForm;
 import com.blackout.scrumify.GestionTasks.Gui.TasksForm;
 import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
+import com.blackout.scrumify.GestionUsers.entities.User;
 import com.blackout.scrumify.GestionUsers.gui.LoginForm;
+import com.blackout.scrumify.GestionUsers.gui.settingsForm;
+import com.blackout.scrumify.GestionUsers.services.userService;
 import com.codename1.components.ToastBar;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
 import com.codename1.ui.Container;
+import com.codename1.ui.EncodedImage;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
+import com.codename1.ui.URLImage;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.Layout;
 import com.codename1.ui.util.Resources;
@@ -46,6 +52,9 @@ import java.util.Map;
  * @author Shai Almog
  */
 public abstract class SideMenuBaseForm extends Form {
+
+    userService u = new userService();
+
     public SideMenuBaseForm(String title, Layout contentPaneLayout) {
         super(title, contentPaneLayout);
     }
@@ -63,25 +72,32 @@ public abstract class SideMenuBaseForm extends Form {
 
     public void setupSideMenu(Resources res) {
 
-        Image profilePic = res.getImage("Image3.png");
+        User us = u.profile();
+        String image = us.getAvatar();
+                String username = us.getUsername();
+
+        EncodedImage placeholder = EncodedImage.createFromImage(res.getImage("Image6.png"), false);
+
+        URLImage profilePic = URLImage.createToStorage(placeholder, "http://localhost/scrumify/web/uploads/images/" + image,
+                "http://localhost/scrumify/web/uploads/images/" + image);
         Image mask = res.getImage("round-mask.png");
         mask = mask.scaledHeight(mask.getHeight() / 4 * 3);
-        profilePic = profilePic.fill(mask.getWidth(), mask.getHeight());
-        Label profilePicLabel = new Label(" Hello , "+Session.u.getName(), profilePic, "SideMenuTitle");
+        //profilePic = profilePic.fill(mask.getWidth(), mask.getHeight());
+        Label profilePicLabel = new Label(" Hello , " + Session.u.getName(), profilePic, "SideMenuTitle");
         Button profile = new Button();
         profilePicLabel.setMask(mask.createMask());
         Container sidemenuTop = BorderLayout.center(profilePicLabel);
         sidemenuTop.setUIID("SidemenuTop");
         sidemenuTop.setLeadComponent(profile);
         getToolbar().addComponentToSideMenu(sidemenuTop);
-       // getToolbar().addMaterialCommandToRightBar("", FontImage.MATERIAL_ARROW_BACK, e -> goBack(res, new Form()));
+        // getToolbar().addMaterialCommandToRightBar("", FontImage.MATERIAL_ARROW_BACK, e -> goBack(res, new Form()));
         getToolbar().addMaterialCommandToSideMenu("  Dashboard", FontImage.MATERIAL_DASHBOARD, e -> showDashboard(res));
         getToolbar().addMaterialCommandToSideMenu("  Projects", FontImage.MATERIAL_VIEW_LIST, e -> showProjects(res));
         getToolbar().addMaterialCommandToSideMenu("  Calendar", FontImage.MATERIAL_CALENDAR_TODAY, e -> showCalendar(res));
         getToolbar().addMaterialCommandToSideMenu("  Tasks", FontImage.MATERIAL_ACCESS_TIME, e -> showTasks(res));
-        getToolbar().addMaterialCommandToSideMenu("  Activity", FontImage.MATERIAL_TRENDING_UP, e -> showOtherForm(res));
+        getToolbar().addMaterialCommandToSideMenu("  Activity", FontImage.MATERIAL_TRENDING_UP, e -> showActivities(res));
         getToolbar().addMaterialCommandToSideMenu("  Teams", FontImage.MATERIAL_GROUP, e -> showTeamForm(res));
-        getToolbar().addMaterialCommandToSideMenu("  Account Settings", FontImage.MATERIAL_SETTINGS, e -> showOtherForm(res));
+        getToolbar().addMaterialCommandToSideMenu("  Account Settings", FontImage.MATERIAL_SETTINGS, e -> showSettingsForm(res));
         getToolbar().addMaterialCommandToSideMenu("  Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> new LoginForm(res).show());
 
         profile.addActionListener((evt) -> {
@@ -89,10 +105,6 @@ public abstract class SideMenuBaseForm extends Form {
             //returns session 
             //Object result =Storage.getInstance().readObject("session");
         });
-    }
-
-    protected void showOtherForm(Resources res) {
-        new AddProject(res).show();
     }
 
     protected void showDashboard(Resources res) {
@@ -116,10 +128,12 @@ public abstract class SideMenuBaseForm extends Form {
 
         });*/
     }
+
     protected void showCalendar(Resources res) {
-             new CalendarForm(res).show();
+        new CalendarForm(res).show();
 
     }
+
     protected void showTeamForm(Resources res) {
         new TeamForm(res, this).show();
     }
@@ -128,5 +142,11 @@ public abstract class SideMenuBaseForm extends Form {
         new TasksForm(res).show();
     }
 
+    protected void showSettingsForm(Resources res) {
+        new settingsForm(res).show();
+    }
 
+    protected void showActivities(Resources res) {
+        new ActivitiesForm(res).show();
+    }
 }
