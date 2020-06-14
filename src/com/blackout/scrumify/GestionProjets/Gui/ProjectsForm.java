@@ -75,7 +75,7 @@ public class ProjectsForm extends SideMenuBaseForm {
         Container titleCmp = BoxLayout.encloseY(
                 FlowLayout.encloseIn(menuButton),
                 BorderLayout.centerAbsolute(
-                        BoxLayout.encloseY()
+                        BoxLayout.encloseY(new Label("My projects","CenterTitle"))
                 ),
                 GridLayout.encloseIn(3, Allprojects, currentProjects, completedProjects)
         );

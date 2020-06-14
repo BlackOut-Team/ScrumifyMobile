@@ -5,8 +5,11 @@
  */
 package com.blackout.scrumify.GestionActivity.Services;
 
+import com.blackout.scrumify.GestionActivity.Entities.Activity;
 import com.blackout.scrumify.GestionMeeting.Services.*;
 import com.blackout.scrumify.GestionMeeting.Entities.Meeting;
+import com.blackout.scrumify.GestionUsers.entities.User;
+import com.blackout.scrumify.Utils.Session;
 import com.codename1.components.InfiniteProgress;
 import com.codename1.io.CharArrayReader;
 import com.codename1.io.ConnectionRequest;
@@ -26,58 +29,57 @@ import java.util.Map;
  *
  * @author hp
  */
-
-   public class ActivityService {
-
-    public ArrayList<Meeting> meetings;
+public class ActivityService {
+    
+    public ArrayList<Activity> activities;
     static Map g;
     public static Double Rate;
-
+    
     public static ActivityService instance = null;
     public boolean resultOK;
     private ConnectionRequest req;
-                    boolean t;
-
+    boolean t;
+    
     public ActivityService() {
         req = new ConnectionRequest();
     }
-
+    
     public static ActivityService getInstance() {
         if (instance == null) {
             instance = new ActivityService();
         }
         return instance;
     }
-
-    public boolean addMeeting(Meeting m) {
-          String url = "http://localhost/scrumifyApi/web/app_dev.php/Meeting/Add?name=" + m.getName() + "&type=" + m.getType()+ "&place=" + m.getPlace()+ "&sprint_id=" + m.getSprint()+ "&date=" + m.getMeetingDate();
+    
+    public boolean addActivity(Activity m) {
+        String url = "http://localhost/scrumifyApi/web/app_dev.php/Meeting/Add?name=" + m.getAction();
         ConnectionRequest con = new ConnectionRequest();
         con.setUrl(url);
         con.setPost(true);
         con.addResponseListener((NetworkEvent evt) -> {
-
+            
             byte[] data = (byte[]) evt.getMetaData();
             String s = new String(data);
             System.out.println(s);
             if (!s.contains("erreur")) {
                 Dialog.show("Confirmation", "success", "Ok", null);
-                ArrayList<Meeting> pr = parseMeetings(s);
+                ArrayList<Activity> pr = parseActivities(s);
                 m.setId(pr.get(0).getId());
                 System.out.println(m.getId());
-                 t= true;
+                t = true;
             } else {
                 Dialog.show("Erreur", "date", "Ok", null);
-                t=false;
+                t = false;
             }
-
+            
         });
         NetworkManager.getInstance().addToQueueAndWait(con);
-       return t;
+        return t;
     }
-
-    public boolean editMeeting(Meeting m) {
+    
+    public boolean viewActivity(Activity m) {
         
-          String url = "http://localhost/scrumifyApi/web/app_dev.php/update_meeting/"+m.getId()+"?name=" + m.getName() + "&type=" + m.getType()+ "&place=" + m.getPlace()+ "&sprint_id=" + m.getSprint()+ "&date=" + m.getMeetingDate();
+        String url = "http://localhost/scrumifyApi/web/app_dev.php/change_activity?id=" + m.getId();
         ConnectionRequest con = new ConnectionRequest();
         con.setUrl(url);
         con.setPost(true);
@@ -87,102 +89,93 @@ import java.util.Map;
             System.out.println(s);
             if (!s.contains("erreur")) {
                 Dialog.show("Confirmation", "success", "Ok", null);
-                t=true;
-
+                t = true;
+                
             } else {
                 Dialog.show("Erreur", "date", "Ok", null);
-                t=false;
-
+                t = false;
+                
             }
         });
-
+        
         NetworkManager.getInstance().addToQueueAndWait(con);
-        return t ;
+        return t;
     }
-    public ArrayList<Meeting> parseMeetings(String jsonText) {
+    
+    public ArrayList<Activity> parseActivities(String jsonText) {
         try {
-
-            meetings = new ArrayList<>();
+            
+            activities = new ArrayList<>();
             JSONParser j = new JSONParser();
             g = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
-
+            
             for (int i = 0; i < g.size(); i++) {
-
-                Meeting t = new Meeting();
-                float id = Float.parseFloat(g.get("id").toString());
-                                float sp = Float.parseFloat(g.get("sprint").toString());
-
-                t.setId((int) id);
-                t.setName(g.get("name").toString());
-                t.setPlace(g.get("place").toString());
-                t.setType(g.get("type").toString());
-                t.setSprint((int) sp);
-                Map<String, Object> MapMeetingDate = (Map<String, Object>) g.get("meetingDate");
-
-                float datedebut = Float.parseFloat(MapMeetingDate.get("timestamp").toString());
-                String meetingDate = new SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date((long) (datedebut * 1000L)));
-                t.setMeetingDate(meetingDate);
-
-                meetings.add(t);
+                
+                Activity t = new Activity();
+                float user_id = Float.parseFloat(g.get("user_id").toString());
+                
+                t.setUser_id((int) user_id);
+                t.setAction(g.get("action").toString());
+                float viewed = Float.parseFloat(g.get("viewed").toString());
+                
+                t.setViewed((int) viewed);
+                
+                activities.add(t);
             }
-
+            
         } catch (IOException ex) {
-
+            
         }
-        return meetings;
+        return activities;
     }
-
-    public ArrayList<Meeting> getAllMeetings(Map m) {
-        ArrayList<Meeting> listM = new ArrayList<>();
+    
+    public ArrayList<Activity> getAllActivities(Map m) {
+        ArrayList<Activity> listM = new ArrayList<>();
         ArrayList d = (ArrayList) m.get("root");
-
+        
         ArrayList n = (ArrayList) d.get(0);
         System.out.println(n.size());
         for (int i = 0; i < n.size(); i++) {
             Map f = (Map) n.get(i);
-
-            Meeting t = new Meeting();
+            
+            Activity t = new Activity();
+            Map<Object, Object> user = (Map<Object, Object>) f.get("User");
+            float user_id = Float.parseFloat(user.get("id").toString());
             float id = Float.parseFloat(f.get("id").toString());
             t.setId((int) id);
-            t.setName(f.get("name").toString());
-            t.setPlace(f.get("place").toString());
-            t.setType(f.get("type").toString());
+            t.setUser_id((int) user_id);
+            t.setAction(f.get("action").toString());
+            float viewed = Float.parseFloat(f.get("viewed").toString());
             
-            Map<String, Object> MapMeetingDate = (Map<String, Object>) f.get("meetingDate");
-
-            float datedebut = Float.parseFloat(MapMeetingDate.get("timestamp").toString());
-            String meetingDate = new SimpleDateFormat("MM/dd/yyyy").format(new java.util.Date((long) (datedebut * 1000L)));
-            t.setMeetingDate(meetingDate);
-
+            t.setViewed((int) viewed);
+            
             listM.add(t);
         }
         return listM;
-
+        
     }
     
-    
-    
-     public void deleteMeeting(Meeting m) {
-        String url = "http://localhost/scrumifyApi/web/app_dev.php/Meeting/delete/" + m.getId();
+    public void deleteActivity(Activity m) {
+        String url = "http://localhost/scrumifyApi/web/app_dev.php/delete_activity?id=" + m.getId();
         ConnectionRequest con = new ConnectionRequest();
         con.setUrl(url);
         con.setPost(true);
         con.addResponseListener((NetworkEvent evt) -> {
             byte[] data = (byte[]) evt.getMetaData();
             String s = new String(data);
-            if (!s.equals("")) {
+            if (s.contains("success")) {
                 Dialog.show("Confirmation", "success", "Ok", null);
-
+                
             } else {
                 Dialog.show("Erreur", "erreur", "Ok", null);
-
+                
             }
         });
-
+        
         NetworkManager.getInstance().addToQueueAndWait(con);
-
+        
     }
-
+    
     public static Map<String, Object> getResponse(String url) {
         url = "http://localhost/scrumifyApi/web/app_dev.php/" + url;
         System.out.println(url);
@@ -197,13 +190,30 @@ import java.util.Map;
                 JSONParser p = new JSONParser();
                 Reader targetReader = new InputStreamReader(new ByteArrayInputStream(r.getResponseData()));
                 g = p.parseJSON(targetReader);
-
+                
             } catch (IOException ex) {
                 //Logger.getLogger(MyApplication.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+            
         });
         NetworkManager.getInstance().addToQueueAndWait(r);
         return g;
     }
+
+    public User geAcOw(Map m) {
+        User user = new User();
+        ArrayList d = (ArrayList) m.get("root");
+        
+        Map f = (Map) d.get(0);
+        
+        User t = new User();
+        float user_id = Float.parseFloat(f.get("id").toString());
+        
+        t.setId((int) user_id);
+        t.setUsername(f.get("username").toString());
+        
+        return t;
+        
+    }
+    
 }

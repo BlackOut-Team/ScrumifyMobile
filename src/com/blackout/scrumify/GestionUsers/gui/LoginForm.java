@@ -19,24 +19,14 @@
 
 package com.blackout.scrumify.GestionUsers.gui;
 
-import com.blackout.scrumify.GestionMeeting.Entities.Meeting;
-import com.blackout.scrumify.GestionProjets.Gui.ProjectsForm;
 import com.blackout.scrumify.GestionProjets.Gui.WalkthruForm;
 import com.blackout.scrumify.GestionUsers.services.userService;
-import com.blackout.scrumify.Utils.Session;
 import com.codename1.components.ImageViewer;
-import com.codename1.components.InfiniteProgress;
-import com.codename1.io.ConnectionRequest;
-import com.codename1.io.JSONParser;
-import com.codename1.io.NetworkManager;
-import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
-import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
-import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
@@ -44,13 +34,7 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.util.Resources;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.ArrayList;
 import java.util.Map;
-import com.codename1.io.Storage;
 
 
 /**
@@ -106,8 +90,6 @@ public class LoginForm extends Form {
         
         Button createNewAccount = new Button("CREATE NEW ACCOUNT");
         createNewAccount.setUIID("CreateNewAccountButton");
-        Button resetP = new Button("Forgot password ?");
-        resetP.setUIID("CreateNewAccountButton");
         // We remove the extra space for low resolution devices so things fit better
         Label spaceLabel;
         if(!Display.getInstance().isTablet() && Display.getInstance().getDeviceDensity() < Display.DENSITY_VERY_HIGH) {
@@ -126,7 +108,6 @@ public class LoginForm extends Form {
                 BorderLayout.center(password).
                         add(BorderLayout.WEST, passwordIcon),
                 error,
-                resetP,
                 loginButton,
                 createNewAccount
         );
@@ -139,9 +120,7 @@ public class LoginForm extends Form {
             new RegisterForm(theme).show();
         });
         
-        resetP.addActionListener((evt) -> {
-            new resetPassword(theme).show();
-        });
+        
     }
     
     

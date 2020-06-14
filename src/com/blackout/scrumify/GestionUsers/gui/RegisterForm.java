@@ -11,18 +11,14 @@ import static com.blackout.scrumify.GestionUsers.services.userService.getRespons
 import com.codename1.capture.Capture;
 import com.codename1.components.ImageViewer;
 import com.codename1.components.InfiniteProgress;
-import com.codename1.io.FileSystemStorage;
 import com.codename1.io.MultipartRequest;
 import com.codename1.io.NetworkManager;
-import com.codename1.io.Storage;
-import com.codename1.io.Util;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
-import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
@@ -35,8 +31,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

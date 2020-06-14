@@ -53,20 +53,21 @@ public class Scrumify {
     }
 
     public void start() {
-        LocalNotification n = new LocalNotification();
-        n.setId("demo-notification");
-        n.setAlertBody("It's time to take a break and look at me");
-        n.setAlertTitle("Break Time!");
-        n.setAlertSound("/notification_sound_beep-01a.mp3");
-        // alert sound file name must begin with notification_sound
-
-        Display.getInstance().scheduleLocalNotification(
-                n,
-                System.currentTimeMillis() + 10 * 1000, // fire date/time
-                LocalNotification.REPEAT_MINUTE // Whether to repeat and what frequency
-        );
+        
         if (current != null) {
             current.show();
+//        LocalNotification n = new LocalNotification();
+//        n.setId("demo-notification");
+//        n.setAlertBody("It's time to take a break and look at me");
+//        n.setAlertTitle("Break Time!");
+//        n.setAlertSound("/notification_sound_beep-01a.mp3");
+//        // alert sound file name must begin with notification_sound
+//
+//        Display.getInstance().scheduleLocalNotification(
+//                n,
+//                System.currentTimeMillis() + 5 * 1000, // fire date/time
+//                LocalNotification.REPEAT_MINUTE // Whether to repeat and what frequency
+//        );
             return;
         }
         new LoginForm(theme).show();

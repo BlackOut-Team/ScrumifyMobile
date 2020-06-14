@@ -6,9 +6,16 @@
         <group>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionUsers/gui/settingsForm.java</file>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionUsers/gui/editProfileForm.java</file>
-            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Gui/CalendarForm.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/Scrumify.java</file>
+            <file>jar:file:/C:/Users/Public/Documents/ScrumifyMobile/lib/CodenameOne_SRC.zip!/com/codename1/io/Storage.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionActivity/Entities/Activity.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionTeams/gui/TeamForm.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Gui/AddProject.java</file>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionUsers/services/userService.java</file>
             <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionProjets/Services/ServiceProjet.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionUsers/gui/RegisterForm.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionActivity/Gui/ActivitiesForm.java</file>
+            <file>file:/C:/Users/Public/Documents/ScrumifyMobile/src/com/blackout/scrumify/GestionActivity/Services/ActivityService.java</file>
         </group>
     </open-files>
 </project-private>

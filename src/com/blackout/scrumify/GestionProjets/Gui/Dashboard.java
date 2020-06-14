@@ -42,7 +42,7 @@ import com.codename1.ui.layouts.GridLayout;
 public class Dashboard extends SideMenuBaseForm {
 
     private static final int[] COLORS = {0xf8e478, 0x60e6ce, 0x878aee};
-    private static final String[] LABELS = {"Owner", "Scrum Master", "Developer"};
+    private static final String[] LABELS = {"Remaining tasks", "Effort"};
     userService u = new userService();
 
     public Dashboard(Resources res) {
@@ -72,8 +72,7 @@ public class Dashboard extends SideMenuBaseForm {
         settingsButton.setUIID("Title");
         FontImage.setMaterialIcon(settingsButton, FontImage.MATERIAL_SETTINGS);
         settingsButton.addActionListener((evt) -> {
-            //new settingsForm(res).show();
-            Display.getInstance().minimizeApplication();
+            new settingsForm(res).show();
         });
 
         Container remainingTasks = BoxLayout.encloseY(
@@ -90,8 +89,8 @@ public class Dashboard extends SideMenuBaseForm {
         String name = us.getName();
         String lastname = us.getLastname();
 
-        Label space = new Label("", "TitlePictureSpace");
-        space.setShowEvenIfBlank(true);
+//        Label space = new Label("", "TitlePictureSpace");
+//        space.setShowEvenIfBlank(true);
         Container titleCmp
                 = BoxLayout.encloseY(
                         BorderLayout.north(BorderLayout.west(menuButton).add(BorderLayout.EAST, settingsButton)),
@@ -103,12 +102,12 @@ public class Dashboard extends SideMenuBaseForm {
                         ).add(BorderLayout.WEST, profilePicLabel),
                         GridLayout.encloseIn(2, remainingTasks, completedTasks)
                 );
-        titleCmp.setUIID("BottomPaddingContainer");
+       // titleCmp.setUIID("BottomPaddingContainer");
         tb.setTitleComponent(titleCmp);
 
-        Label separator = new Label("", "BlueSeparatorLine");
-        separator.setShowEvenIfBlank(true);
-        add(BorderLayout.NORTH, separator);
+//        Label separator = new Label("", "BlueSeparatorLine");
+//        separator.setShowEvenIfBlank(true);
+//        add(BorderLayout.NORTH, separator);
 
 //        FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
 //
@@ -125,8 +124,8 @@ public class Dashboard extends SideMenuBaseForm {
         seriesXY.add(4, 4);
         seriesXY.add(5, 5);
         seriesXY.add(6, 4);
-        seriesXY.add(7, 2);
-        seriesXY.add(8, 5);
+        seriesXY.add(7, 6);
+        seriesXY.add(8, 7);
 
         seriesXY = new XYSeries("BBB", 0);
         multi.addSeries(seriesXY);
@@ -135,7 +134,7 @@ public class Dashboard extends SideMenuBaseForm {
         seriesXY.add(5, 3);
         seriesXY.add(6, 2);
         seriesXY.add(7, 1);
-        seriesXY.add(8, 4);
+        seriesXY.add(8, 0);
 
         XYMultipleSeriesRenderer renderer = createChartMultiRenderer();
 
@@ -144,14 +143,15 @@ public class Dashboard extends SideMenuBaseForm {
 
         Container enclosure = BorderLayout.south(new ChartComponent(chart)).
                 add(BorderLayout.NORTH, FlowLayout.encloseCenter(
-                        new Label(LABELS[0], colorCircle(COLORS[0])),
-                        new Label(LABELS[1], colorCircle(COLORS[1])),
-                        new Label(LABELS[2], colorCircle(COLORS[2]))
+                        new Label("Burndown Chart :"),
+                        new Label(LABELS[1], colorCircle(COLORS[0])),
+                        new Label(LABELS[0], colorCircle(COLORS[1]))
                 ));
 
         add(BorderLayout.SOUTH,
                 enclosure);
-
+//ProjectStatusChart p = new ProjectStatusChart();
+//add(BorderLayout.CENTER,p.execute());
         setupSideMenu(res);
     }
 
