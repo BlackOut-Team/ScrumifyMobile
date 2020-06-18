@@ -80,8 +80,7 @@ public class UserstoryForm extends SideMenuBaseForm {
 
                 Container c = new Container(BoxLayout.x());
 
-                c.setName(p.getDescription());
-                addButtonBottom(arrowDown, c, p);
+                addButtonBottom(p);
 
             }
             }else{
@@ -114,7 +113,7 @@ public class UserstoryForm extends SideMenuBaseForm {
     UserstoryForm(Resources res, AddFeature aThis, Project projet) {
     }
 
-    private void addButtonBottom(Image arrowDown, Container c, UserStory p) {
+    private void addButtonBottom(UserStory p) {
         FontImage icon = FontImage.createMaterial(FontImage.MATERIAL_LIST, "icon", 3);
         Container featureBox = new Container(BorderLayout.absolute(), "ProjectItem");
 
@@ -124,7 +123,6 @@ public class UserstoryForm extends SideMenuBaseForm {
 
         featureBox.add(BorderLayout.NORTH, BoxLayout.encloseY(title));
 
-        featureBox.add(BorderLayout.EAST, icon);
         Button edit = new Button(FontImage.MATERIAL_EDIT, "icon");
         Button archive = new Button(FontImage.MATERIAL_ARCHIVE, "icon");
         Button view = new Button(FontImage.MATERIAL_ZOOM_IN, "icon");

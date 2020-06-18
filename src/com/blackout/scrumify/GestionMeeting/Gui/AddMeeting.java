@@ -135,8 +135,8 @@ public class AddMeeting extends SideMenuBaseForm {
 
     }
     //TextField apiKey = new TextField();
-    private static final String apiKey = "AIzaSyB22oQWKugTFxxqbcSkMc4MqALFi094auU";
-
+    //private static final String apiKey = "AIzaSyB22oQWKugTFxxqbcSkMc4MqALFi094auU";
+ String apiKey;
     String[] searchLocations(String text) {
         try {
             if (text.length() > 0) {
