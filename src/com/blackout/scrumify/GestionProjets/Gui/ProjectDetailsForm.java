@@ -7,6 +7,7 @@ package com.blackout.scrumify.GestionProjets.Gui;
 
 import com.blackout.scrumify.GestionMeeting.Gui.MeetingsForm;
 import com.blackout.scrumify.GestionProjets.Entities.Project;
+import static com.blackout.scrumify.GestionProjets.Gui.ProjectsForm.res;
 import com.blackout.scrumify.GestionProjets.Services.ServiceProjet;
 import com.blackout.scrumify.GestionSprints.Gui.SprintsForm;
 import com.blackout.scrumify.GestionTasks.Gui.TasksForm;
@@ -51,15 +52,13 @@ public class ProjectDetailsForm extends SideMenuBaseForm {
 
         Container te = FlowLayout.encloseCenter(new Label("Team : " + tt.getName(), "SideMenuTitle"));
 
-        
-            Button returnButton = new Button("");
+        Button returnButton = new Button("");
         returnButton.setUIID("Title");
         FontImage.setMaterialIcon(returnButton, FontImage.MATERIAL_ARROW_BACK);
         returnButton.addActionListener(e -> new ProjectsForm(res, current).showBack());
-        
+
         Container titleCmp = BoxLayout.encloseY(
-                     BorderLayout.west(returnButton),
-             
+                BorderLayout.west(returnButton),
                 BorderLayout.centerAbsolute(
                         BoxLayout.encloseY(
                                 new Label(p.getName(), "Title"),
@@ -75,63 +74,36 @@ public class ProjectDetailsForm extends SideMenuBaseForm {
 
         getToolbar().setTitleComponent(titleCmp);
 
-        // Label t =new Label("Team ", "TodayTitle")
-        add(new Label("Details ", "TodayTitle"));
+        add(new Label("Project Details ", "TodayTitle"));
 
         add(new Label("Created : " + p.getCreated(), "Label"));
         add(new Label("Duedate : " + p.getDuedate(), "Label"));
         add(new Label("Description : " + p.getDescription(), "Label"));
 
-        add(new Label("Actions ", "TodayTitle"));
+        add(new Label("More ", "TodayTitle"));
+        Button meetings = new Button("Meetings");
 
-        setupSideMenu(res);
+        meetings.setUIID("ActionButton");
 
-        Button edit = new Button(FontImage.MATERIAL_EDIT);
-        Button archive = new Button(FontImage.MATERIAL_ARCHIVE);
         Button sprints = new Button("Sprints");
-        Button meeting = new Button("Meetings");
 
-        edit.setUIID("ActionButton");
-        archive.setUIID("ActionButton");
         sprints.setUIID("ActionButton");
-        meeting.setUIID("ActionButton");
 
-        Container actionCmp
-                = BorderLayout.center(
-                        BoxLayout.encloseYCenter(
-                        edit, archive,
-                        sprints, meeting )
-                );
+        add(BoxLayout.encloseYBottom(meetings, sprints));
 
-        add(BorderLayout.south(actionCmp));
-
-        edit.addActionListener((evt) -> {
+        meetings.addActionListener((evt) -> {
             System.out.println(p.getId());
 
-            new EditProject(res, previous, p).show();
-
-        });
-
-        archive.addActionListener((evt) -> {
-            ServiceProjet.getInstance().archiveProject(p);
-            ToastBar.getInstance().setPosition(TOP);
-                            ToastBar.Status status = ToastBar.getInstance().createStatus();
-                            status.setIcon(res.getImage("scrumify.png").scaledSmallerRatio(Display.getInstance().getDisplayWidth()/10, Display.getInstance().getDisplayWidth()/15));                    
-                            status.setMessage("Project archived successfully");
-                            status.setExpires(3000);  // only show the status for 3 seconds, then have it automatically clear
-                            status.show();
-            new ProjectsForm(res, current).show();
-        });
-        meeting.addActionListener((evt) -> {
-            System.out.println(p.getId());
-
-            new MeetingsForm(res, previous, p).show();
+            new MeetingsForm(res, this, p).show();
 
         });
 
         sprints.addActionListener((evt) -> {
             new SprintsForm(res, current, p).show();
         });
+
+
+        setupSideMenu(res);
 
     }
 

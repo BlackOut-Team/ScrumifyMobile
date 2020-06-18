@@ -8,14 +8,17 @@ package com.blackout.scrumify.GestionMeeting.Gui;
 import com.blackout.scrumify.GestionMeeting.Entities.Meeting;
 import com.blackout.scrumify.GestionMeeting.Services.MeetingService;
 import com.blackout.scrumify.GestionProjets.Entities.Project;
-import com.blackout.scrumify.GestionProjets.Gui.Dashboard;
 import com.blackout.scrumify.GestionProjets.Gui.ProjectDetailsForm;
-import com.blackout.scrumify.GestionProjets.Gui.ProjectsForm;
 import com.blackout.scrumify.GestionSprints.Entities.Sprint;
 import com.blackout.scrumify.GestionSprints.Services.ServiceSprint;
-import com.blackout.scrumify.GestionTeams.Gui.TeamForm;
 import com.blackout.scrumify.Utils.SideMenuBaseForm;
+import com.codename1.io.ConnectionRequest;
+import com.codename1.io.JSONParser;
+import com.codename1.io.Log;
+import com.codename1.io.NetworkManager;
 import com.codename1.l10n.SimpleDateFormat;
+import com.codename1.processing.Result;
+import com.codename1.ui.AutoCompleteTextField;
 import com.codename1.ui.Button;
 import com.codename1.ui.ComboBox;
 import com.codename1.ui.Command;
@@ -28,10 +31,13 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.list.DefaultListModel;
 import com.codename1.ui.spinner.Picker;
 import java.util.ArrayList;
 import java.util.Map;
 import com.codename1.ui.util.Resources;
+import java.io.ByteArrayInputStream;
+import java.io.InputStreamReader;
 
 /**
  *
@@ -65,7 +71,28 @@ public class AddMeeting extends SideMenuBaseForm {
         TextField tfName = new TextField("", "Name");
         ComboBox<String> tftype = new ComboBox<String>();
         //TextField tftype = new TextField("", "type");
-        TextField tfplace = new TextField("", "place");
+        //TextField tfplace = new TextField("", "place");
+        final DefaultListModel<String> options = new DefaultListModel<>();
+        AutoCompleteTextField tfplace = new AutoCompleteTextField(options) {
+            @Override
+            protected boolean filter(String text) {
+                if (text.length() == 0) {
+                    return false;
+                }
+                String[] l = searchLocations(text);
+                System.out.println(l);
+                if (l == null || l.length == 0) {
+                    return false;
+                }
+
+                options.removeAll();
+                for (String s : l) {
+                    options.addItem(s);
+                }
+                return true;
+            }
+
+        };
         Picker meetingDate = new Picker();
 
         meetingDate.setFormatter(new SimpleDateFormat("MM-dd-yyyy"));
@@ -107,5 +134,25 @@ public class AddMeeting extends SideMenuBaseForm {
         addAll(tfName, tftype, tfplace, meetingDate, sprint, btnValider);
 
     }
+    //TextField apiKey = new TextField();
+    private static final String apiKey = "AIzaSyB22oQWKugTFxxqbcSkMc4MqALFi094auU";
 
+    String[] searchLocations(String text) {
+        try {
+            if (text.length() > 0) {
+                ConnectionRequest r = new ConnectionRequest();
+                r.setPost(false);
+                r.setUrl("https://maps.googleapis.com/maps/api/place/autocomplete/json");
+                r.addArgument("key", apiKey);
+                r.addArgument("input", text);
+                NetworkManager.getInstance().addToQueueAndWait(r);
+                Map<String, Object> result = new JSONParser().parseJSON(new InputStreamReader(new ByteArrayInputStream(r.getResponseData()), "UTF-8"));
+                String[] res = Result.fromContent(result).getAsStringArray("//description");
+                return res;
+            }
+        } catch (Exception err) {
+            Log.e(err);
+        }
+        return null;
+    }
 }

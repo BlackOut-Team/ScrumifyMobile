@@ -5,6 +5,7 @@
  */
 package com.blackout.scrumify.GestionSprints.Gui;
 
+import com.blackout.scrumify.Feature.Gui.AfficherFeature;
 import com.blackout.scrumify.GestionProjets.Gui.*;
 import com.blackout.scrumify.GestionProjets.Entities.Project;
 import com.blackout.scrumify.GestionProjets.Services.ServiceProjet;
@@ -42,14 +43,13 @@ public class SprintsDetailsForm extends SideMenuBaseForm {
         projet = pr;
         getToolbar().setTitleCentered(false);
 
-                  Button returnButton = new Button("");
+        Button returnButton = new Button("");
         returnButton.setUIID("Title");
         FontImage.setMaterialIcon(returnButton, FontImage.MATERIAL_ARROW_BACK);
         returnButton.addActionListener(e -> new SprintsForm(res, current, pr).showBack());
-        
+
         Container titleCmp = BoxLayout.encloseY(
-                     BorderLayout.west(returnButton),
-                
+                BorderLayout.west(returnButton),
                 BorderLayout.centerAbsolute(
                         BoxLayout.encloseY(
                                 new Label(p.getName(), "Title"),
@@ -64,28 +64,19 @@ public class SprintsDetailsForm extends SideMenuBaseForm {
         rightContainer.add(new Label(p.getDescription()));
         add(rightContainer);
         setupSideMenu(res);
+        Button button = new Button("Features");
 
-        Button edit = new Button(FontImage.MATERIAL_EDIT);
-        Button archive = new Button(FontImage.MATERIAL_ARCHIVE);
-  
-        edit.setUIID("ActionButton");
-        archive.setUIID("ActionButton");
+        button.setUIID("ActionButton");
 
-        add(BoxLayout.encloseYBottom(edit, archive));
+        add(BoxLayout.encloseYBottom(button));
 
-        edit.addActionListener((evt) -> {
+        button.addActionListener((evt) -> {
             System.out.println(p.getId());
 
-            new EditSprint(res, previous, pr, p).show();
+            new AfficherFeature(res,this).show();
 
-        });
-
-        archive.addActionListener((evt) -> {
-            ServiceSprint.getInstance().archiveSprint(p);
-            new SprintsForm(res, current, pr).show();
         });
 
     }
-
 
 }

@@ -205,8 +205,8 @@
             <entry key="Calendar.Thursday" value="Thu" />
             <entry key="ok" value="OK" />
             <entry key="Calendar.Saturday" value="Sat" />
-            <entry key="Calendar.Friday" value="Fri" />
             <entry key="select" value="Select" />
+            <entry key="Calendar.Friday" value="Fri" />
             <entry key="edit" value="Edit" />
             <entry key="Calendar.Monday" value="Mon" />
             <entry key="cancel" value="Cancel" />
@@ -652,6 +652,17 @@
         <val key="TodayEntry.sel#padding" value="3,2,2,1" />
         <val key="TodayEntry.sel#transparency" value="0" />
         <val key="TodayEntry.transparency" value="0" />
+        <val key="TodayProject.fgColor" value="9999" />
+        <font key="TodayProject.font" type="ttf" face="0" style="1" size="16" name="native:MainBold" family="native:MainBold" sizeSettings="3" actualSize="3.5" />
+        <val key="TodayProject.padUnit" value="2,2,2,2" />
+        <val key="TodayProject.padding" value="3.0,2.0,2.0,1.0" />
+        <val key="TodayProject.transparency" value="0" />
+        <val key="TodayTeam.fgColor" value="3c464f" />
+        <font key="TodayTeam.font" type="ttf" face="0" style="0" size="0" name="native:ItalicRegular" family="native:ItalicRegular" sizeSettings="3" actualSize="3.0" />
+        <val key="TodayTeam.padUnit" value="2,2,2,2" />
+        <val key="TodayTeam.padding" value="3.0,2.0,2.0,1.0" />
+        <val key="TodayTeam.textDecoration" value="1" />
+        <val key="TodayTeam.transparency" value="0" />
         <val key="TodayTitle.fgColor" value="8393a3" />
         <font key="TodayTitle.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="3.0" />
         <val key="TodayTitle.padUnit" value="2,2,2,2" />

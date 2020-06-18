@@ -24,23 +24,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  *
  * @author Hidaya
  */
 public class TasksService {
-    
-         public ArrayList<Tasks> tasks;
-    
-    public static TasksService instance=null;
+
+    public ArrayList<Tasks> tasks;
+
+    public static TasksService instance = null;
     public boolean resultOK;
     private ConnectionRequest req;
-     static Map g;
-     boolean t;
+    static Map g;
+    boolean t;
 
     public TasksService() {
-         req = new ConnectionRequest();
+        req = new ConnectionRequest();
     }
 
     public static TasksService getInstance() {
@@ -49,10 +48,10 @@ public class TasksService {
         }
         return instance;
     }
-    
-     public boolean addTask(Tasks t) {
 
-        String url = Statics.BASE_URL + "Tasks/new?title=" + t.getTitle() + "&description=" + t.getDescription()+ "&Priority=" + t.getPriority()+ "&user=1" ;
+    public boolean addTask(Tasks t) {
+
+        String url = Statics.BASE_URL + "Tasks/new?title=" + t.getTitle() + "&description=" + t.getDescription() + "&Priority=" + t.getPriority() + "&user=1";
 
         req.setUrl(url);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -65,35 +64,34 @@ public class TasksService {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return resultOK;
     }
-     
-     public ArrayList<Tasks> parseTasks(String jsonText){
+
+    public ArrayList<Tasks> parseTasks(String jsonText) {
         try {
-            tasks=new ArrayList<>();
+            tasks = new ArrayList<>();
             JSONParser j = new JSONParser();
-            Map<String,Object> tasksListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
-            
-            List<Map<String,Object>> list = (List<Map<String,Object>>)tasksListJson.get("root");
-            for(Map<String,Object> obj : list){
+            Map<String, Object> tasksListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+
+            List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
+            for (Map<String, Object> obj : list) {
                 Tasks t = new Tasks();
                 float id = Float.parseFloat(obj.get("id").toString());
-                t.setId((int)id);
-                t.setPriority(((int)Float.parseFloat(obj.get("priority").toString())));
+                t.setId((int) id);
+                t.setPriority(((int) Float.parseFloat(obj.get("priority").toString())));
                 t.setTitle(obj.get("title").toString());
                 t.setDescription(obj.get("description").toString());
-                 t.setStatus(obj.get("status").toString());
+                t.setStatus(obj.get("status").toString());
 
                 tasks.add(t);
             }
-            
-            
+
         } catch (IOException ex) {
-            
+
         }
         return tasks;
     }
-    
-    public ArrayList<Tasks> getAllTasks(Map m){
-        String url = Statics.BASE_URL+"Tasks/show";
+
+    public ArrayList<Tasks> getAllTasks() {
+        String url = Statics.BASE_URL + "Tasks/show";
         req.setUrl(url);
         req.setPost(false);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -106,8 +104,68 @@ public class TasksService {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return tasks;
     }
-    
-    
+
+    public ArrayList<Tasks> getTodo() {
+
+        String url = Statics.BASE_URL + "Tasks/showTodo";
+        req.setUrl(url);
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                tasks = parseTasks(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return tasks;
+    }
+
+    public ArrayList<Tasks> getDoing() {
+        String url = Statics.BASE_URL + "Tasks/showDoing";
+        req.setUrl(url);
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                tasks = parseTasks(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return tasks;
+    }
+
+    public ArrayList<Tasks> getDone() {
+        String url = Statics.BASE_URL + "Tasks/showDone";
+        req.setUrl(url);
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                tasks = parseTasks(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return tasks;
+    }
+
+    public ArrayList<Tasks> getBlock() {
+        String url = Statics.BASE_URL + "Tasks/showBlock";
+        req.setUrl(url);
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                tasks = parseTasks(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return tasks;
+    }
+
     public static Map<String, Object> getResponse(String url) {
         url = "http://localhost/scrumifyApi/web/app_dev.php/" + url;
         System.out.println(url);
@@ -131,9 +189,9 @@ public class TasksService {
         NetworkManager.getInstance().addToQueueAndWait(r);
         return g;
     }
-    
-     public boolean editTask(Tasks p) {
-        String url = Statics.BASE_URL + "Tasks/editTasks/"  + p.getId() + "?title=" + p.getTitle() + "&description=" + p.getDescription() + "&priority=" + p.getPriority();
+
+    public boolean editTask(Tasks p) {
+        String url = Statics.BASE_URL + "Tasks/editTasks/" + p.getId() + "?title=" + p.getTitle() + "&description=" + p.getDescription() + "&priority=" + p.getPriority();
         ConnectionRequest con = new ConnectionRequest();
         con.setUrl(url);
         con.setPost(true);
@@ -143,17 +201,17 @@ public class TasksService {
             System.out.println(s);
             if (!s.contains("erreur")) {
                 Dialog.show("Confirmation", "success", "Ok", null);
-                t=true;
+                t = true;
 
             } else {
                 Dialog.show("Erreur", "date", "Ok", null);
-                t=false;
+                t = false;
 
             }
         });
 
         NetworkManager.getInstance().addToQueueAndWait(con);
-      return t ;
+        return t;
     }
 
     public void archive(Tasks p) {

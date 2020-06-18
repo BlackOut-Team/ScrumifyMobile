@@ -5,8 +5,12 @@
  */
 package com.blackout.scrumify.GestionProjets.Gui;
 
+import com.blackout.scrumify.GestionActivity.Gui.ActivitiesForm;
+import static com.blackout.scrumify.GestionActivity.Gui.ActivitiesForm.res;
+import com.blackout.scrumify.GestionMeeting.Gui.MeetingsForm;
 import com.blackout.scrumify.GestionProjets.Entities.Project;
 import com.blackout.scrumify.GestionProjets.Services.ServiceProjet;
+import com.blackout.scrumify.GestionSprints.Gui.SprintsForm;
 import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
@@ -19,9 +23,12 @@ import com.blackout.scrumify.GestionTeams.Entities.Team;
 import com.blackout.scrumify.GestionTeams.Gui.TeamDetailsForm;
 import com.blackout.scrumify.GestionTeams.services.ServiceTeam;
 import com.blackout.scrumify.Utils.Session;
+import com.codename1.components.ImageViewer;
 import com.codename1.components.ToastBar;
 import com.codename1.ui.Button;
+import com.codename1.ui.Command;
 import static com.codename1.ui.Component.TOP;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
@@ -75,7 +82,7 @@ public class ProjectsForm extends SideMenuBaseForm {
         Container titleCmp = BoxLayout.encloseY(
                 FlowLayout.encloseIn(menuButton),
                 BorderLayout.centerAbsolute(
-                        BoxLayout.encloseY(new Label("My projects","CenterTitle"))
+                        BoxLayout.encloseY(new Label("My projects", "CenterTitle"))
                 ),
                 GridLayout.encloseIn(3, Allprojects, currentProjects, completedProjects)
         );
@@ -130,7 +137,7 @@ public class ProjectsForm extends SideMenuBaseForm {
                 });
                 ct.add(add);
                 add(FlowLayout.encloseCenterMiddle(ct));
-                
+
                 ToastBar.getInstance().setPosition(TOP);
                 ToastBar.Status status = ToastBar.getInstance().createStatus();
                 status.setIcon(res.getImage("scrumify.png").scaledSmallerRatio(Display.getInstance().getDisplayWidth() / 10, Display.getInstance().getDisplayWidth() / 15));
@@ -142,31 +149,60 @@ public class ProjectsForm extends SideMenuBaseForm {
     }
 
     private void addProjectBox(Project p) {
-        FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_MORE_HORIZ, "Label", 6);
-        MultiButton projectBox = new MultiButton(p.getName());
-
-        projectBox.setEmblem(arrowDown);
-        projectBox.setUIID("ProjectItem");
-        projectBox.setUIIDLine1("TodayEntry");
-        projectBox.setUIIDLine2("TodayEntry");
-
-        projectBox.setTextLine2(p.getDescription());
-        projectBox.setTextLine4("From : " + p.getCreated() + "to : " + p.getDuedate());
+        Container projectBox = new Container(BorderLayout.absolute(), "ProjectItem");
+        FontImage icon = FontImage.createMaterial(FontImage.MATERIAL_WORK_OUTLINE, "icon", 3);
+        //projectBox.add(BorderLayout.,icon  );
+        Container title = new Container(BoxLayout.x());
+        title.add(icon);
+        title.add(new Label(p.getName(),"TodayProject"));
         ServiceTeam s = new ServiceTeam();
         Map m = s.getResponse("gett/" + p.getTeam_id());
         Team tt = s.getTeam(m);
-        projectBox.setTextLine3(tt.getName());
-        Button gt = new Button();
-        gt.addActionListener((evt) -> {
-            new ProjectDetailsForm(res, current, p).show();
-        });
-        Button showt = new Button();
-        showt.addActionListener((evt) -> {
-            new TeamDetailsForm(res, current, tt).show();
-        });
-        // projectBox.getTextLine3().setLeadComponent(showt);
+        projectBox.add(BorderLayout.NORTH, BoxLayout.encloseY(title, new Label(p.getDescription(), "TodayEntry"), new Label("From : " + p.getCreated() + " to : " + p.getDuedate(), "TodayEntry"), new Label(tt.getName(), "TodayTeam")));
 
-        projectBox.setLeadComponent(gt);
+
+        Button edit = new Button(FontImage.MATERIAL_EDIT, "icon");
+        Button archive = new Button(FontImage.MATERIAL_ARCHIVE, "icon");
+        Button sprint = new Button(FontImage.MATERIAL_STREAM, "icon");
+        Button meetings = new Button(FontImage.MATERIAL_GROUP, "icon");
+        Button view = new Button(FontImage.MATERIAL_ZOOM_IN, "icon");
+
+        view.addActionListener((evt) -> {
+            new ProjectDetailsForm(res, current, p).show();
+
+        });
+        edit.addActionListener((evt) -> {
+            System.out.println(p.getId());
+
+            new EditProject(res, this, p).show();
+
+        });
+
+        archive.addActionListener((evt) -> {
+            ServiceProjet.getInstance().archiveProject(p);
+            ToastBar.getInstance().setPosition(TOP);
+            ToastBar.Status status = ToastBar.getInstance().createStatus();
+            status.setIcon(res.getImage("scrumify.png").scaledSmallerRatio(Display.getInstance().getDisplayWidth() / 10, Display.getInstance().getDisplayWidth() / 15));
+            status.setMessage("Project archived successfully");
+            status.setExpires(3000);  // only show the status for 3 seconds, then have it automatically clear
+            status.show();
+            new ProjectsForm(res, current).show();
+        });
+        meetings.addActionListener((evt) -> {
+            System.out.println(p.getId());
+
+            new MeetingsForm(res, this, p).show();
+
+        });
+
+        sprint.addActionListener((evt) -> {
+            new SprintsForm(res, current, p).show();
+        });
+        Container con = new Container(BoxLayout.xRight());
+
+        // con.add(projectBox);
+        con.addAll(view, edit, archive, sprint, meetings);
+        projectBox.add(BorderLayout.SOUTH, con);
         add(BoxLayout.encloseY(projectBox));
 
     }
